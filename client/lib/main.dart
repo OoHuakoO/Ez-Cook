@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'pages/constants.dart';
+import './widgets/bottom_nav.dart';
 
 void main() {
   runApp(MyApp());
@@ -127,6 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
+        bottomNavigationBar: BottomNav(),
       ),
     );
   }
