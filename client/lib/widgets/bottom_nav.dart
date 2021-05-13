@@ -15,14 +15,12 @@ class _BottomNavState extends State<BottomNav> {
         selectedItemColor: Colors.red,
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+          BottomNavigationBarItem(icon: Icon(Icons.public), label: "world"),
+          BottomNavigationBarItem(icon: Icon(Icons.add_box), label: "add cook"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.public), title: Text("world")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_box), title: Text("Add")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.leaderboard_rounded), title: Text("rank")),
-          BottomNavigationBarItem(icon: Icon(Icons.person), title: Text("user"))
+              icon: Icon(Icons.leaderboard_rounded), label: "ranking"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "user")
         ],
       ),
     );
