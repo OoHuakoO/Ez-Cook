@@ -131,5 +131,10 @@ router.post("/getComment/:foodId", (req, res) => {
 
   res.json({ success: true });
 });
+router.get("/getComment", (req, res) => {
+  const foodId = req.params;
+
+  res.json({ success: true });
+});
 
 module.exports = router;
