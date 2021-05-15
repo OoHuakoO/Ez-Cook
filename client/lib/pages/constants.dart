@@ -1,11 +1,23 @@
 const FOOD_DATA = [
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"}
+  "images/ascasc.png",
+  "images/ascasc.png",
+  "images/ascasc.png",
+  "images/ascasc.png",
+  "images/ascasc.png",
+  "images/ascasc.png",
+  "images/ascasc.png",
+  "images/ascasc.png",
+  "images/ascasc.png",
+  "images/ascasc.png",
+];
+
+List FoodK = [
+  "อาหารประเภท",
+  "อาหารประเภท",
+  "อาหารประเภท",
+  "อาหารประเภท",
+  "อาหารประเภท",
+  "อาหารประเภท",
+  "อาหารประเภท",
+  "อาหารประเภท",
 ];
