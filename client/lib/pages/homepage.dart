@@ -87,13 +87,23 @@ class _HomepageState extends State<Homepage> {
               var showData = item[index];
               return Column(
                 children: [
-                  Row(
-                    children: [
-                      Icon(Icons.person),
-                      Text(
-                        "Sompong",
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, bottom: 5),
+                    child: Row(
+                      children: [
+                        Icon(Icons.person),
+                        Text(
+                          "Sompong",
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Text(
+                            "ติดตาม",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   Column(
                     children: [
@@ -108,13 +118,12 @@ class _HomepageState extends State<Homepage> {
                           ),
                           child: Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 5),
-                                child: Container(
-                                  decoration: BoxDecoration(),
-                                  child: Image.asset(
-                                    "assets/ascasc.png",
-                                  ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(25),
+                                    topRight: Radius.circular(25)),
+                                child: Image.asset(
+                                  "assets/ascasc.png",
                                 ),
                               ),
                               Padding(
@@ -134,6 +143,29 @@ class _HomepageState extends State<Homepage> {
                                   decoration: BoxDecoration(
                                       color: Color(0xFFF04D56),
                                       borderRadius: BorderRadius.circular(25)),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Icon(
+                                          Icons.hearing,
+                                          size: 18,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          "5",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               )
                             ],
