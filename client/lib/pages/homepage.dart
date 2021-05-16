@@ -9,88 +9,150 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  @override
-  Widget build(BuildContext context) {
-    return getBody();
-  }
+  List item = [
+    "assets/ascasc.png",
+    "assets/ascasc.png",
+    "assets/ascasc.png",
+    "assets/ascasc.png",
+    "assets/ascasc.png",
+    "assets/ascasc.png",
+    "assets/ascasc.png",
+    "assets/ascasc.png",
+  ];
 
   int selectedIndex = 0;
   Widget getBody() {
     var size = MediaQuery.of(context).size;
 
-    List item = [
-      "ascasc.png",
-      "ascasc.png",
-      "ascasc.png",
-      "ascasc.png",
-      "ascasc.png",
-      "ascasc.png",
-      "ascasc.png",
-      "ascasc.png",
-    ];
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 10,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: List.generate(FoodK.length, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 2.5, right: 10, top: 10),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
+    return Column(
+      children: [
+        SizedBox(
+          height: 10,
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(FoodK.length, (index) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 2.5, right: 10, top: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: selectedIndex == index
+                            ? Color(0xFFF04D56)
+                            : Colors.transparent,
+                        border: Border.all(color: Colors.white)),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 25, top: 10, bottom: 12),
+                      child: Text(
+                        FoodK[index],
+                        style: TextStyle(
                           color: selectedIndex == index
-                              ? Color(0xFFF04D56)
-                              : Colors.transparent,
-                          border: Border.all(color: Colors.white)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 25, top: 10, bottom: 12),
-                        child: Text(
-                          FoodK[index],
-                          style: TextStyle(
-                            color: selectedIndex == index
-                                ? Colors.white
-                                : Color(0xFFF04D56),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                          ),
+                              ? Colors.white
+                              : Color(0xFFF04D56),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
                         ),
                       ),
                     ),
                   ),
-                );
-              }),
+                ),
+              );
+            }),
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Expanded(
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              // number of items per row
+              crossAxisCount: 2,
+              // vertical spacing between the items
+              mainAxisSpacing: 30,
+              // horizontal spacing between the items
+              crossAxisSpacing: 1,
             ),
+            // number of items in your list
+            itemCount: item.length,
+            itemBuilder: (BuildContext context, int index) {
+              var showData = item[index];
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.person),
+                      Text(
+                        "Sompong",
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 0),
+                        child: Container(
+                          width:
+                              (MediaQuery.of(context).size.width - 150) / 1.63,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFFE6E1),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Container(
+                                  decoration: BoxDecoration(),
+                                  child: Image.asset(
+                                    "assets/ascasc.png",
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 30, top: 10, bottom: 20),
+                                child: Text(
+                                  "ไข่ยัดไส้ + ไส้หมูสับผัด",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 70, top: 0),
+                                child: Container(
+                                  width: 70,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFFF04D56),
+                                      borderRadius: BorderRadius.circular(25)),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
           ),
-          SizedBox(
-            height: 15,
-          ),
-          Wrap(
-              spacing: 2,
-              runSpacing: 2,
-              children: List.generate(item.length, (index) {
-                return Container(
-                  width: (size.width - 2) / 2,
-                  height: (size.width - 2) / 2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      image: DecorationImage(image: AssetImage(item[index]))),
-                );
-              }))
-        ],
-      ),
+        ),
+      ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return getBody();
   }
 }

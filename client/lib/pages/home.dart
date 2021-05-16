@@ -137,11 +137,11 @@ class _HomeState extends State<Home> {
 
   Widget getFooter() {
     List bottomItems = [
-      pageIndex == 0 ? "house+.png" : "house.png",
-      pageIndex == 1 ? "earth+.png" : "earth.png",
-      pageIndex == 2 ? "add+.png" : "add.png",
-      pageIndex == 3 ? "ranking+.png" : "ranking.png",
-      pageIndex == 4 ? "user+.png" : "user.png",
+      pageIndex == 0 ? "assets/house+.png" : "assets/house.png",
+      pageIndex == 1 ? "assets/earth+.png" : "assets/earth.png",
+      pageIndex == 2 ? "assets/add+.png" : "assets/add.png",
+      pageIndex == 3 ? "assets/ranking+.png" : "assets/ranking.png",
+      pageIndex == 4 ? "assets/user+.png" : "assets/user.png",
     ];
     return Container(
       width: double.infinity,
