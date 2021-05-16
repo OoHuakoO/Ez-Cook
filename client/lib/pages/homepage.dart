@@ -14,8 +14,10 @@ class _HomepageState extends State<Homepage> {
     return getBody();
   }
 
+  int selectedIndex = 0;
   Widget getBody() {
     var size = MediaQuery.of(context).size;
+
     List item = [
       "ascasc.png",
       "ascasc.png",
@@ -36,22 +38,34 @@ class _HomepageState extends State<Homepage> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: List.generate(FoodK.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 2.5, right: 10, top: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        color: Color(0xFFF04D56),
-                        border: Border.all(color: Colors.white)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 25, top: 10, bottom: 12),
-                      child: Text(
-                        FoodK[0],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 2.5, right: 10, top: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: selectedIndex == index
+                              ? Color(0xFFF04D56)
+                              : Colors.transparent,
+                          border: Border.all(color: Colors.white)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 25, top: 10, bottom: 12),
+                        child: Text(
+                          FoodK[index],
+                          style: TextStyle(
+                            color: selectedIndex == index
+                                ? Colors.white
+                                : Color(0xFFF04D56),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                          ),
                         ),
                       ),
                     ),

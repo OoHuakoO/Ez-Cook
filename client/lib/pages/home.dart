@@ -59,6 +59,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // ignore: missing_return
   Widget getAppBar() {
     if (pageIndex == 0) {
       return AppBar(
