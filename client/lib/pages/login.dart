@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:client/screen/register.dart';
+import 'package:client/pages/register.dart';
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
