@@ -131,8 +131,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
-  static Profile() {}
 }
-
-class Profile {}
