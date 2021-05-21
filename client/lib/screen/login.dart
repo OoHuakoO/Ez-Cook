@@ -7,6 +7,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +48,7 @@ class _LoginState extends State<Login> {
                 //   height: 15,
                 // ),
                 TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Color(0xFFFAFAFA),
@@ -64,6 +66,7 @@ class _LoginState extends State<Login> {
                   height: 15,
                 ),
                 TextFormField(
+                  obscureText: true,
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Color(0xFFFAFAFA),

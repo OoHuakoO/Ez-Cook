@@ -1,3 +1,5 @@
+import 'package:client/screen/login.dart';
+import 'package:client/screen/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'pages/constants.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: RegisterScreen(),
     );
   }
 }
