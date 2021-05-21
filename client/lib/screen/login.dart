@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:client/screen/register.dart';
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -107,7 +107,13 @@ class _LoginState extends State<Login> {
                       child: Text("สมัครสมาชิก",
                           style: TextStyle(
                               fontSize: 14, color: Color(0xFFF04D56))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterScreen()),
+                        );
+                      },
                     ),
                   ],
                 )
