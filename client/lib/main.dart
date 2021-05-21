@@ -1,9 +1,10 @@
+import 'package:client/pages/constants.dart';
 import 'package:client/screen/login.dart';
 import 'package:client/screen/register.dart';
+import 'package:client/widgets/bottom_nav.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:client/pages/home.dart';
 import 'package:flutter/material.dart';
-import 'pages/constants.dart';
-import './widgets/bottom_nav.dart';
 
 void main() {
   runApp(MyApp());

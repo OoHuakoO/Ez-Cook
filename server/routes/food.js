@@ -82,8 +82,20 @@ router.post("/detailFood/:foodId", (req, res) => {
   res.json({ success: true });
 });
 // ดูสูตรอาหารทั้งหมด
-router.get("/allpost", (req, res) => {
-  res.json({ success: true });
+router.get("/allFood", async (req, res) => {
+  const data = [];
+  await firestore
+    .collection("Food")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((element) => {
+        data.push(element.data());
+      });
+      res.json({ data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 // ดูสูตรอาหารของคนๆนั้น
 router.post("/otherFoodInDetailFood/:userId", (req, res) => {
@@ -93,6 +105,12 @@ router.post("/otherFoodInDetailFood/:userId", (req, res) => {
 });
 // บันทึกสูตรอาหารที่ชอบ
 router.post("/saveFood/:foodId/:userId", (req, res) => {
+  const foodId = req.params.foodId;
+  const userId = req.params.userId;
+
+  res.json({ success: true });
+});
+router.post("/likeFood/:foodId", (req, res) => {
   const foodId = req.params.foodId;
   const userId = req.params.userId;
 
@@ -114,8 +132,21 @@ router.post("/editFood/:foodId", (req, res) => {
   res.json({ success: true });
 });
 // จัดอันดับเมนูอาหารยอดนิยม
-router.post("/rankFood/", (req, res) => {
-  res.json({ success: true });
+router.get("/rankFood", async (req, res) => {
+  const data = [];
+  await firestore
+    .collection("Food")
+    .orderBy("like", "desc")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((element) => {
+        data.push(element.data());
+      });
+      res.json({ data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 // เขียนคอมเมนต์ในสูตรอาหารคนอื่น
 router.post("/createComment/:foodId/:userId", (req, res) => {
@@ -131,10 +162,6 @@ router.post("/getComment/:foodId", (req, res) => {
 
   res.json({ success: true });
 });
-router.get("/getComment", (req, res) => {
-  const foodId = req.params;
 
-  res.json({ success: true });
-});
 
 module.exports = router;
