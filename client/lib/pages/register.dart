@@ -1,4 +1,3 @@
-import 'package:client/model/profile.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -7,11 +6,10 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final formKey = GlobalKey<FormState>();
-  Profile profile = new Profile();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("สร้างบัญชีผู้ใช้"),
       ),
@@ -19,7 +17,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: const EdgeInsets.fromLTRB(40, 10, 40, 50),
         child: Container(
           child: Form(
-            key: formKey,
             child: Column(
               children: [
                 Padding(
@@ -33,9 +30,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 TextFormField(
-                  onSaved: (String user) {
-                    profile.user = user;
-                  },
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Color(0xFFFAFAFA),
@@ -53,9 +47,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 15,
                 ),
                 TextFormField(
-                  onSaved: (String email) {
-                    profile.email = email;
-                  },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       filled: true,
@@ -74,9 +65,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 15,
                 ),
                 TextFormField(
-                  onSaved: (String password) {
-                    profile.password = password;
-                  },
                   obscureText: true,
                   decoration: InputDecoration(
                       filled: true,
@@ -96,18 +84,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 45,
                     width: 300,
                     child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Color(0xFFF04D56)),
-                      ),
-                      child: Text("สร้างบัญชีผู้ใช้",
-                          style: TextStyle(fontSize: 20)),
-                      onPressed: () {
-                        formKey.currentState.save();
-                        print(
-                            "email =  ${profile.email} password = ${profile.email} user = ${profile.user}");
-                      },
-                    ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0xFFF04D56)),
+                        ),
+                        child: Text("สร้างบัญชีผู้ใช้",
+                            style: TextStyle(fontSize: 20)),
+                        onPressed: () {}),
                   ),
                 ),
                 Row(
