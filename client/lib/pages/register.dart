@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:client/pages/login.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -10,11 +11,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text("สร้างบัญชีผู้ใช้"),
-      ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 10, 40, 50),
+        padding: const EdgeInsets.fromLTRB(40, 100, 40, 50),
         child: Container(
           child: Form(
             child: Column(
@@ -33,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Color(0xFFFAFAFA),
-                      hintText: 'ชื่อผู้ใช้',
+                      hintText: 'ชื่อผู้ใช้งาน',
                       enabledBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(width: 1, color: Color(0xFFCECECE)),
@@ -75,8 +73,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               BorderSide(width: 1, color: Color(0xFFCECECE)),
                           borderRadius: BorderRadius.circular(10)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Color(0xc)),
+                          borderSide:
+                              BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -88,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           backgroundColor:
                               MaterialStateProperty.all(Color(0xFFF04D56)),
                         ),
-                        child: Text("สร้างบัญชีผู้ใช้",
+                        child: Text("สร้างผู้ใช้งาน",
                             style: TextStyle(fontSize: 20)),
                         onPressed: () {}),
                   ),
@@ -98,12 +100,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: [
                     Text('หากคุณมีบัญชีผู้ใช้งานอยู่แล้ว',
                         style:
-                            TextStyle(fontSize: 14, color: Color(0xFF9D9D9D))),
+                            TextStyle(fontSize: 18, color: Color(0xFF9D9D9D))),
                     TextButton(
                       child: Text("ลงชื่อเข้าใช้",
                           style: TextStyle(
-                              fontSize: 14, color: Color(0xFFF04D56))),
-                      onPressed: () {},
+                              fontSize: 20, color: Color(0xFFF04D56))),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
+                      },
                     ),
                   ],
                 )
