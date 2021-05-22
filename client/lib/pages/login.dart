@@ -22,13 +22,13 @@ class _LoginState extends State<Login> {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 50, 10, 50),
-                  child: Text(
-                    "Ez Cook",
-                    style: TextStyle(
-                        fontSize: 60,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFF04D56)),
-                  ),
+                  child : Image.asset('assets/LogoEzcook.png'),     // child: Text(
+                  //   "Ez Cook",
+                  //   style: TextStyle(
+                  //       fontSize: 60,
+                  //       fontWeight: FontWeight.bold,
+                  //       color: Color(0xFFF04D56)),
+                  // ),
                 ),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
