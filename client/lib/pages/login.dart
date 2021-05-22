@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:client/pages/register.dart';
+import 'package:client/pages/home.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -58,7 +59,8 @@ class _LoginState extends State<Login> {
                               BorderSide(width: 1, color: Color(0xFFCECECE)),
                           borderRadius: BorderRadius.circular(10)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Color(0xFFF04D56)),
+                          borderSide:
+                              BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
                 ),
                 Padding(
@@ -73,7 +75,12 @@ class _LoginState extends State<Login> {
                       ),
                       child:
                           Text("ลงชื่อเข้าใช้", style: TextStyle(fontSize: 20)),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
+                      },
                     ),
                   ),
                 ),
