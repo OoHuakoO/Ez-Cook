@@ -1,5 +1,6 @@
 import 'package:client/pages/homepage.dart';
 import 'package:flutter/material.dart';
+import './add_cook.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -31,6 +32,7 @@ class _HomeState extends State<Home> {
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
+      AddCook(),
       Center(
         child: Text(
           "Home Page",
@@ -120,7 +122,7 @@ class _HomeState extends State<Home> {
     } else if (pageIndex == 2) {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
-        title: Text("aaa"),
+        title: Text("เพิ่มสูตรอาหาร"),
       );
     } else if (pageIndex == 3) {
       return AppBar(
