@@ -1,3 +1,4 @@
+import 'package:client/pages/DetailFoodPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -118,12 +119,22 @@ class _HomepageState extends State<Homepage> {
                           ),
                           child: Column(
                             children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25),
-                                    topRight: Radius.circular(25)),
-                                child: Image.asset(
-                                  "assets/ascasc.png",
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DetailFood(),
+                                    ),
+                                  );
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(25),
+                                      topRight: Radius.circular(25)),
+                                  child: Image.asset(
+                                    "assets/ascasc.png",
+                                  ),
                                 ),
                               ),
                               Padding(
