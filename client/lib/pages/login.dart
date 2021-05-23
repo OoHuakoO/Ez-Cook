@@ -15,21 +15,12 @@ class _LoginState extends State<Login> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 100, 40, 50),
+        padding: const EdgeInsets.fromLTRB(40, 30, 40,0),
         child: Container(
           child: Form(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 50, 10, 50),
-                  child : Image.asset('assets/LogoEzcook.png'),     // child: Text(
-                  //   "Ez Cook",
-                  //   style: TextStyle(
-                  //       fontSize: 60,
-                  //       fontWeight: FontWeight.bold,
-                  //       color: Color(0xFFF04D56)),
-                  // ),
-                ),
+                Image.asset('assets/LogoEzcook.png'),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
