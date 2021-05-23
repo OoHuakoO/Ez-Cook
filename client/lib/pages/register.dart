@@ -8,7 +8,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
-  Profile profile = new Profile();
+  Profile profile = Profile();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,14 +16,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         title: Text("สร้างบัญชีผู้ใช้"),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 10, 40, 50),
+        padding: EdgeInsets.fromLTRB(40, 10, 40, 50),
         child: Container(
           child: Form(
             key: formKey,
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 50, 10, 50),
+                  padding:EdgeInsets.fromLTRB(10, 50, 10, 50),
                   child: Text(
                     "สมัครสมาชิก",
                     style: TextStyle(
@@ -55,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 TextFormField(
                   onSaved: (String email) {
                     profile.email = email;
-                  },
+                  },             
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       filled: true,
@@ -87,11 +87,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               BorderSide(width: 1, color: Color(0xFFCECECE)),
                           borderRadius: BorderRadius.circular(10)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Color(0xc)),
+                          borderSide: BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                   child: SizedBox(
                     height: 45,
                     width: 300,
