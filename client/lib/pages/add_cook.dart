@@ -53,136 +53,144 @@ class _AddCookState extends State<AddCook> {
       color: Colors.grey[900],
     );
 
-    return Container(
+    return ListView(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(flex: 1, child: Text("ชื่อเมนู")),
-              Expanded(
-                flex: 2,
-                child: TextFormField(
-                  // The validator receives the text that the user has entered.
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                ),
+      children: [
+        Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Text(
+                  "ชื่อเมนู",
+                  style: lableStyle,
+                )),
+            Expanded(
+              flex: 2,
+              child: TextFormField(
+                style: inputStyle,
               ),
-            ],
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            children: [
-              Expanded(flex: 1, child: Text("เวลาในการทำ")),
-              Expanded(
-                flex: 2,
-                child: DropdownButton(
-                  style: inputStyle,
-                  isExpanded: true,
-                  items: _timeCookOption.map((int value) {
-                    return DropdownMenuItem<int>(
-                        value: value,
-                        child: Text(
-                          '$value นาที',
-                          style: lableStyle,
-                        ));
-                  }).toList(),
-                  value: _timeCook,
-                  onChanged: (value) {
-                    setState(() {
-                      _timeCook = value;
-                    });
-                  },
-                ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Text(
+                  "เวลาในการทำ",
+                  style: lableStyle,
+                )),
+            Expanded(
+              flex: 2,
+              child: DropdownButton(
+                style: inputStyle,
+                isExpanded: true,
+                items: _timeCookOption.map((int value) {
+                  return DropdownMenuItem<int>(
+                      value: value,
+                      child: Text(
+                        '$value นาที',
+                        style: lableStyle,
+                      ));
+                }).toList(),
+                value: _timeCook,
+                onChanged: (value) {
+                  setState(() {
+                    _timeCook = value;
+                  });
+                },
               ),
-            ],
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            children: [
-              Expanded(flex: 1, child: Text("ประเภทอาหาร")),
-              Expanded(
-                flex: 2,
-                child: DropdownButton(
-                  style: inputStyle,
-                  isExpanded: true,
-                  items: _categoryCookOption.map((String value) {
-                    return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: lableStyle,
-                        ));
-                  }).toList(),
-                  value: _categoryCook,
-                  onChanged: (value) {
-                    setState(() {
-                      _categoryCook = value;
-                    });
-                  },
-                ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Text(
+                  "ประเภทอาหาร",
+                  style: lableStyle,
+                )),
+            Expanded(
+              flex: 2,
+              child: DropdownButton(
+                style: inputStyle,
+                isExpanded: true,
+                items: _categoryCookOption.map((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: lableStyle,
+                      ));
+                }).toList(),
+                value: _categoryCook,
+                onChanged: (value) {
+                  setState(() {
+                    _categoryCook = value;
+                  });
+                },
               ),
-            ],
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Text(
-            "ส่วนผสม",
-            style: TextStyle(fontSize: 22),
-          ),
-          Flexible(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _ingredientArray.length,
-                  itemBuilder: (context, index) {
-                    return _rowIngredient(index);
-                  })),
-          SizedBox(
-            height: 5,
-          ),
-          TextButton(
-            onPressed: () {
-              addIngredient();
-            },
-            child: Text("เพิ่มส่วนผสม"),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            "วิธีการทำ",
-            style: TextStyle(fontSize: 22),
-          ),
-          Flexible(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _howtoCookArray.length,
-                  itemBuilder: (context, index) {
-                    return _rowHowToCook(index);
-                  })),
-          SizedBox(
-            height: 10,
-          ),
-          TextButton(
-            onPressed: () {
-              addHowToCook();
-            },
-            child: Text("เพิ่มวิธีการทำ"),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Text(
+          "ส่วนผสม",
+          style: TextStyle(fontSize: 22),
+        ),
+        Flexible(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _ingredientArray.length,
+                itemBuilder: (context, index) {
+                  return _rowIngredient(index);
+                })),
+        SizedBox(
+          height: 5,
+        ),
+        TextButton(
+          onPressed: () {
+            addIngredient();
+          },
+          child: Text("เพิ่มส่วนผสม"),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          "วิธีการทำ",
+          style: TextStyle(fontSize: 22),
+        ),
+        Flexible(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _howtoCookArray.length,
+                itemBuilder: (context, index) {
+                  return _rowHowToCook(index);
+                })),
+        SizedBox(
+          height: 10,
+        ),
+        TextButton(
+          onPressed: () {
+            addHowToCook();
+          },
+          child: Text("เพิ่มวิธีการทำ"),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(_result)
+      ],
     );
   }
 
@@ -274,13 +282,14 @@ class _AddCookState extends State<AddCook> {
   }
 
   addHowToCook() {
-    var c = _count;
+    var c = _howtoCookArray.length + 1;
+    print(_howtoCookArray);
     Map<String, dynamic> json = {'id': c, 'text': ''};
     _howtoCookArray.add(json);
-    // setState(() {
-    //   _count++;
-    //   _result = _prettyPrint(_ingredientArray);
-    // });
+    setState(() {
+      _count++;
+      _result = _prettyPrint(_ingredientArray);
+    });
   }
 
   _onTextUpdateHowtoCook(int key, String val) {
