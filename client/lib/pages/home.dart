@@ -1,4 +1,5 @@
 import 'package:client/pages/homepage.dart';
+import 'package:client/pages/profile.dart';
 import 'package:flutter/material.dart';
 import './add_cook.dart';
 
@@ -33,6 +34,7 @@ class _HomeState extends State<Home> {
         ),
       ),
       AddCook(),
+      
       Center(
         child: Text(
           "Home Page",
@@ -47,13 +49,7 @@ class _HomeState extends State<Home> {
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
-      Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      )
+      Profile(),
     ];
     return IndexedStack(
       index: pageIndex,
@@ -132,7 +128,7 @@ class _HomeState extends State<Home> {
     } else if (pageIndex == 4) {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
-        title: Text("aaa"),
+        title: Text("Profile"),
       );
     }
   }
