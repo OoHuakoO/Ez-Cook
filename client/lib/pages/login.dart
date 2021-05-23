@@ -63,11 +63,11 @@ class _LoginState extends State<Login> {
                               BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
-                  child: SizedBox(
-                    height: 45,
-                    width: 300,
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
@@ -89,25 +89,28 @@ class _LoginState extends State<Login> {
                       style: TextStyle(fontSize: 18, color: Color(0xFF9D9D9D))),
                   onPressed: () {},
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('หากคุณยังไม่มีบัญชีผู้ใช้งาน',
-                        style:
-                            TextStyle(fontSize: 18, color: Color(0xFF9D9D9D))),
-                    TextButton(
-                      child: Text("สมัครสมาชิก",
+                Container(
+                  width: double.maxFinite,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('หากคุณยังไม่มีบัญชีผู้ใช้งาน',
                           style: TextStyle(
-                              fontSize: 20, color: Color(0xFFF04D56))),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterScreen()),
-                        );
-                      },
-                    ),
-                  ],
+                              fontSize: 18, color: Color(0xFF9D9D9D))),
+                      TextButton(
+                        child: Text("สมัครสมาชิก",
+                            style: TextStyle(
+                                fontSize: 20, color: Color(0xFFF04D56))),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterScreen()),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),
