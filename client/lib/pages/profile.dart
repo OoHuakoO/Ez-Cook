@@ -39,51 +39,7 @@ class _ProfileState extends State<Profile> {
           style: TextStyle(fontSize: 20),
         ),
       ),
-      Container(
-        width: double.infinity,
-        height: 100,
-        decoration: BoxDecoration(color: Color(0xFFF4ECEC)),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 80, right: 0, bottom: 0 ,top: 20),
-              child: Column(
-                children: [
-                  Text("ผู้ติตาม"),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 0, right: 0, bottom: 0 ,top: 15),
-                    child: Container(
-                      height: 20,
-                      width: 50,
-                      decoration: BoxDecoration(color: Color(0xFFF0B6B6),borderRadius: BorderRadius.circular(23)),
-                      child: Center(child: Text("2")),
-                    ),
-                  )
-                ],
-                
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 160, right: 0, bottom: 0 ,top: 20),
-              child: Column(
-                children: [
-                  Text("กำลังติตาม"),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 0, right: 0, bottom: 0 ,top: 15),
-                    child: Container(
-                      height: 20,
-                      width: 50,
-                      decoration: BoxDecoration(color: Color(0xFFF0B6B6),borderRadius: BorderRadius.circular(23)),
-                      child: Center(child: Text("2")),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            
-          ],
-        ),
-      ),
+      
       Row(
         children: [
           Padding(
