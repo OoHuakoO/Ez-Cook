@@ -1,6 +1,7 @@
 import 'package:client/pages/homepage.dart';
 import 'package:client/pages/profile.dart';
 import 'package:client/pages/ranking.dart';
+import 'package:client/pages/notification.dart';
 import 'package:flutter/material.dart';
 import './add_cook.dart';
 
@@ -85,7 +86,12 @@ class _HomeState extends State<Home> {
             child: IconButton(
                 iconSize: 30,
                 icon: Icon(Icons.notifications),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Noti()),
+                  );
+                }),
           )
         ],
         title: cusSearchBar,
