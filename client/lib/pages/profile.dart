@@ -19,7 +19,6 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
         body: Column(children: [
       Center(
         child: Padding(
@@ -48,27 +47,27 @@ class _ProfileState extends State<Profile> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 80, right: 0),
-              child: Text("ผู้ติตาม"),
+              child: Column(
+                children: [
+                  Text("ผู้ติตาม"),
+                  Container(
+                    height: 20,
+                    width: 50,
+                    decoration: BoxDecoration(color: Color(0xFFF0B6B6),borderRadius: BorderRadius.circular(23)),
+                    child: Text("2"),
+                  )
+                ],
+                
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 160, right: 0),
-              child: Text("กำลังติตาม"),
+              child: Column(
+                children: [
+                  Text("กำลังติตาม"),
+                ],
+              ),
             ),
-=======
-     body: getbody()
-
-    //   body: Padding(
-    //     padding: const EdgeInsets.fromLTRB(40, 100, 40, 50),
-    //   child:Column(
-    //     children: [
-    //       SizedBox(
-    //         height :115,
-    //         width:115,
-    //         child: CircleAvatar(
-    //               backgroundImage: AssetImage("assets/profilenadate.png"),
-    //             ),
-              
->>>>>>> 483087cbe6fd5eb931ba639cec86a42e2b8e74f3
             
           ],
         ),
@@ -108,7 +107,7 @@ class _ProfileState extends State<Profile> {
           // number of items in your list
           itemCount: item.length,
           itemBuilder: (BuildContext context, int index) {
-            var showData = item[index];
+            // var showData = item[index];
             return Column(
               children: [
                 Padding(
@@ -203,10 +202,3 @@ class _ProfileState extends State<Profile> {
     ]));
   }
 }
-<<<<<<< HEAD
-=======
-
-Widget getbody() {
-  return Text('Profile');
-}
->>>>>>> 483087cbe6fd5eb931ba639cec86a42e2b8e74f3
