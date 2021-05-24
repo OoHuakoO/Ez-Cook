@@ -34,14 +34,6 @@ class _HomeState extends State<Home> {
         ),
       ),
       AddCook(),
-      
-      Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
       Center(
         child: Text(
           "Home Page",
@@ -129,6 +121,17 @@ class _HomeState extends State<Home> {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
         title: Text("Profile"),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 0, right: 20),
+            child: Icon(
+              Icons.settings,
+              color: Colors.white,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+          ),
+        ],
       );
     }
   }
