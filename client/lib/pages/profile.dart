@@ -1,4 +1,3 @@
-import 'package:client/pages/DetailFoodPage.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -10,7 +9,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     body: getBody(),
+     body: getbody()
 
     //   body: Padding(
     //     padding: const EdgeInsets.fromLTRB(40, 100, 40, 50),
@@ -33,12 +32,5 @@ class _ProfileState extends State<Profile> {
 }
 
 Widget getbody() {
-  return Column(
-    children: [
-        Container(
-          child : 
-          Image.asset("assets/profilenadate.jpeg")
-        )
-    ]
-  );
+  return Text('Profile');
 }
