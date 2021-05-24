@@ -1,5 +1,8 @@
 import 'package:client/pages/homepage.dart';
 import 'package:client/pages/profile.dart';
+import 'package:client/pages/ranking.dart';
+import 'package:client/pages/notification.dart';
+import 'package:client/pages/setting.dart';
 import 'package:flutter/material.dart';
 import './add_cook.dart';
 
@@ -12,7 +15,7 @@ class _HomeState extends State<Home> {
   int pageIndex = 0;
 
   Icon cusIcon = Icon(Icons.search);
-  Widget cusSearchBar = Text("HOME");
+  Widget cusSearchBar = Text("หน้าหลัก");
 
   @override
   Widget build(BuildContext context) {
@@ -26,29 +29,8 @@ class _HomeState extends State<Home> {
   Widget getBody() {
     List<Widget> pages = [
       Homepage(),
-      Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
       AddCook(),
-      
-      Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
-      Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
+      Rank(),
       Profile(),
     ];
     return IndexedStack(
@@ -90,7 +72,7 @@ class _HomeState extends State<Home> {
                       );
                     } else {
                       this.cusIcon = Icon(Icons.search);
-                      this.cusSearchBar = Text("HOME");
+                      this.cusSearchBar = Text("หน้าหลัก");
                     }
                   });
                 }),
@@ -105,7 +87,12 @@ class _HomeState extends State<Home> {
             child: IconButton(
                 iconSize: 30,
                 icon: Icon(Icons.notifications),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Noti()),
+                  );
+                }),
           )
         ],
         title: cusSearchBar,
@@ -113,22 +100,37 @@ class _HomeState extends State<Home> {
     } else if (pageIndex == 1) {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
-        title: Text("aaa"),
+        title: Text("เพิ่มสูตรอาหาร"),
       );
     } else if (pageIndex == 2) {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
-        title: Text("เพิ่มสูตรอาหาร"),
+        title: Text("จัดอันดับ"),
       );
-    } else if (pageIndex == 3) {
+    }
+     else if (pageIndex == 3) {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
-        title: Text("aaa"),
-      );
-    } else if (pageIndex == 4) {
-      return AppBar(
-        backgroundColor: Color(0xFFF04D56),
-        title: Text("Profile"),
+        title: Text("โปรไฟล์"),
+        actions: [
+          InkWell(
+            onTap: (){
+               Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Setting()),
+                        );
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(left: 0, right: 20),
+              child: Icon(
+                Icons.settings,
+                color: Colors.white,
+                size: 24.0,
+                semanticLabel: 'Text to announce in accessibility modes',
+              ),
+            ),
+          ),
+        ],
       );
     }
   }
@@ -136,10 +138,9 @@ class _HomeState extends State<Home> {
   Widget getFooter() {
     List bottomItems = [
       pageIndex == 0 ? "assets/house+.png" : "assets/house.png",
-      pageIndex == 1 ? "assets/earth+.png" : "assets/earth.png",
-      pageIndex == 2 ? "assets/add+.png" : "assets/add.png",
-      pageIndex == 3 ? "assets/ranking+.png" : "assets/ranking.png",
-      pageIndex == 4 ? "assets/user+.png" : "assets/user.png",
+      pageIndex == 1 ? "assets/add+.png" : "assets/add.png",
+      pageIndex == 2 ? "assets/ranking+.png" : "assets/ranking.png",
+      pageIndex == 3 ? "assets/user+.png" : "assets/user.png",
     ];
     return Container(
       width: double.infinity,
