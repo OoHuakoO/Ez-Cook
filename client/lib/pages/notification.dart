@@ -40,7 +40,7 @@ class _NotiState extends State<Noti> {
           backgroundColor: Color(0xFFF04D56), title: Text("การแจ้งเตือน")),
       body: SingleChildScrollView(
           child: ListView.builder(
-            padding: const EdgeInsets.fromLTRB(3, 5, 2, 0),
+        padding: const EdgeInsets.fromLTRB(3, 5, 2, 0),
         shrinkWrap: true,
         itemCount: notification.length,
         physics: const NeverScrollableScrollPhysics(),
