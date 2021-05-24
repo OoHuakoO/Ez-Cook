@@ -66,4 +66,3 @@ class _NotiState extends State<Noti> {
   }
 }
 
-class $ {}
