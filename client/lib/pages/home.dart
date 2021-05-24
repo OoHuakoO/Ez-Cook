@@ -2,6 +2,7 @@ import 'package:client/pages/homepage.dart';
 import 'package:client/pages/profile.dart';
 import 'package:client/pages/ranking.dart';
 import 'package:client/pages/notification.dart';
+import 'package:client/pages/setting.dart';
 import 'package:flutter/material.dart';
 import './add_cook.dart';
 
@@ -112,13 +113,21 @@ class _HomeState extends State<Home> {
         backgroundColor: Color(0xFFF04D56),
         title: Text("โปรไฟล์"),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(left: 0, right: 20),
-            child: Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 24.0,
-              semanticLabel: 'Text to announce in accessibility modes',
+          InkWell(
+            onTap: (){
+               Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Setting()),
+                        );
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(left: 0, right: 20),
+              child: Icon(
+                Icons.settings,
+                color: Colors.white,
+                size: 24.0,
+                semanticLabel: 'Text to announce in accessibility modes',
+              ),
             ),
           ),
         ],

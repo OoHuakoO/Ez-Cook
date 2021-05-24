@@ -42,22 +42,17 @@ class _ProfileState extends State<Profile> {
       
       Row(
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 40, right: 0, top: 20, bottom: 20),
-            child: Text(
-              "สูตรอาหารของฉัน",
-              style: TextStyle(fontSize: 18),
+          Center(
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 30, right: 0, top: 20, bottom: 30),
+              child: Text(
+                "สูตรอาหารของฉัน",
+                style: TextStyle(fontSize: 18,color: Color(0xFFF04D56)),
+              ),
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 110, right: 0, top: 20, bottom: 20),
-            child: Text(
-              "ที่บันทึกไว้",
-              style: TextStyle(fontSize: 18),
-            ),
-          )
+          
         ],
       ),
       Expanded(
@@ -76,24 +71,7 @@ class _ProfileState extends State<Profile> {
             // var showData = item[index];
             return Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, bottom: 5),
-                  child: Row(
-                    children: [
-                      Icon(Icons.person),
-                      Text(
-                        "Sompong",
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text(
-                          "ติดตาม",
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                
                 Column(
                   children: [
                     Padding(
