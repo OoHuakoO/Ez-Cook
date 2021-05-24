@@ -46,38 +46,41 @@ class _ProfileState extends State<Profile> {
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 80, right: 0),
-<<<<<<< HEAD
+              padding: const EdgeInsets.only(left: 80, right: 0, bottom: 0 ,top: 20),
               child: Column(
                 children: [
                   Text("ผู้ติตาม"),
-                  Container(
-                    height: 20,
-                    width: 50,
-                    decoration: BoxDecoration(color: Color(0xFFF0B6B6),borderRadius: BorderRadius.circular(23)),
-                    child: Text("2"),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 0, right: 0, bottom: 0 ,top: 15),
+                    child: Container(
+                      height: 20,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFF0B6B6),borderRadius: BorderRadius.circular(23)),
+                      child: Center(child: Text("2")),
+                    ),
                   )
                 ],
                 
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 160, right: 0),
+              padding: const EdgeInsets.only(left: 160, right: 0, bottom: 0 ,top: 20),
               child: Column(
                 children: [
                   Text("กำลังติตาม"),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 0, right: 0, bottom: 0 ,top: 15),
+                    child: Container(
+                      height: 20,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFF0B6B6),borderRadius: BorderRadius.circular(23)),
+                      child: Center(child: Text("2")),
+                    ),
+                  )
                 ],
               ),
             ),
             
-=======
-              child: Text("ผู้ติดตาม"),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 160, right: 0),
-              child: Text("กำลังติดตาม"),
-            ),
->>>>>>> 9e2444c1355bc0a4071e8c91bd9b452b5a6677b5
           ],
         ),
       ),

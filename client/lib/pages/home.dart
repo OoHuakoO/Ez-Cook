@@ -1,11 +1,7 @@
 import 'package:client/pages/homepage.dart';
 import 'package:client/pages/profile.dart';
-<<<<<<< HEAD
-// import 'package:client/pages/ranking.dart';
-=======
 import 'package:client/pages/ranking.dart';
 import 'package:client/pages/notification.dart';
->>>>>>> 9e2444c1355bc0a4071e8c91bd9b452b5a6677b5
 import 'package:flutter/material.dart';
 import './add_cook.dart';
 
@@ -33,17 +29,7 @@ class _HomeState extends State<Home> {
     List<Widget> pages = [
       Homepage(),
       AddCook(),
-<<<<<<< HEAD
-      Center(
-        child: Text(
-          "Home Page",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
-=======
       Rank(),
->>>>>>> 9e2444c1355bc0a4071e8c91bd9b452b5a6677b5
       Profile(),
     ];
     return IndexedStack(
@@ -120,19 +106,11 @@ class _HomeState extends State<Home> {
         backgroundColor: Color(0xFFF04D56),
         title: Text("จัดอันดับ"),
       );
-<<<<<<< HEAD
-    
-    } else if (pageIndex == 3) {
-      return AppBar(
-        backgroundColor: Color(0xFFF04D56),
-        title: Text("Profile"),
-=======
     }
      else if (pageIndex == 3) {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
         title: Text("โปรไฟล์"),
->>>>>>> 9e2444c1355bc0a4071e8c91bd9b452b5a6677b5
         actions: [
           Padding(
             padding: const EdgeInsets.only(left: 0, right: 20),
