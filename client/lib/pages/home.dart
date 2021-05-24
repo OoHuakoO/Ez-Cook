@@ -29,7 +29,17 @@ class _HomeState extends State<Home> {
     List<Widget> pages = [
       Homepage(),
       AddCook(),
+<<<<<<< HEAD
+      Center(
+        child: Text(
+          "Home Page",
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+      ),
+=======
       Rank(),
+>>>>>>> 483087cbe6fd5eb931ba639cec86a42e2b8e74f3
       Profile(),
     ];
     return IndexedStack(
@@ -109,7 +119,27 @@ class _HomeState extends State<Home> {
     } else if (pageIndex == 3) {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
+<<<<<<< HEAD
+        title: Text("aaa"),
+      );
+    } else if (pageIndex == 4) {
+      return AppBar(
+        backgroundColor: Color(0xFFF04D56),
+        title: Text("Profile"),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 0, right: 20),
+            child: Icon(
+              Icons.settings,
+              color: Colors.white,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+          ),
+        ],
+=======
         title: Text("โปรไฟล์"),
+>>>>>>> 483087cbe6fd5eb931ba639cec86a42e2b8e74f3
       );
     }
   }
