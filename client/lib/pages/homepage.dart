@@ -23,7 +23,7 @@ class _HomepageState extends State<Homepage> {
 
   int selectedIndex = 0;
   Widget getBody() {
-    var size = MediaQuery.of(context).size;
+    // var size = MediaQuery.of(context).size;
 
     return Column(
       children: [
@@ -85,7 +85,7 @@ class _HomepageState extends State<Homepage> {
             // number of items in your list
             itemCount: item.length,
             itemBuilder: (BuildContext context, int index) {
-              var showData = item[index];
+              // var showData = item[index];
               return Column(
                 children: [
                   Padding(

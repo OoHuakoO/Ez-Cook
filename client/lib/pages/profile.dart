@@ -39,23 +39,7 @@ class _ProfileState extends State<Profile> {
           style: TextStyle(fontSize: 20),
         ),
       ),
-      Container(
-        width: double.infinity,
-        height: 100,
-        decoration: BoxDecoration(color: Color(0xFFF4ECEC)),
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 80, right: 0),
-              child: Text("ผู้ติดตาม"),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 160, right: 0),
-              child: Text("กำลังติดตาม"),
-            ),
-          ],
-        ),
-      ),
+      
       Row(
         children: [
           Padding(
@@ -89,7 +73,7 @@ class _ProfileState extends State<Profile> {
           // number of items in your list
           itemCount: item.length,
           itemBuilder: (BuildContext context, int index) {
-            var showData = item[index];
+            // var showData = item[index];
             return Column(
               children: [
                 Padding(
