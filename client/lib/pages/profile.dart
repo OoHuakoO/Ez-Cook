@@ -47,6 +47,7 @@ class _ProfileState extends State<Profile> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 80, right: 0),
+<<<<<<< HEAD
               child: Column(
                 children: [
                   Text("ผู้ติตาม"),
@@ -69,10 +70,16 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             
+=======
+              child: Text("ผู้ติดตาม"),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 160, right: 0),
+              child: Text("กำลังติดตาม"),
+            ),
+>>>>>>> 9e2444c1355bc0a4071e8c91bd9b452b5a6677b5
           ],
         ),
-        
-         
       ),
       Row(
         children: [

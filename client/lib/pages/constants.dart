@@ -21,3 +21,10 @@ List FoodK = [
   "อาหารประเภทยำ",
   "อาหารประเภทแกง",
 ];
+class Notifications {
+  String image;
+  String message;
+  String time;
+
+  Notifications(this.image, this.message, this.time);
+}

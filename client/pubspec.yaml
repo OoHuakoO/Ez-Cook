@@ -65,8 +65,14 @@ flutter:
     - assets/user.png
     - assets/user+.png
     - assets/LogoEzcook.png
+<<<<<<< HEAD
     - assets/profilenadate.jpeg
     - assets/images.jpg
+=======
+    - assets/images.jpg
+    - assets/profilenadate.jpeg
+
+>>>>>>> 9e2444c1355bc0a4071e8c91bd9b452b5a6677b5
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
