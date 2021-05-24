@@ -29,20 +29,20 @@ class _Edit_ProfileState extends State<Edit_Profile> {
               ),
             ),
             Padding(
-                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        child: SizedBox(
-                          height: 30,
-                          width: 160,
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color(0xFFF04D56)),
-                              ),
-                              child: Text("แก้ไขรูปภาพโปรไฟล์",
-                                  style: TextStyle(fontSize: 14)),
-                              onPressed: () {}),
-                        ),
-                      ),
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+              child: SizedBox(
+                height: 30,
+                width: 160,
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Color(0xFFF04D56)),
+                    ),
+                    child: Text("แก้ไขรูปภาพโปรไฟล์",
+                        style: TextStyle(fontSize: 14)),
+                    onPressed: () {}),
+              ),
+            ),
             // Container(
             //     height: 100,
             //     width: MediaQuery.of(context).size.width,
@@ -59,7 +59,7 @@ class _Edit_ProfileState extends State<Edit_Profile> {
             //       ]
             //     ),
             // ),
-            
+
             Padding(
               padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
               child: Container(
