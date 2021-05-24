@@ -10,6 +10,7 @@ class _Edit_ProfileState extends State<Edit_Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Color(0xFFF04D56),
           title: Text("แก้ไขโปรไฟล์"),

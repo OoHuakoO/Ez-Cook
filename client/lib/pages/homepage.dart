@@ -96,13 +96,7 @@ class _HomepageState extends State<Homepage> {
                         Text(
                           "Sompong",
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: Text(
-                            "ติดตาม",
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                        )
+                        
                       ],
                     ),
                   ),
