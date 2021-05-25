@@ -3,11 +3,10 @@ const router = express.Router();
 const { firestore } = require("../firebase/config");
 const moment = require("moment");
 const { v4: uuidv4, NIL } = require("uuid");
-// const cloudinary = require("../utils/cloudinary");
 const multer = require("multer");
 const path = require("path");
+const { count } = require("console");
 // const { search, image } = require("../utils/cloudinary");
-
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../../client/assets/pictureUploads"));
@@ -17,42 +16,39 @@ let storage = multer.diskStorage({
   },
 });
 
-// let fileFilter = (req, file, cb) => {
-//   if (
-//     file.mimetype === "image/jpeg" ||
-//     file.mimetype === "image/png" ||
-//     file.mimetype === "image/jpg"
-//   ) {
-//     cb(null, true);
-//   } else {
-//     return cb(new Error("** ต้องเป็นไฟล์ png หรือ jpeg เท่านั้น **"));
-//   }
-// };
+let fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg"
+  ) {
+    cb(null, true);
+  } else {
+    return cb(new Error("** ต้องเป็นไฟล์ png หรือ jpeg เท่านั้น **"));
+  }
+};
 
-// let upload = multer({
-//   storage: storage,
-//   fileFilter: fileFilter,
-//   limits: {
-//     fileSize: 1 * 1024 * 1024,
-//   },
-// });
+let upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 1 * 1024 * 1024,
+  },
+});
 
-// const uploadFile = (req, res, next) => {
-//   const upload2 = upload.fields([
-//     { name: "photo", maxCount: 1 },
-//     { name: "eiei", maxCount: 20 },
-//   ]);
-//   upload2(req, res, function (err) {
-//     if (err instanceof multer.MulterError) {
-//       return res
-//         .status(400)
-//         .json({ msg: "** ไฟล์รูปรวมกันต้องมีขนาดไม่เกิน 1 MB **" });
-//     } else if (err) {
-//       return res.status(400).json({ msg: err.message });
-//     }
-//     next();
-//   });
-// };
+const uploadFile = (req, res, next) => {
+  const upload2 = upload.fields([{ name: "imageFood", maxCount: 1 }]);
+  upload2(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      return res
+        .status(400)
+        .json({ msg: "** ไฟล์รูปรวมกันต้องมีขนาดไม่เกิน 1 MB **" });
+    } else if (err) {
+      return res.status(400).json({ msg: err.message });
+    }
+    next();
+  });
+};
 
 // const uploadphotocomment = (req, res, next) => {
 //   const upload2 = upload.fields([{ name: "photocomment", maxCount: 20 }]);
@@ -69,24 +65,71 @@ let storage = multer.diskStorage({
 // };
 
 // สร้างสูตรอาหาร
-router.post("/createFood/:userId", (req, res) => {
+router.post("/createFood/:userId", uploadFile, async (req, res) => {
   const userId = req.params.userId;
-  const { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
+  const uid = uuidv4();
+  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
     req.body;
-    const {imageFood} = req.file;
-
-  res.json({ success: true });
+  const imageFood = req.files.imageFood;
+  const date = Date.now();
+  const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
+  console.log(
+    imageFood[0].filenameh,
+    nameFood,
+    date,
+    timeCook,
+    categoryFood,
+    ingredient,
+    howCook,
+    linkYoutube
+  );
+  await firestore
+    .collection("Food")
+    .doc(uid)
+    .set({
+      uid,
+      nameFood,
+      timeCook,
+      categoryFood,
+      ingredient,
+      howCook,
+      linkYoutube,
+      date,
+      imageFood: imageFoodConvertToPath,
+      userId,
+      like: 0,
+    })
+    .then(async () => {
+      res.json({ success: true });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 // ดูรายละเอียดโพสต์สูตรอาหาร
-router.post("/detailFood/:foodId", (req, res) => {
+router.post("/detailFood/:foodId", async (req, res) => {
   const foodId = req.params.foodId;
-  res.json({ success: true });
+  const data = [];
+  await firestore
+    .collection("Food")
+    .where("uid", "==", foodId)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((element) => {
+        data.push(element.data());
+      });
+      res.json({ data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 // ดูสูตรอาหารทั้งหมด
 router.get("/allFood", async (req, res) => {
   const data = [];
   await firestore
     .collection("Food")
+    .orderBy("date", "desc")
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((element) => {
@@ -99,38 +142,130 @@ router.get("/allFood", async (req, res) => {
     });
 });
 // ดูสูตรอาหารของคนๆนั้น
-router.post("/otherFoodInDetailFood/:userId", (req, res) => {
+router.post("/otherFoodInDetailFood/:userId", async (req, res) => {
   const userId = req.params.userId;
-
-  res.json({ success: true });
+  const data = [];
+  await firestore
+    .collection("Food")
+    .where("userId", "==", userId)
+    .orderBy("date", "desc")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((element) => {
+        data.push(element.data());
+      });
+      res.json({ data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
-// บันทึกสูตรอาหารที่ชอบ
-router.post("/saveFood/:foodId/:userId", (req, res) => {
+
+router.post("/likeFood/:foodId", async (req, res) => {
   const foodId = req.params.foodId;
-  const userId = req.params.userId;
-
-  res.json({ success: true });
+  let countLike = 0;
+  await firestore
+    .collection("Food")
+    .where("uid", "==", foodId)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((element) => {
+        countLike = element.get("like");
+      });
+    })
+    .then(async () => {
+      await firestore
+        .collection("Food")
+        .doc(foodId)
+        .update({ like: countLike + 1 })
+        .then(() => {
+          res.json({ success: true });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
-router.post("/likeFood/:foodId", (req, res) => {
+router.post("/unlikeFood/:foodId", async (req, res) => {
   const foodId = req.params.foodId;
-  const userId = req.params.userId;
-
-  res.json({ success: true });
+  let countLike = 0;
+  await firestore
+    .collection("Food")
+    .where("uid", "==", foodId)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((element) => {
+        countLike = element.get("like");
+      });
+    })
+    .then(async () => {
+      await firestore
+        .collection("Food")
+        .doc(foodId)
+        .update({ like: countLike - 1 })
+        .then(() => {
+          res.json({ success: true });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
-// ยกเลิกบันทึกสูตรอาหารที่ชอบ
-router.post("/unSaveFood/:foodId/:userId", (req, res) => {
-  const foodId = req.params.foodId;
-  const userId = req.params.userId;
 
-  res.json({ success: true });
-});
 // แก้ไขสูตรอาหาร
-router.post("/editFood/:foodId", (req, res) => {
-  const foodId = req.params;
-  const { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
+router.post("/editFood/:foodId", uploadFile, async (req, res) => {
+  const foodId = req.params.foodId;
+  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
     req.body;
-
-  res.json({ success: true });
+  const imageFood = req.files.imageFood;
+  const date = Date.now();
+  if (imageFood == undefined) {
+    await firestore
+      .collection("Food")
+      .doc(foodId)
+      .update({
+        nameFood,
+        timeCook,
+        categoryFood,
+        ingredient,
+        howCook,
+        linkYoutube,
+        date,
+      })
+      .then(async () => {
+        res.json({ success: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else if (imageFood != undefined) {
+    const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
+    await firestore
+      .collection("Food")
+      .doc(foodId)
+      .update({
+        nameFood,
+        timeCook,
+        categoryFood,
+        ingredient,
+        howCook,
+        linkYoutube,
+        date,
+        imageFood: imageFoodConvertToPath,
+      })
+      .then(async () => {
+        res.json({ success: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 });
 // จัดอันดับเมนูอาหารยอดนิยม
 router.get("/rankFood", async (req, res) => {
@@ -150,19 +285,57 @@ router.get("/rankFood", async (req, res) => {
     });
 });
 // เขียนคอมเมนต์ในสูตรอาหารคนอื่น
-router.post("/createComment/:foodId/:userId", (req, res) => {
-  const foodId = req.params;
+router.post("/createComment/:foodId/:userId", async (req, res) => {
   const userId = req.params.userId;
+  const foodId = req.params.foodId;
+  let userCommentData = undefined;
+  const uid = uuidv4();
+  const date = Date.now();
   const { text } = req.body;
-
-  res.json({ success: true });
+  await firestore
+    .collection("User")
+    .where("uid", "==", userId)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((element) => {
+        userCommentData = {
+          username: element.get("username"),
+          imageProfile: element.get("imageProfile"),
+        };
+      });
+    })
+    .then(async () => {
+      await firestore
+        .collection("Comment")
+        .doc(uid)
+        .set({ text, date, userCommentData, foodId });
+      res.json({ success: true });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 // ดึงคอมเมนต์ในสูตรอาหารคนอื่น
-router.post("/getComment/:foodId", (req, res) => {
-  const foodId = req.params;
-
-  res.json({ success: true });
+router.post("/getComment/:foodId", async (req, res) => {
+  const foodId = req.params.foodId;
+  const data = [];
+  await firestore
+    .collection("Comment")
+    .where("foodId", "==", foodId)
+    .orderBy("date", "desc")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((element) => {
+        data.push(element.data());
+      });
+      res.json({ data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
-
 
 module.exports = router;
