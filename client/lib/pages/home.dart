@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   Widget getBody() {
     List<Widget> pages = [
       Homepage(),
-      AddCook(),
+      AddCook(isUpdating: null),
       Rank(),
       Profile(),
     ];
@@ -107,18 +107,17 @@ class _HomeState extends State<Home> {
         backgroundColor: Color(0xFFF04D56),
         title: Text("จัดอันดับ"),
       );
-    }
-     else if (pageIndex == 3) {
+    } else if (pageIndex == 3) {
       return AppBar(
         backgroundColor: Color(0xFFF04D56),
         title: Text("โปรไฟล์"),
         actions: [
           InkWell(
-            onTap: (){
-               Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Setting()),
-                        );
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Setting()),
+              );
             },
             child: Padding(
               padding: const EdgeInsets.only(left: 0, right: 20),
