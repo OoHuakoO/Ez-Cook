@@ -10,6 +10,7 @@ class _DetailFoodState extends State<DetailFood> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         body: Column(
       children: [
         Stack(

@@ -136,6 +136,7 @@ class _RankState extends State<Rank> {
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           height: size.height,
           child: Column(

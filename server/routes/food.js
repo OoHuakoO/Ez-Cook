@@ -73,6 +73,7 @@ router.post("/createFood/:userId", (req, res) => {
   const userId = req.params.userId;
   const { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
     req.body;
+    const {imageFood} = req.file;
 
   res.json({ success: true });
 });
