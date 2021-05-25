@@ -21,17 +21,18 @@ class _RankState extends State<Rank> {
       listItems.add(Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 10),
         child: Container(
-            height: 100,
+            height: 80,
+            width: 30,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(70),
               color: Color(0xFFFFE6E1),
             ),
             child: Row(
               children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      bottomLeft: Radius.circular(50)),
+                      topLeft: Radius.circular(80),
+                      bottomLeft: Radius.circular(80)),
                   child: Container(
                     height: 100,
                     decoration: BoxDecoration(
@@ -39,11 +40,11 @@ class _RankState extends State<Rank> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          left: 20, right: 20, top: 32, bottom: 35),
+                          left: 5, right: 5, top: 30, bottom: 5),
                       child: Text(
                         "00",
                         style: const TextStyle(
-                            fontSize: 30,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
@@ -52,12 +53,12 @@ class _RankState extends State<Rank> {
                 ),
                 Image.asset(
                   "assets/${post["image"]}",
-                  height: double.infinity,
+                  height: 100,
                 ),
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 5, top: 5),
+                      padding: const EdgeInsets.only(left: 5, top: 2),
                       child: Row(
                         children: [
                           Icon(Icons.person),
@@ -68,11 +69,11 @@ class _RankState extends State<Rank> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5),
+                      padding: const EdgeInsets.only(top: 2),
                       child: Text(post["name"]),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 5),
+                      padding: const EdgeInsets.only(left: 20, top: 2),
                       child: Text("ยอดถูกใจทั้งหมด 20 ครั้ง"),
                     )
                   ],
@@ -142,10 +143,15 @@ class _RankState extends State<Rank> {
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(right: 340, top: 10),
-                child: Text(
-                  "เมนูยอดนิยม",
-                  style: TextStyle(fontSize: 18, color: Color(0xFFF04D56)),
+                padding: const EdgeInsets.only(left: 10, top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "เมนูยอดนิยม",
+                      style: TextStyle(fontSize: 18, color: Color(0xFFF04D56)),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
