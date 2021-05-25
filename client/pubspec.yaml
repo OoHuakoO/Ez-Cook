@@ -55,21 +55,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
     
   assets:
-    - assets/ascasc.png
-    - assets/add.png
-    - assets/add+.png
-    - assets/ascasc.png
-    - assets/earth.png
-    - assets/earth+.png
-    - assets/house.png
-    - assets/house+.png
-    - assets/ranking.png
-    - assets/ranking+.png
-    - assets/user.png
-    - assets/user+.png
-    - assets/LogoEzcook.png
-    - assets/images.jpg
-    - assets/profilenadate.jpeg
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -39,20 +39,18 @@ class _ProfileState extends State<Profile> {
           style: TextStyle(fontSize: 20),
         ),
       ),
-      
       Row(
         children: [
           Center(
             child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 30, right: 0, top: 20, bottom: 30),
+              padding: const EdgeInsets.only(
+                  left: 30, right: 0, top: 20, bottom: 30),
               child: Text(
                 "สูตรอาหารของฉัน",
-                style: TextStyle(fontSize: 18,color: Color(0xFFF04D56)),
+                style: TextStyle(fontSize: 18, color: Color(0xFFF04D56)),
               ),
             ),
           ),
-          
         ],
       ),
       Expanded(
@@ -71,7 +69,6 @@ class _ProfileState extends State<Profile> {
             // var showData = item[index];
             return Column(
               children: [
-                
                 Column(
                   children: [
                     Padding(

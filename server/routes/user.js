@@ -90,27 +90,10 @@ router.post("/editProfile", (req, res) => {
 router.get("/profile", (req, res) => {
    
 });
-
-
-router.get("/historyFollow", (req, res) => {
-   
-});
-
-router.get("/historyFollower", (req, res) => {
-   
-});
-
 router.get("/historyPost", (req, res) => {
    
 });
 
-router.post("/followUser", (req, res) => {
-   
-});
-
-router.post("/unFollowUser", (req, res) => {
-   
-});
 
 
 

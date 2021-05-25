@@ -18,7 +18,9 @@ class _SettingState extends State<Setting> {
       body: Column(
         children: [
           ListTile(
-            //  leading: Icon(Icons.manage_accounts_rounded,),
+            leading: Icon(
+              Icons.manage_accounts_rounded,
+            ),
             title: Text("แก้ไขโปรไฟล์",
                 style: TextStyle(fontSize: 20, color: Color(0xFF4A4848))),
             onTap: () {
@@ -29,7 +31,10 @@ class _SettingState extends State<Setting> {
             },
           ),
           ListTile(
-            //  leading: Icon(Icons.logout_rounded,color: Color(0xFFF04D56),),
+            leading: Icon(
+              Icons.logout_rounded,
+              color: Color(0xFFF04D56),
+            ),
             title: Text("ออกจากระบบ",
                 style: TextStyle(fontSize: 20, color: Color(0xFFF04D56))),
             onTap: () {
