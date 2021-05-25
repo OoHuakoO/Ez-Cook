@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:client/pages/login.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override

@@ -1,6 +1,6 @@
 const express = require("express"),
   cors = require("cors");
-// (userRoutes = require("./routes/user")),
+(userRoutes = require("./routes/user")),
   (foodRoutes = require("./routes/food")),
   (moment = require("moment"));
 moment.locale("th");
@@ -12,7 +12,7 @@ app.use(cors());
 
 // app
 // Set Route
-// app.use("/user", userRoutes);
+app.use("/user", userRoutes);
 app.use("/food", foodRoutes);
 const PORT = process.env.PORT || 7000;
 
