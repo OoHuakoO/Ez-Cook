@@ -1,22 +1,28 @@
 import 'package:client/pages/home.dart';
+import 'package:client/pages/homepage.dart';
 import 'package:flutter/material.dart';
 
 class DetailFood extends StatefulWidget {
+  final Map<String, dynamic> myFoodSee;
+  DetailFood({Key key, this.myFoodSee}) : super(key: key);
   @override
-  _DetailFoodState createState() => _DetailFoodState();
+  _DetailFoodState createState() => _DetailFoodState(myFoodSee);
 }
 
 class _DetailFoodState extends State<DetailFood> {
+  _DetailFoodState(this.myFoodSee);
+
+  Map<String, dynamic> myFoodSee;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
         body: Column(
       children: [
         Stack(
           children: [
-            Image.network(
-              "https://s359.kapook.com/rq/580/435/50/pagebuilder/1d821e47-5eed-4139-8819-a522842f4130.jpg",
+            Image.asset(
+              "assets/${myFoodSee["image"]}",
               width: double.infinity,
             ),
             Padding(
@@ -57,7 +63,7 @@ class _DetailFoodState extends State<DetailFood> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 340),
+                      padding: const EdgeInsets.only(left: 250),
                       child: Container(
                           width: 40,
                           height: 40,

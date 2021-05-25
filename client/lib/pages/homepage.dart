@@ -83,8 +83,9 @@ class _HomepageState extends State<Homepage> {
               crossAxisSpacing: 1,
             ),
             // number of items in your list
-            itemCount: item.length,
+            itemCount: FOOD_DATA.length,
             itemBuilder: (BuildContext context, int index) {
+              var myFoodAll = FOOD_DATA[index];
               // var showData = item[index];
               return Column(
                 children: [
@@ -117,7 +118,8 @@ class _HomepageState extends State<Homepage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => DetailFood(),
+                                      builder: (context) => DetailFood(
+                                          myFoodSee: FOOD_DATA[index]),
                                     ),
                                   );
                                 },
@@ -126,7 +128,7 @@ class _HomepageState extends State<Homepage> {
                                       topLeft: Radius.circular(25),
                                       topRight: Radius.circular(25)),
                                   child: Image.asset(
-                                    "assets/ascasc.png",
+                                    "assets/${myFoodAll["image"]}",
                                   ),
                                 ),
                               ),
@@ -134,7 +136,7 @@ class _HomepageState extends State<Homepage> {
                                 padding: const EdgeInsets.only(
                                     right: 30, top: 10, bottom: 20),
                                 child: Text(
-                                  "ไข่ยัดไส้ + ไส้หมูสับผัด",
+                                  myFoodAll["name"],
                                   style: TextStyle(fontSize: 12),
                                 ),
                               ),
