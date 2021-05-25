@@ -1,14 +1,14 @@
 // ignore: non_constant_identifier_names
 List FOOD_DATA = [
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"},
-  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "images/ascasc.png"}
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"},
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"},
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"},
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"},
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"},
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"},
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"},
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"},
+  {"name": "ไข่ยัดใส้ + หมูสับผัด", "image": "ascasc.png"}
 ];
 
 // ignore: non_constant_identifier_names
@@ -21,6 +21,7 @@ List FoodK = [
   "อาหารประเภทยำ",
   "อาหารประเภทแกง",
 ];
+
 class Notifications {
   String image;
   String message;

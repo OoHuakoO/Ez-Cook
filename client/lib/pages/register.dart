@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:client/pages/login.dart';
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// ignore: unused_import
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding:EdgeInsets.fromLTRB(10, 50, 10, 50),
+                  padding: EdgeInsets.fromLTRB(10, 50, 10, 50),
                   child: Text(
                     "สมัครสมาชิก",
                     style: TextStyle(
@@ -74,7 +75,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               BorderSide(width: 1, color: Color(0xFFCECECE)),
                           borderRadius: BorderRadius.circular(10)),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Color(0xFFF04D56)),
+                          borderSide:
+                              BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
                 ),
                 SizedBox(
