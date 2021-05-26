@@ -48,14 +48,20 @@ const uploadFile = (req, res, next) => {
   });
 };
 
-router.post("/createFood/:userId", uploadFile, async (req, res) => {
+router.post("/createFood/:userId", async (req, res) => {
   const userId = req.params.userId;
   const uid = uuidv4();
-  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
-    req.body;
-  const imageFood = req.files.imageFood;
+  var {
+    nameFood,
+    timeCook,
+    categoryFood,
+    ingredient,
+    howCook,
+    linkYoutube,
+    imageFood,
+  } = req.body;
   const date = Date.now();
-  const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
+  // const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
   console.log(
     imageFood[0].filename,
     nameFood,
@@ -78,7 +84,7 @@ router.post("/createFood/:userId", uploadFile, async (req, res) => {
       howCook,
       linkYoutube,
       date,
-      imageFood: imageFoodConvertToPath,
+      imageFood,
       userId,
       like: 0,
     })
@@ -203,9 +209,8 @@ router.post("/unlikeFood/:foodId", async (req, res) => {
 
 router.post("/editFood/:foodId", uploadFile, async (req, res) => {
   const foodId = req.params.foodId;
-  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
+  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube,imageFood } =
     req.body;
-  const imageFood = req.files.imageFood;
   const date = Date.now();
   if (imageFood == undefined) {
     await firestore
@@ -227,7 +232,7 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
         console.log(err);
       });
   } else if (imageFood != undefined) {
-    const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
+    // const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
     await firestore
       .collection("Food")
       .doc(foodId)
@@ -239,7 +244,7 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
         howCook,
         linkYoutube,
         date,
-        imageFood: imageFoodConvertToPath,
+        imageFood
       })
       .then(async () => {
         res.json({ success: true });
