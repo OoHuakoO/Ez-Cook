@@ -12,7 +12,7 @@ let storage = multer.diskStorage({
     cb(null, path.join(__dirname, "../../client/assets/pictureUploads"));
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname + "-" + Date.now());
+    cb(null, file.originalname);
   },
 });
 
