@@ -114,6 +114,21 @@ router.post("/detailFood/:foodId", async (req, res) => {
     });
 });
 
+router.post("/deleteFood/:foodId", async (req, res) => {
+  const foodId = req.params.foodId;
+
+  await firestore
+    .collection("Food")
+    .doc(foodId)
+    .delete()
+    .then(() => {
+      res.json({ sucess: true });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 router.get("/allFood", async (req, res) => {
   const data = [];
   await firestore
@@ -209,8 +224,15 @@ router.post("/unlikeFood/:foodId", async (req, res) => {
 
 router.post("/editFood/:foodId", uploadFile, async (req, res) => {
   const foodId = req.params.foodId;
-  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube,imageFood } =
-    req.body;
+  var {
+    nameFood,
+    timeCook,
+    categoryFood,
+    ingredient,
+    howCook,
+    linkYoutube,
+    imageFood,
+  } = req.body;
   const date = Date.now();
   if (imageFood == undefined) {
     await firestore
@@ -244,7 +266,7 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
         howCook,
         linkYoutube,
         date,
-        imageFood
+        imageFood,
       })
       .then(async () => {
         res.json({ success: true });
