@@ -51,16 +51,16 @@ const uploadFile = (req, res, next) => {
 };
 
 // สร้างสูตรอาหาร
-router.post("/createFood/:userId", uploadFile, async (req, res) => {
+router.post("/createFood/:userId", async (req, res) => {
   const userId = req.params.userId;
   const uid = uuidv4();
-  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
+  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube, imageFood } =
     req.body;
-  const imageFood = req.files.imageFood;
+  // const imageFood = req.files.imageFood;
   const date = Date.now();
-  const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
+  // const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
   console.log(
-    imageFood[0].filename,
+    imageFood,
     nameFood,
     date,
     timeCook,

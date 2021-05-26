@@ -10,6 +10,7 @@ class Setting extends StatefulWidget {
 class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
+    var manage_accounts_rounded;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFF04D56),
@@ -18,9 +19,9 @@ class _SettingState extends State<Setting> {
       body: Column(
         children: [
           ListTile(
-            leading: Icon(
-              Icons.manage_accounts_rounded,
-            ),
+            // leading: Icon(
+            //   Icons.manage_accounts_outlined,
+            // ),
             title: Text("แก้ไขโปรไฟล์",
                 style: TextStyle(fontSize: 20, color: Color(0xFF4A4848))),
             onTap: () {
@@ -32,7 +33,7 @@ class _SettingState extends State<Setting> {
           ),
           ListTile(
             leading: Icon(
-              Icons.logout_rounded,
+              Icons.logout,
               color: Color(0xFFF04D56),
             ),
             title: Text("ออกจากระบบ",

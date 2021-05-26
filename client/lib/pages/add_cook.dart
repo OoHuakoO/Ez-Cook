@@ -1,6 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:image/image.dart' as Img;
+import 'package:firebase_storage/firebase_storage.dart';
+import '../firebase/firebase_api.dart';
+import 'package:path/path.dart';
+import 'package:http/http.dart' as http;
 
 class AddCook extends StatefulWidget {
   AddCook({@required this.isUpdating});
@@ -12,7 +18,7 @@ class AddCook extends StatefulWidget {
 
 class _AddCookState extends State<AddCook> {
   final _formKey = GlobalKey<FormState>();
-
+  UploadTask task;
   String nameCook;
   String imageUrl;
   File imageFile;
@@ -26,10 +32,11 @@ class _AddCookState extends State<AddCook> {
   final List<String> _categoryCookOption = [
     'ทอด',
     'ต้ม',
+    'แกง',
     'นึ่ง',
     'ย่าง',
     'ผัด',
-    'ยำ'
+    'ยำ',
   ];
 
   @override
@@ -63,21 +70,79 @@ class _AddCookState extends State<AddCook> {
     });
   }
 
-  saveImageToFolder() {}
+  saveImageToFolder() async {
+    Directory directory = await getTemporaryDirectory();
 
-  submitCook() {
-    if (!_formKey.currentState.validate()) {
+    try {
+      File tempFile = File(imageFile.path);
+      Img.Image image = Img.decodeImage(tempFile.readAsBytesSync());
+      Img.Image mImage = Img.copyResize(image, width: 512);
+      String imgType = imageFile.path.split('.').last;
+      String mPath =
+          '${directory.path.toString()}/im${DateTime.now()}.$imgType';
+
+      File dFile = File(mPath);
+      if (imgType == 'jpg' || imgType == 'jpeg') {
+        dFile.writeAsBytesSync(Img.encodeJpg(mImage));
+      } else {
+        dFile.writeAsBytesSync(Img.encodePng(mImage));
+      }
+      return dFile;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  uploadImageToFirebase() async {
+    final fileName = basename(imageFile.path);
+    final destination = 'images/$fileName';
+
+    task = FirebaseApi.uploadFile(destination, imageFile);
+    setState(() {});
+
+    if (task == null) return;
+
+    final snapshot = await task.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+
+    return urlDownload;
+  }
+
+  submitCook() async {
+    if (_formKey.currentState.validate()) {
       return;
     } else if (imageFile == null) {
       return;
     }
-    print(imageFile);
-    print("name $nameCook");
-    print("name $timeCook");
-    print("name $categoryCook");
-    print("name $ingredient");
-    print("name $howtoCook");
-    print("url $linkYoutube");
+    // print(imageFile);
+    // print("name $nameCook");
+    // print("name $timeCook");
+    // print("name $categoryCook");
+    // print("name $ingredient");
+    // print("name $howtoCook");
+    // print("url $linkYoutube");
+    var urlImage = await uploadImageToFirebase();
+    var data = {
+      "nameFood": nameCook,
+      "timeCook": timeCook,
+      "categoryFood": categoryCook,
+      "ingredient": ingredient,
+      "linkYoutube": linkYoutube,
+      "howCook": howtoCook,
+      "imageFood": urlImage
+    };
+    print(data);
+    try {
+      var res = await http.post(
+        Uri.parse(
+            "http://localhost:7000/food/createFood/40XQzyTtFAb6KVVoPO0H96n18G53"),
+        body: data,
+      );
+      print(res);
+    } catch (e) {
+      print(e);
+    }
+    return;
   }
 
   // ignore: missing_return
@@ -89,10 +154,7 @@ class _AddCookState extends State<AddCook> {
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           Center(
-            child: Image.file(imageFile,
-                height: 250,
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.cover),
+            child: Image.file(imageFile, height: 250, fit: BoxFit.cover),
           ),
           TextButton(
               onPressed: () => getLocalImage(), child: Text("เปลี่ยนรูปภาพ")),
@@ -103,10 +165,7 @@ class _AddCookState extends State<AddCook> {
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           Center(
-            child: Image.network(imageUrl,
-                height: 250,
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.cover),
+            child: Image.network(imageUrl, height: 250, fit: BoxFit.cover),
           ),
           TextButton(
               onPressed: () => getLocalImage(), child: Text("เลือกรูปภาพ")),
