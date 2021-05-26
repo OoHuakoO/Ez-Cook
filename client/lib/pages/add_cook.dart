@@ -18,15 +18,16 @@ class AddCook extends StatefulWidget {
 
 class _AddCookState extends State<AddCook> {
   final _formKey = GlobalKey<FormState>();
-  UploadTask task;
-  String nameCook;
-  String imageUrl;
-  File imageFile;
-  String timeCook;
-  String categoryCook;
-  List<String> ingredient = [];
-  List<String> howtoCook = [];
-  String linkYoutube;
+  
+UploadTask task;
+String nameCook;
+String imageUrl;
+File imageFile;
+String timeCook;
+String categoryCook;
+List<String> ingredient = [];
+List<String> howtoCook = [];
+String linkYoutube;
 
   final List<String> _timeCookOption = ["10", "20", "30", "45", "60"];
   final List<String> _categoryCookOption = [
@@ -142,7 +143,6 @@ class _AddCookState extends State<AddCook> {
     } catch (e) {
       print(e);
     }
-    return;
   }
 
   // ignore: missing_return
