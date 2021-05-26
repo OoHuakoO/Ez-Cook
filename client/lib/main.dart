@@ -7,6 +7,16 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      primaryColor: Color(0xFFF04D56),
+      accentColor: Color(0xFFF04D56),
+      fontFamily: 'Georgia',
+      textTheme: TextTheme(
+        headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+        headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+        bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+      ),
+    ),
     home: Login(),
   ));
 }
