@@ -24,7 +24,6 @@ class _HomepageState extends State<Homepage> {
   int selectedIndex = 0;
   Widget getBody() {
     // var size = MediaQuery.of(context).size;
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Column(
