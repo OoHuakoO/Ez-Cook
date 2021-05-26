@@ -24,9 +24,7 @@ class _HomepageState extends State<Homepage> {
   int selectedIndex = 0;
   Widget getBody() {
     // var size = MediaQuery.of(context).size;
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
+    return  Column(
           children: [
             SizedBox(
               height: 10,
@@ -189,7 +187,7 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
           ],
-        ));
+        );
   }
 
   @override

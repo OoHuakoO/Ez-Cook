@@ -106,7 +106,7 @@ class _LoginState extends State<Login> {
                               formKey.currentState.reset();
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return Homepage();
+                                return Home();
                               }));
                             });
                           } on FirebaseAuthException catch (e) {
