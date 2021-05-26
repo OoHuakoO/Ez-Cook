@@ -34,32 +34,6 @@ class _DetailFoodState extends State<DetailFood> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(),
-                      child: Column(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()));
-                            },
-                            child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Color(0xFFF04D56)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 9),
-                                  child: Icon(
-                                    Icons.arrow_back_ios,
-                                    size: 35,
-                                    color: Colors.white,
-                                  ),
-                                )),
-                          ),
-                        ],
-                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 250),

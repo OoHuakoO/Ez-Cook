@@ -1,3 +1,5 @@
+import 'package:client/pages/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'edit_profile.dart';
@@ -27,7 +29,7 @@ class _SettingState extends State<Setting> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Edit_Profile()),
+                MaterialPageRoute(builder: (context) => Editprofile()),
               );
             },
           ),
@@ -39,9 +41,10 @@ class _SettingState extends State<Setting> {
             title: Text("ออกจากระบบ",
                 style: TextStyle(fontSize: 20, color: Color(0xFFF04D56))),
             onTap: () {
-              Navigator.push(
+              FirebaseAuth.instance.signOut();
+              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => Edit_Profile()),
+                MaterialPageRoute(builder: (context) => Login()),
               );
             },
           ),

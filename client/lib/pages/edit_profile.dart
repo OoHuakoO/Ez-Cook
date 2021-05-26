@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Edit_Profile extends StatefulWidget {
+class Editprofile extends StatefulWidget {
   @override
-  _Edit_ProfileState createState() => _Edit_ProfileState();
+  _EditprofileState createState() => _EditprofileState();
 }
 
-class _Edit_ProfileState extends State<Edit_Profile> {
+class _EditprofileState extends State<Editprofile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
