@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { firestore } = require("../firebase/config");
 const moment = require("moment");
-const { v4: uuidv4, NIL } = require("uuid");
+const { v4: uuidv4} = require("uuid");
 const multer = require("multer");
 const path = require("path");
 const { count } = require("console");
@@ -50,20 +50,6 @@ const uploadFile = (req, res, next) => {
   });
 };
 
-// const uploadphotocomment = (req, res, next) => {
-//   const upload2 = upload.fields([{ name: "photocomment", maxCount: 20 }]);
-//   upload2(req, res, function (err) {
-//     if (err instanceof multer.MulterError) {
-//       return res
-//         .status(400)
-//         .json({ msg: "** ไฟล์รูปรวมกันต้องมีขนาดไม่เกิน 1 MB **" });
-//     } else if (err) {
-//       return res.status(400).json({ msg: err.message });
-//     }
-//     next();
-//   });
-// };
-
 // สร้างสูตรอาหาร
 router.post("/createFood/:userId", uploadFile, async (req, res) => {
   const userId = req.params.userId;
@@ -74,7 +60,7 @@ router.post("/createFood/:userId", uploadFile, async (req, res) => {
   const date = Date.now();
   const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
   console.log(
-    imageFood[0].filenameh,
+    imageFood[0].filename,
     nameFood,
     date,
     timeCook,
@@ -124,7 +110,7 @@ router.post("/detailFood/:foodId", async (req, res) => {
       console.log(err);
     });
 });
-// ดูสูตรอาหารทั้งหมด
+// ดูสูตรอาหารั้งหมด
 router.get("/allFood", async (req, res) => {
   const data = [];
   await firestore
