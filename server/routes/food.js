@@ -1,40 +1,38 @@
 const express = require("express");
 const router = express.Router();
 const { firestore } = require("../firebase/config");
-const moment = require("moment");
-const { v4: uuidv4} = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
 const path = require("path");
-const { count } = require("console");
 // const { search, image } = require("../utils/cloudinary");
-let storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../../client/assets/pictureUploads"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
+// let storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname, "../../client/assets/pictureUploads"));
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.originalname);
+//   },
+// });
 
-let fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype === "image/jpeg" ||
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/jpg"
-  ) {
-    cb(null, true);
-  } else {
-    return cb(new Error("** ต้องเป็นไฟล์ png หรือ jpeg เท่านั้น **"));
-  }
-};
+// let fileFilter = (req, file, cb) => {
+//   if (
+//     file.mimetype === "image/jpeg" ||
+//     file.mimetype === "image/png" ||
+//     file.mimetype === "image/jpg"
+//   ) {
+//     cb(null, true);
+//   } else {
+//     return cb(new Error("** ต้องเป็นไฟล์ png หรือ jpeg เท่านั้น **"));
+//   }
+// };
 
-let upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: {
-    fileSize: 1 * 1024 * 1024,
-  },
-});
+// let upload = multer({
+//   storage: storage,
+//   fileFilter: fileFilter,
+//   limits: {
+//     fileSize: 1 * 1024 * 1024,
+//   },
+// });
 
 const uploadFile = (req, res, next) => {
   const upload2 = upload.fields([{ name: "imageFood", maxCount: 1 }]);
@@ -50,13 +48,18 @@ const uploadFile = (req, res, next) => {
   });
 };
 
-// สร้างสูตรอาหาร
 router.post("/createFood/:userId", async (req, res) => {
   const userId = req.params.userId;
   const uid = uuidv4();
-  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube, imageFood } =
-    req.body;
-  // const imageFood = req.files.imageFood;
+  var {
+    nameFood,
+    timeCook,
+    categoryFood,
+    ingredient,
+    howCook,
+    linkYoutube,
+    imageFood,
+  } = req.body;
   const date = Date.now();
   // const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
   console.log(
@@ -81,7 +84,7 @@ router.post("/createFood/:userId", async (req, res) => {
       howCook,
       linkYoutube,
       date,
-      imageFood: imageFoodConvertToPath,
+      imageFood,
       userId,
       like: 0,
     })
@@ -105,6 +108,21 @@ router.post("/detailFood/:foodId", async (req, res) => {
         data.push(element.data());
       });
       res.json({ data });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.post("/deleteFood/:foodId", async (req, res) => {
+  const foodId = req.params.foodId;
+
+  await firestore
+    .collection("Food")
+    .doc(foodId)
+    .delete()
+    .then(() => {
+      res.json({ sucess: true });
     })
     .catch((err) => {
       console.log(err);
@@ -204,12 +222,17 @@ router.post("/unlikeFood/:foodId", async (req, res) => {
     });
 });
 
-
 router.post("/editFood/:foodId", uploadFile, async (req, res) => {
   const foodId = req.params.foodId;
-  var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
-    req.body;
-  const imageFood = req.files.imageFood;
+  var {
+    nameFood,
+    timeCook,
+    categoryFood,
+    ingredient,
+    howCook,
+    linkYoutube,
+    imageFood,
+  } = req.body;
   const date = Date.now();
   if (imageFood == undefined) {
     await firestore
@@ -231,7 +254,7 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
         console.log(err);
       });
   } else if (imageFood != undefined) {
-    const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
+    // const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
     await firestore
       .collection("Food")
       .doc(foodId)
@@ -243,7 +266,7 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
         howCook,
         linkYoutube,
         date,
-        imageFood: imageFoodConvertToPath,
+        imageFood,
       })
       .then(async () => {
         res.json({ success: true });
