@@ -109,7 +109,7 @@ class _AddCookState extends State<AddCook> {
   }
 
   submitCook() async {
-    if (_formKey.currentState.validate()) {
+    if (!_formKey.currentState.validate()) {
       return;
     } else if (imageFile == null) {
       return;
@@ -135,7 +135,7 @@ class _AddCookState extends State<AddCook> {
     try {
       var res = await http.post(
         Uri.parse(
-            "http://localhost:7000/food/createFood/40XQzyTtFAb6KVVoPO0H96n18G53"),
+            "https://ezcooks.herokuapp.com/createFood/40XQzyTtFAb6KVVoPO0H96n18G53"),
         body: data,
       );
       print(res);
