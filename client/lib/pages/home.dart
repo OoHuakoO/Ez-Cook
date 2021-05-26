@@ -44,7 +44,6 @@ class _HomeState extends State<Home> {
   Widget getAppBar() {
     if (pageIndex == 0) {
       return AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFFF04D56),
         actions: <Widget>[
           Padding(
@@ -101,19 +100,16 @@ class _HomeState extends State<Home> {
       );
     } else if (pageIndex == 1) {
       return AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFFF04D56),
         title: Text("เพิ่มสูตรอาหาร"),
       );
     } else if (pageIndex == 2) {
       return AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFFF04D56),
         title: Text("จัดอันดับ"),
       );
     } else if (pageIndex == 3) {
       return AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFFF04D56),
         title: Text("โปรไฟล์"),
         actions: [

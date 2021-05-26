@@ -157,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             msg: "สร้างบัญชีสำเร็จ",
                                             gravity: ToastGravity.TOP);
                                         formKey.currentState.reset();
-                                        Navigator.pushReplacement(context,
+                                        Navigator.push(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
                                           return Homepage();
