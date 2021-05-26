@@ -92,35 +92,36 @@ class _LoginState extends State<Login> {
                       ),
                       child:
                           Text("ลงชื่อเข้าใช้", style: TextStyle(fontSize: 20)),
-                      onPressed: () async {
-                        if (formKey.currentState.validate()) {
-                          formKey.currentState.save();
-                          try {
-                            await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: email, password: password)
-                                .then((value) {
-                              Fluttertoast.showToast(
+                      onPressed: () async{
+                       if(formKey.currentState.validate()){
+                              formKey.currentState.save();
+                              try{
+                                await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) {
+                                  Fluttertoast.showToast(
                                   msg: "ลงชื่อเข้าใช้สำเร็จ",
-                                  gravity: ToastGravity.TOP);
-                              formKey.currentState.reset();
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return Home();
-                              }));
-                            });
-                          } on FirebaseAuthException catch (e) {
-                            print(e.code);
-                            String message;
-                            if (e.code == "user-not-found") {
-                              message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
-                            } else {
-                              message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+                                  gravity: ToastGravity.TOP
+                                  );
+                                formKey.currentState.reset();
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                  return Home();
+                                }));
+                                });
+                              }on FirebaseAuthException catch(e){ 
+                                print(e.code);
+                                String message;
+                                if(e.code == "user-not-found"){
+                                  message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+                                }
+                                else{
+                                  message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+                                }
+                                Fluttertoast.showToast(
+                                  msg: message,
+                                  gravity: ToastGravity.TOP
+                                  );
+                              }
+
                             }
-                            Fluttertoast.showToast(
-                                msg: message, gravity: ToastGravity.TOP);
-                          }
-                        }
                       },
                     ),
                   ),
@@ -128,7 +129,8 @@ class _LoginState extends State<Login> {
                 TextButton(
                   child: Text("ลืมรหัสผ่าน ?",
                       style: TextStyle(fontSize: 18, color: Color(0xFF9D9D9D))),
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                 ),
                 Container(
                   width: double.maxFinite,
