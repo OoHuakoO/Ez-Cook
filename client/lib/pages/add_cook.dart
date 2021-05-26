@@ -20,6 +20,7 @@ class _AddCookState extends State<AddCook> {
   String categoryCook;
   List<String> ingredient = [];
   List<String> howtoCook = [];
+  String linkYoutube;
 
   final List<String> _timeCookOption = ["10", "20", "30", "45", "60"];
   final List<String> _categoryCookOption = [
@@ -41,11 +42,11 @@ class _AddCookState extends State<AddCook> {
   }
 
   final TextStyle inputStyle = TextStyle(
-    fontSize: 18,
+    fontSize: 15,
     color: Colors.blue[900],
   );
   final TextStyle lableStyle = TextStyle(
-    fontSize: 16,
+    fontSize: 18,
     color: Colors.grey[900],
   );
 
@@ -62,6 +63,8 @@ class _AddCookState extends State<AddCook> {
     });
   }
 
+  saveImageToFolder() {}
+
   submitCook() {
     if (!_formKey.currentState.validate()) {
       return;
@@ -74,6 +77,7 @@ class _AddCookState extends State<AddCook> {
     print("name $categoryCook");
     print("name $ingredient");
     print("name $howtoCook");
+    print("url $linkYoutube");
   }
 
   // ignore: missing_return
@@ -124,7 +128,7 @@ class _AddCookState extends State<AddCook> {
           flex: 2,
           child: TextFormField(
             keyboardType: TextInputType.text,
-            style: TextStyle(fontSize: 20),
+            style: inputStyle,
             validator: (String value) {
               if (value.isEmpty) {
                 return 'โปรดกรอกชื่อเมนูอาหาร';
@@ -169,7 +173,7 @@ class _AddCookState extends State<AddCook> {
                   value: value,
                   child: Text(
                     '$value นาที',
-                    style: lableStyle,
+                    style: inputStyle,
                   ));
             }).toList(),
             validator: (String value) {
@@ -215,7 +219,7 @@ class _AddCookState extends State<AddCook> {
                   value: value,
                   child: Text(
                     value,
-                    style: lableStyle,
+                    style: inputStyle,
                   ));
             }).toList(),
             validator: (String value) {
@@ -242,7 +246,7 @@ class _AddCookState extends State<AddCook> {
           child: TextFormField(
             controller: TextEditingController(text: ingredientItem),
             keyboardType: TextInputType.text,
-            style: TextStyle(fontSize: 20),
+            style: inputStyle,
             validator: (String value) {
               if (value.isEmpty) {
                 return 'โปรดกรอกส่วนผสม';
@@ -283,6 +287,9 @@ class _AddCookState extends State<AddCook> {
   }
 
   _onDeleteIngredient(index) {
+    if (ingredient.length <= 3) {
+      return;
+    }
     setState(() {
       ingredient.removeAt(index);
     });
@@ -297,7 +304,7 @@ class _AddCookState extends State<AddCook> {
           child: TextFormField(
             controller: TextEditingController(text: howtoCookItem),
             keyboardType: TextInputType.text,
-            style: TextStyle(fontSize: 20),
+            style: inputStyle,
             validator: (String value) {
               if (value.isEmpty) {
                 return 'โปรดกรอกวิธีทำ';
@@ -334,14 +341,38 @@ class _AddCookState extends State<AddCook> {
 
   _addHowToCook() {
     setState(() {
-      ingredient.add("");
+      howtoCook.add("");
     });
   }
 
   _onDeletehowtoCook(index) {
+    if (howtoCook.length <= 3) {
+      return;
+    }
     setState(() {
       howtoCook.removeAt(index);
     });
+  }
+
+  Widget _linkYoutube() {
+    return Column(
+      children: [
+        Text(
+          "link youtube (ถ้ามี)",
+          style: lableStyle,
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        TextFormField(
+          keyboardType: TextInputType.text,
+          style: inputStyle,
+          onChanged: (String value) {
+            linkYoutube = value;
+          },
+        ),
+      ],
+    );
   }
 
   @override
@@ -389,6 +420,13 @@ class _AddCookState extends State<AddCook> {
             TextButton(
                 onPressed: () => _addHowToCook(),
                 child: Text("เพิ่มวิธีการทำ")),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: _linkYoutube(),
+            ),
+            SizedBox(
+              height: 30,
+            ),
             SizedBox(
               width: double.infinity,
               height: 50,
