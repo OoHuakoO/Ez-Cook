@@ -92,7 +92,7 @@ router.post("/createFood/:userId", uploadFile, async (req, res) => {
       console.log(err);
     });
 });
-// ดูรายละเอียดโพสต์สูตรอาหาร
+
 router.post("/detailFood/:foodId", async (req, res) => {
   const foodId = req.params.foodId;
   const data = [];
@@ -110,7 +110,7 @@ router.post("/detailFood/:foodId", async (req, res) => {
       console.log(err);
     });
 });
-// ดูสูตรอาหารั้งหมด
+
 router.get("/allFood", async (req, res) => {
   const data = [];
   await firestore
@@ -127,7 +127,7 @@ router.get("/allFood", async (req, res) => {
       console.log(err);
     });
 });
-// ดูสูตรอาหารของคนๆนั้น
+
 router.post("/otherFoodInDetailFood/:userId", async (req, res) => {
   const userId = req.params.userId;
   const data = [];
@@ -204,7 +204,7 @@ router.post("/unlikeFood/:foodId", async (req, res) => {
     });
 });
 
-// แก้ไขสูตรอาหาร
+
 router.post("/editFood/:foodId", uploadFile, async (req, res) => {
   const foodId = req.params.foodId;
   var { nameFood, timeCook, categoryFood, ingredient, howCook, linkYoutube } =
@@ -253,7 +253,7 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
       });
   }
 });
-// จัดอันดับเมนูอาหารยอดนิยม
+
 router.get("/rankFood", async (req, res) => {
   const data = [];
   await firestore
@@ -270,7 +270,7 @@ router.get("/rankFood", async (req, res) => {
       console.log(err);
     });
 });
-// เขียนคอมเมนต์ในสูตรอาหารคนอื่น
+
 router.post("/createComment/:foodId/:userId", async (req, res) => {
   const userId = req.params.userId;
   const foodId = req.params.foodId;
@@ -304,7 +304,7 @@ router.post("/createComment/:foodId/:userId", async (req, res) => {
       console.log(err);
     });
 });
-// ดึงคอมเมนต์ในสูตรอาหารคนอื่น
+
 router.post("/getComment/:foodId", async (req, res) => {
   const foodId = req.params.foodId;
   const data = [];
