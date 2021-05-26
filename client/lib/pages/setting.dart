@@ -27,7 +27,7 @@ class _SettingState extends State<Setting> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Edit_Profile()),
+                MaterialPageRoute(builder: (context) => Editprofile()),
               );
             },
           ),
@@ -41,7 +41,7 @@ class _SettingState extends State<Setting> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Edit_Profile()),
+                MaterialPageRoute(builder: (context) => Editprofile()),
               );
             },
           ),
