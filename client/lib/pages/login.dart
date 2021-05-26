@@ -1,4 +1,3 @@
-
 import 'package:client/pages/homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +9,6 @@ import 'package:client/pages/home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -19,24 +17,21 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
-
-  String email , password;
- 
+  String email, password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 30, 40,0),
+        padding: const EdgeInsets.fromLTRB(40, 30, 40, 0),
         child: Container(
           child: Form(
             key: formKey,
             child: Column(
               children: [
-                
                 Image.asset('assets/LogoEzcook.png'),
                 TextFormField(
-                   onSaved: (value){
+                  onSaved: (value) {
                     email = value;
                   },
                   validator: MultiValidator([
@@ -56,16 +51,15 @@ class _LoginState extends State<Login> {
                           borderSide:
                               BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
-                          onChanged: (value) {
-                            this.email = value ;
-                          },
-                         
+                  onChanged: (value) {
+                    this.email = value;
+                  },
                 ),
                 SizedBox(
                   height: 15,
                 ),
                 TextFormField(
-                   onSaved: (value){
+                  onSaved: (value) {
                     password = value;
                   },
                   validator: RequiredValidator(errorText: "กรุณาใส่รหัสผ่าน"),
@@ -82,10 +76,9 @@ class _LoginState extends State<Login> {
                           borderSide:
                               BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
-                           onChanged: (value) {
-                            this.password = value ;
-                          },
-                        
+                  onChanged: (value) {
+                    this.password = value;
+                  },
                 ),
                 Container(
                   width: double.infinity,
@@ -99,37 +92,35 @@ class _LoginState extends State<Login> {
                       ),
                       child:
                           Text("ลงชื่อเข้าใช้", style: TextStyle(fontSize: 20)),
-                      onPressed: () async{
-                       if(formKey.currentState.validate()){
-                              formKey.currentState.save();
-                              try{
-                                await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) {
-                                  Fluttertoast.showToast(
-                                  msg: "ลงชื่อเข้าใช้สำเร็จ",
-                                  gravity: ToastGravity.TOP
-                                  );
-                                formKey.currentState.reset();
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
-                                  return Homepage();
-                                }));
-                                });
-                              }on FirebaseAuthException catch(e){
-                                print(e.code);
-                                String message;
-                                if(e.code == "user-not-found"){
-                                  message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
-                                }
-                                else{
-                                  message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
-                                }
-                                Fluttertoast.showToast(
-                                  msg: message,
-                                  gravity: ToastGravity.TOP
-                                  );
-                              }
-                          
-                            
-                            }
+                      onPressed: () async {
+                        // if (formKey.currentState.validate()) {
+                        //   formKey.currentState.save();
+                        //   try {
+                        //     await FirebaseAuth.instance
+                        //         .signInWithEmailAndPassword(
+                        //             email: email, password: password)
+                        //         .then((value) {
+                        //       Fluttertoast.showToast(
+                        //           msg: "ลงชื่อเข้าใช้สำเร็จ",
+                        //           gravity: ToastGravity.TOP);
+                        //       formKey.currentState.reset();
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return Homepage();
+                              }));
+                        //     });
+                        //   } on FirebaseAuthException catch (e) {
+                        //     print(e.code);
+                        //     String message;
+                        //     if (e.code == "user-not-found") {
+                        //       message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+                        //     } else {
+                        //       message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+                        //     }
+                        //     Fluttertoast.showToast(
+                        //         msg: message, gravity: ToastGravity.TOP);
+                        //   }
+                        // }
                       },
                     ),
                   ),
