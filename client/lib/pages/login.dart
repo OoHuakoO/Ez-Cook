@@ -1,8 +1,15 @@
+
+import 'package:client/pages/homepage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:client/pages/register.dart';
 import 'package:client/pages/home.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+
 
 class Login extends StatefulWidget {
   @override
@@ -11,7 +18,10 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
-  final storage = new FlutterSecureStorage();
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
+
+  String email , password;
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +30,19 @@ class _LoginState extends State<Login> {
         padding: const EdgeInsets.fromLTRB(40, 30, 40,0),
         child: Container(
           child: Form(
+            key: formKey,
             child: Column(
               children: [
+                
                 Image.asset('assets/LogoEzcook.png'),
                 TextFormField(
+                   onSaved: (value){
+                    email = value;
+                  },
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "กรุณาใส่อีเมล"),
+                    EmailValidator(errorText: "รูปแบบอีเมลไม่ถูกต้อง"),
+                  ]),
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       filled: true,
@@ -37,11 +56,19 @@ class _LoginState extends State<Login> {
                           borderSide:
                               BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
+                          onChanged: (value) {
+                            this.email = value ;
+                          },
+                         
                 ),
                 SizedBox(
                   height: 15,
                 ),
                 TextFormField(
+                   onSaved: (value){
+                    password = value;
+                  },
+                  validator: RequiredValidator(errorText: "กรุณาใส่รหัสผ่าน"),
                   obscureText: true,
                   decoration: InputDecoration(
                       filled: true,
@@ -55,6 +82,10 @@ class _LoginState extends State<Login> {
                           borderSide:
                               BorderSide(width: 1, color: Color(0xFFF04D56)),
                           borderRadius: BorderRadius.circular(10))),
+                           onChanged: (value) {
+                            this.password = value ;
+                          },
+                        
                 ),
                 Container(
                   width: double.infinity,
@@ -68,11 +99,37 @@ class _LoginState extends State<Login> {
                       ),
                       child:
                           Text("ลงชื่อเข้าใช้", style: TextStyle(fontSize: 20)),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
+                      onPressed: () async{
+                       if(formKey.currentState.validate()){
+                              formKey.currentState.save();
+                              try{
+                                await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) {
+                                  Fluttertoast.showToast(
+                                  msg: "ลงชื่อเข้าใช้สำเร็จ",
+                                  gravity: ToastGravity.TOP
+                                  );
+                                formKey.currentState.reset();
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+                                  return Homepage();
+                                }));
+                                });
+                              }on FirebaseAuthException catch(e){
+                                print(e.code);
+                                String message;
+                                if(e.code == "user-not-found"){
+                                  message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+                                }
+                                else{
+                                  message = e.message;
+                                }
+                                Fluttertoast.showToast(
+                                  msg: message,
+                                  gravity: ToastGravity.TOP
+                                  );
+                              }
+                          
+                            
+                            }
                       },
                     ),
                   ),
@@ -102,6 +159,7 @@ class _LoginState extends State<Login> {
                           );
                         },
                       ),
+                      // Text(FirebaseFirestore.instance.currentUser.email)
                     ],
                   ),
                 )
