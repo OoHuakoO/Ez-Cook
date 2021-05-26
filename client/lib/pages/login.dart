@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
                                   message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
                                 }
                                 else{
-                                  message = e.message;
+                                  message = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
                                 }
                                 Fluttertoast.showToast(
                                   msg: message,
