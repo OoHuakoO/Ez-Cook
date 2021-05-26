@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { firestore } = require("../firebase/config");
-const { v4: uuidv4} = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
 const path = require("path");
 // const { search, image } = require("../utils/cloudinary");
@@ -48,7 +48,6 @@ const uploadFile = (req, res, next) => {
   });
 };
 
-// สร้างสูตรอาหาร
 router.post("/createFood/:userId", uploadFile, async (req, res) => {
   const userId = req.params.userId;
   const uid = uuidv4();
@@ -201,7 +200,6 @@ router.post("/unlikeFood/:foodId", async (req, res) => {
       console.log(err);
     });
 });
-
 
 router.post("/editFood/:foodId", uploadFile, async (req, res) => {
   const foodId = req.params.foodId;
