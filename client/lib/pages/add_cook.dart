@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:image/image.dart' as Img;
+// import 'package:path_provider/path_provider.dart';
+// import 'package:image/image.dart' as Img;
 import 'package:firebase_storage/firebase_storage.dart';
 import '../firebase/firebase_api.dart';
 import 'package:path/path.dart';
@@ -18,18 +19,18 @@ class AddCook extends StatefulWidget {
 
 class _AddCookState extends State<AddCook> {
   final _formKey = GlobalKey<FormState>();
-  
-UploadTask task;
-String nameCook;
-String imageUrl;
-File imageFile;
-String timeCook;
-String categoryCook;
-List<String> ingredient = [];
-List<String> howtoCook = [];
-String linkYoutube;
 
-  final List<String> _timeCookOption = ["10", "20", "30", "45", "60"];
+  UploadTask task;
+  String nameCook;
+  String imageUrl;
+  File imageFile;
+  String timeCook;
+  String categoryCook;
+  List<String> ingredient = [];
+  List<String> howtoCook = [];
+  String linkYoutube;
+
+  final List<String> _timeCookOption = ["5", "10", "20", "30", "45", "60"];
   final List<String> _categoryCookOption = [
     'ทอด',
     'ต้ม',
@@ -46,16 +47,16 @@ String linkYoutube;
     ingredient = ["", "", ""];
     howtoCook = ["", "", ""];
     imageUrl =
-        "https://thaigifts.or.th/wp-content/uploads/2017/03/no-image.jpg";
+        "http://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png";
   }
 
   final TextStyle inputStyle = TextStyle(
     fontSize: 15,
-    color: Colors.blue[900],
+    color: Colors.black87,
   );
   final TextStyle lableStyle = TextStyle(
     fontSize: 18,
-    color: Colors.grey[900],
+    color: Colors.black87,
   );
 
   getLocalImage() async {
@@ -69,29 +70,6 @@ String linkYoutube;
         print('No image selected.');
       }
     });
-  }
-
-  saveImageToFolder() async {
-    Directory directory = await getTemporaryDirectory();
-
-    try {
-      File tempFile = File(imageFile.path);
-      Img.Image image = Img.decodeImage(tempFile.readAsBytesSync());
-      Img.Image mImage = Img.copyResize(image, width: 512);
-      String imgType = imageFile.path.split('.').last;
-      String mPath =
-          '${directory.path.toString()}/im${DateTime.now()}.$imgType';
-
-      File dFile = File(mPath);
-      if (imgType == 'jpg' || imgType == 'jpeg') {
-        dFile.writeAsBytesSync(Img.encodeJpg(mImage));
-      } else {
-        dFile.writeAsBytesSync(Img.encodePng(mImage));
-      }
-      return dFile;
-    } catch (e) {
-      print(e);
-    }
   }
 
   uploadImageToFirebase() async {
@@ -115,31 +93,37 @@ String linkYoutube;
     } else if (imageFile == null) {
       return;
     }
-    // print(imageFile);
-    // print("name $nameCook");
-    // print("name $timeCook");
-    // print("name $categoryCook");
-    // print("name $ingredient");
-    // print("name $howtoCook");
-    // print("url $linkYoutube");
     var urlImage = await uploadImageToFirebase();
-    var data = {
+
+    final url_service = Uri.parse(
+        "https://ezcooks.herokuapp.com/food/createFood/40XQzyTtFAb6KVVoPO0H96n18G53");
+
+    Map<String, String> header = {'Content-Type': 'application/json'};
+
+    Map<String, dynamic> data = {
       "nameFood": nameCook,
       "timeCook": timeCook,
       "categoryFood": categoryCook,
       "ingredient": ingredient,
-      "linkYoutube": linkYoutube,
       "howCook": howtoCook,
+      "linkYoutube": linkYoutube,
       "imageFood": urlImage
     };
-    print(data);
+
+    var json = JsonEncoder().convert(data);
+    print(json);
+
     try {
       var res = await http.post(
-        Uri.parse(
-            "https://ezcooks.herokuapp.com/createFood/40XQzyTtFAb6KVVoPO0H96n18G53"),
-        body: data,
+        url_service,
+        headers: header,
+        body: json,
       );
-      print(res);
+      if (res.statusCode == 200) {
+        print("success");
+      } else {
+        print("fail");
+      }
     } catch (e) {
       print(e);
     }
@@ -153,11 +137,23 @@ String linkYoutube;
       return Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
-          Center(
-            child: Image.file(imageFile, height: 250, fit: BoxFit.cover),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Image.file(
+              imageFile,
+              height: 260,
+              fit: BoxFit.cover,
+            ),
           ),
           TextButton(
-              onPressed: () => getLocalImage(), child: Text("เปลี่ยนรูปภาพ")),
+              onPressed: () => getLocalImage(),
+              child: Text(
+                "เปลี่ยนรูปภาพ",
+                style: TextStyle(
+                    color: Colors.black87,
+                    backgroundColor: Colors.white,
+                    fontSize: 16),
+              )),
         ],
       );
     } else if (imageUrl != null) {
@@ -165,10 +161,14 @@ String linkYoutube;
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           Center(
-            child: Image.network(imageUrl, height: 250, fit: BoxFit.cover),
+            child: Image.network(imageUrl, height: 260, fit: BoxFit.cover),
           ),
           TextButton(
-              onPressed: () => getLocalImage(), child: Text("เลือกรูปภาพ")),
+              onPressed: () => getLocalImage(),
+              child: Text(
+                "เลือกรูปภาพ",
+                style: lableStyle,
+              )),
         ],
       );
     }
@@ -188,6 +188,19 @@ String linkYoutube;
           child: TextFormField(
             keyboardType: TextInputType.text,
             style: inputStyle,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color(0xFFFAFAFA),
+              hintText: 'ชื่อเมนู',
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1, color: Color(0xFFCECECE)),
+                  borderRadius: BorderRadius.circular(10)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 2, color: Color(0xFFF04D56)),
+                  borderRadius: BorderRadius.circular(10)),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+            ),
             validator: (String value) {
               if (value.isEmpty) {
                 return 'โปรดกรอกชื่อเมนูอาหาร';
@@ -215,18 +228,28 @@ String linkYoutube;
               style: lableStyle,
             )),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: DropdownButtonFormField(
             focusColor: Colors.white,
             style: inputStyle,
             isExpanded: true,
-            hint: Text(
-              "ใช้เวลากี่นาที?",
-              style: TextStyle(
-                  color: Colors.black38,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color(0xFFFAFAFA),
+              hintText: 'ใช้เวลากี่นาที ?',
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1, color: Color(0xFFCECECE)),
+                  borderRadius: BorderRadius.circular(10)),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
             ),
+            // hint: Text(
+            //   "ใช้เวลากี่นาที?",
+            //   style: TextStyle(
+            //       color: Colors.black38,
+            //       fontSize: 14,
+            //       fontWeight: FontWeight.w500),
+            // ),
             items: _timeCookOption.map((String value) {
               return DropdownMenuItem<String>(
                   value: value,
@@ -262,16 +285,19 @@ String linkYoutube;
               style: lableStyle,
             )),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: DropdownButtonFormField(
             style: inputStyle,
             isExpanded: true,
-            hint: Text(
-              "ผัด ทอด ต้ม นึ่ง ...",
-              style: TextStyle(
-                  color: Colors.black38,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color(0xFFFAFAFA),
+              hintText: 'ผัด ทอด ต้ม นึ่ง แกง ย่าง ยำ',
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1, color: Color(0xFFCECECE)),
+                  borderRadius: BorderRadius.circular(10)),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
             ),
             items: _categoryCookOption.map((String value) {
               return DropdownMenuItem<String>(
@@ -298,10 +324,13 @@ String linkYoutube;
 
   Widget _ingredientCook(ingredientItem, index) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text('${index + 1}'),
         SizedBox(width: 30),
         Expanded(
+          flex: 1,
           child: TextFormField(
             controller: TextEditingController(text: ingredientItem),
             keyboardType: TextInputType.text,
@@ -313,7 +342,7 @@ String linkYoutube;
               return null;
             },
             onChanged: (String value) {
-              ingredient[index] = value;
+              ingredient[index] = value.toString();
             },
           ),
         ),
@@ -328,15 +357,12 @@ String linkYoutube;
   }
 
   Widget _dynamicIngredient() {
-    return Flexible(
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: ingredient.length,
-            itemBuilder: (context, index) {
-              var data = ingredient[index];
-              print(data);
-              return _ingredientCook(data, index);
-            }));
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: ingredient.length,
+        itemBuilder: (context, index) {
+          return _ingredientCook(ingredient[index], index);
+        });
   }
 
   _addIngredient() {
@@ -371,7 +397,7 @@ String linkYoutube;
               return null;
             },
             onChanged: (String value) {
-              howtoCook[index] = value;
+              howtoCook[index] = value.toString();
             },
           ),
         ),
@@ -415,17 +441,32 @@ String linkYoutube;
 
   Widget _linkYoutube() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "link youtube (ถ้ามี)",
           style: lableStyle,
         ),
         SizedBox(
-          height: 5,
+          height: 10,
         ),
         TextFormField(
           keyboardType: TextInputType.text,
           style: inputStyle,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Color(0xFFFAFAFA),
+            hintText: 'url',
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1, color: Color(0xFFCECECE)),
+                borderRadius: BorderRadius.circular(10)),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 2, color: Color(0xFFF04D56)),
+                borderRadius: BorderRadius.circular(10)),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+          ),
           onChanged: (String value) {
             linkYoutube = value;
           },
@@ -436,11 +477,11 @@ String linkYoutube;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Container(
       padding: const EdgeInsets.all(15.0),
       child: Form(
         key: _formKey,
-        child: Column(
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -458,9 +499,15 @@ String linkYoutube;
               padding: const EdgeInsets.all(8.0),
               child: _categoryCook(),
             ),
-            Text(
-              "ส่วนผสม",
-              style: lableStyle,
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "ส่วนผสม",
+                style: lableStyle,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -468,9 +515,12 @@ String linkYoutube;
             ),
             TextButton(
                 onPressed: () => _addIngredient(), child: Text("เพิ่มส่วนผสม")),
-            Text(
-              "วิธีการทำ",
-              style: lableStyle,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "วิธีการทำ",
+                style: lableStyle,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -489,8 +539,12 @@ String linkYoutube;
             SizedBox(
               width: double.infinity,
               height: 50,
-              child: ElevatedButton(
-                child: Text("สร้างเมนูอาหาร"),
+              child: TextButton(
+                style: TextButton.styleFrom(backgroundColor: Color(0xFFF04D56)),
+                child: Text(
+                  "สร้างเมนูอาหาร",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
                 onPressed: () => submitCook(),
               ),
             ),
