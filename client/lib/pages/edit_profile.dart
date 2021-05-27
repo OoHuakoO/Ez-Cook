@@ -16,7 +16,7 @@ class Editprofile extends StatefulWidget {
 
 class _EditprofileState extends State<Editprofile> {
   final formKey = GlobalKey<FormState>();
-  String username, imageProfile;
+  String username, imageProfile = "";
 
 
 
@@ -52,8 +52,11 @@ class _EditprofileState extends State<Editprofile> {
                         height: 150,
                         width: 150,
                         child: CircleAvatar(
-                          backgroundImage: AssetImage(
-                              "${snapshot.data.docs[0]["imageProfile"]}"),
+                          backgroundImage: snapshot.data.docs[0]["imageProfile"] != "" ? NetworkImage(
+                            "${snapshot.data.docs[0]["imageProfile"]}"
+                            ) : AssetImage(
+                            "assets/profile.jpg"
+                            ),
                           // backgroundImage: AssetImage("assets/profilenadate.jpeg"),
                         ),
                       ),

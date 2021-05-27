@@ -21,6 +21,7 @@ class _ProfileState extends State<Profile> {
       .collection("Food")
       .where('userId', isEqualTo: FirebaseAuth.instance.currentUser.uid);
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +42,11 @@ class _ProfileState extends State<Profile> {
                       height: 150,
                       width: 150,
                       child: CircleAvatar(
-                        backgroundImage: AssetImage(
-                            "${snapshot.data.docs[0]["imageProfile"]}"),
+                        backgroundImage: snapshot.data.docs[0]["imageProfile"] != "" ? NetworkImage(
+                            "${snapshot.data.docs[0]["imageProfile"]}"
+                            ) : AssetImage(
+                            "assets/profile.jpg"
+                            ),
                       ),
                     ),
                   ),
@@ -112,8 +116,8 @@ class _ProfileState extends State<Profile> {
                                                         Radius.circular(25),
                                                     topRight:
                                                         Radius.circular(25)),
-                                                child: Image.asset(
-                                                  "${snapshot.data.docs[index].data()["imageProfile"]}",
+                                                child: Image.network(
+                                                  '${snapshot.data.docs[index].data()["imageFood"]}',
                                                 ),
                                               ),
                                             ),
