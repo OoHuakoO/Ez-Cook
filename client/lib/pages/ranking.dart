@@ -94,69 +94,96 @@ class _RankState extends State<Rank> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 5, right: 5, top: 30, bottom: 5),
-                    child: Text(
-                      '${index + 1}',
-                      style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                        left: 10, right: 10, top: 30, bottom: 5),
+                    child: Flexible(
+                      child: Text(
+                        '${index + 1}',
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
               ),
-              Image.network(element['imageFood']),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5, top: 2),
-                    child: Row(
-                      children: [
-                        Icon(Icons.person),
-                        Text(
-                          "Sompong",
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2),
-                    child: Text(element['nameFood']),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, top: 2),
-                    child: Text(element['like']),
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                          bottomLeft: Radius.circular(50),
-                          bottomRight: Radius.circular(50)),
-                      child: Container(
-                        width: 70,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF04D56),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5, top: 5),
-                          child: Text(
-                            "อาหารประเภท ${element['categoryFood']}",
-                            style: const TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
+              Container(width: 80, child: Image.network(element['imageFood'])),
+              Container(
+                width: 170,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5, top: 2),
+                      child: Flexible(
+                        child: Row(
+                          children: [
+                            Icon(Icons.person),
+                            Text(
+                              "Sompong",
+                            ),
+                          ],
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 7, top: 2),
+                      child: Flexible(
+                        child: Row(
+                          children: [
+                            Text(element['nameFood']),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 2),
+                      child: Flexible(
+                        child: Row(
+                          children: [
+                            Text(element['like']),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                              bottomRight: Radius.circular(50)),
+                          child: Container(
+                            width: 100,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF04D56),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 0, top: 8),
+                              child: Flexible(
+                                child: Text(
+                                  "อาหารประเภท ${element['categoryFood']}",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
