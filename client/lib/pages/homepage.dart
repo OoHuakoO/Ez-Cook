@@ -15,56 +15,53 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   var listFood;
+  String currentCategory = "all";
+  int selectedIndex = 0;
+
   List<Map<String, dynamic>> food = [];
-  List<Map<String, dynamic>> users = [];
+
   getFood() async {
-    final res =
-        await get(Uri.parse("https://ezcooks.herokuapp.com/food/allFood"));
+    print(currentCategory);
+
+    final res = await get(Uri.parse(
+        "https://ezcooks.herokuapp.com/food?category=" + currentCategory));
     if (res.statusCode == 200) {
-      var list = (jsonDecode(res.body)['food']).map((e) => Food.fromJson(e));
+      var list = (jsonDecode(res.body)).map((e) => Food.fromJson(e));
+
+      food = [];
 
       for (final vv in list) {
-        food.add({
-          "nameFood": vv.nameFood,
-          "timeCook": vv.timeCook,
-          "categoryFood": vv.categoryFood,
-          "ingredient": vv.ingredient,
-          "linkYoutube": vv.linkYoutube,
-          "howCook": vv.howCook,
-          "imageFood": vv.imageFood,
-          "like": vv.like.toString(),
+        setState(() {
+          food.add({
+            "nameFood": vv.nameFood,
+            "timeCook": vv.timeCook,
+            "categoryFood": vv.categoryFood,
+            "ingredient": vv.ingredient,
+            "linkYoutube": vv.linkYoutube,
+            "howCook": vv.howCook,
+            "imageFood": vv.imageFood,
+            "like": vv.like.toString(),
+            "imageProfile": vv.imageProfile,
+            "username": vv.username,
+          });
         });
       }
-
-      setState(() {});
     }
   }
 
-  getUsers() async {
-    final res =
-        await get(Uri.parse("https://ezcooks.herokuapp.com/food/allFood"));
-    if (res.statusCode == 200) {
-      var list = (jsonDecode(res.body)['user']).map((e) => User.fromJson(e));
-
-      for (final vv in list) {
-        users.add({
-          "imageProfile": vv.imageProfile,
-          "username": vv.username,
-        });
-      }
-
-      setState(() {});
-    }
+  onSelectCategory(index) {
+    selectedIndex = index;
+    currentCategory = FoodK[index];
+    getFood();
+    // setState(() {});
   }
 
   @override
   void initState() {
     getFood();
-    getUsers();
     super.initState();
   }
 
-  int selectedIndex = 0;
   Widget getBody() {
     // var size = MediaQuery.of(context).size;
     return Column(
@@ -77,11 +74,7 @@ class _HomepageState extends State<Homepage> {
           child: Row(
             children: List.generate(FoodK.length, (index) {
               return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
+                onTap: () => onSelectCategory(index),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 2.5, right: 10, top: 10),
                   child: Container(
@@ -95,7 +88,7 @@ class _HomepageState extends State<Homepage> {
                       padding: const EdgeInsets.only(
                           left: 20, right: 25, top: 10, bottom: 12),
                       child: Text(
-                        FoodK[index],
+                        "อาหารประเภท${FoodK[index]}",
                         style: TextStyle(
                           color: selectedIndex == index
                               ? Colors.white
@@ -128,8 +121,7 @@ class _HomepageState extends State<Homepage> {
             itemCount: food.length,
             itemBuilder: (BuildContext context, int index) {
               var myFoodAll = food[index];
-              var myUser = users[index];
-              // var showData = item[index];
+
               return Column(
                 children: [
                   Padding(
@@ -139,7 +131,7 @@ class _HomepageState extends State<Homepage> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(50),
                           child: Image.network(
-                            myUser['imageProfile'],
+                            myFoodAll['imageProfile'],
                             height: 22,
                             width: 22,
                           ),
@@ -147,7 +139,7 @@ class _HomepageState extends State<Homepage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
                           child: Text(
-                            "${myUser['username']}",
+                            "${myFoodAll['username']}",
                           ),
                         ),
                       ],
@@ -173,7 +165,9 @@ class _HomepageState extends State<Homepage> {
                                     MaterialPageRoute(
                                       builder: (context) => DetailFood(
                                           myFoodSee: food[index],
-                                          myUserSee: users[index]),
+                                          username: myFoodAll['username'],
+                                          imageProfile:
+                                              myFoodAll['imageProfile']),
                                     ),
                                   );
                                 },

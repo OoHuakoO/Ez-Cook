@@ -132,12 +132,12 @@ class _HomeState extends State<Home> {
   }
 
   Widget getFooter() {
-    List bottomItems = [
-      pageIndex == 0 ? "assets/house+.png" : "assets/house.png",
-      pageIndex == 1 ? "assets/add+.png" : "assets/add.png",
-      pageIndex == 2 ? "assets/ranking+.png" : "assets/ranking.png",
-      pageIndex == 3 ? "assets/user+.png" : "assets/user.png",
-    ];
+    // List bottomItems = [
+    //   pageIndex == 0 ? "assets/house+.png" : "assets/house.png",
+    //   pageIndex == 1 ? "assets/add+.png" : "assets/add.png",
+    //   pageIndex == 2 ? "assets/ranking+.png" : "assets/ranking.png",
+    //   pageIndex == 3 ? "assets/user+.png" : "assets/user.png",
+    // ];
     // return Container(
     //   width: double.infinity,
     //   height: 80,
@@ -182,9 +182,9 @@ class _HomeState extends State<Home> {
         ]);
   }
 
-  selectedTab(index) {
-    setState(() {
-      pageIndex = index;
-    });
-  }
+  // selectedTab(index) {
+  //   setState(() {
+  //     pageIndex = index;
+  //   });
+  // }
 }

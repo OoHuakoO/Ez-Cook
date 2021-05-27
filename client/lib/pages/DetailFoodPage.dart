@@ -2,16 +2,23 @@ import 'package:client/pages/home.dart';
 import 'package:flutter/material.dart';
 
 class DetailFood extends StatefulWidget {
-  final Map<String, dynamic> myFoodSee, myUserSee;
-  DetailFood({Key key, this.myFoodSee, this.myUserSee}) : super(key: key);
+  final Map<String, dynamic> myFoodSee;
+  final String username;
+  final String imageProfile;
+
+  DetailFood({Key key, this.myFoodSee, this.username, this.imageProfile})
+      : super(key: key);
   @override
-  _DetailFoodState createState() => _DetailFoodState(myFoodSee, myUserSee);
+  _DetailFoodState createState() =>
+      _DetailFoodState(myFoodSee, username, imageProfile);
 }
 
 class _DetailFoodState extends State<DetailFood> {
-  _DetailFoodState(this.myFoodSee, this.myUserSee);
+  _DetailFoodState(this.myFoodSee, this.username, this.imageProfile);
 
-  Map<String, dynamic> myFoodSee, myUserSee;
+  Map<String, dynamic> myFoodSee;
+  String username;
+  String imageProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class _DetailFoodState extends State<DetailFood> {
         body: ListView(
           children: [
             Image.network(
-              myFoodSee["imageFood"],
+              imageProfile,
               height: 200,
               width: double.infinity,
             ),
@@ -39,7 +46,7 @@ class _DetailFoodState extends State<DetailFood> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              myFoodSee['nameFood'],
+                              username,
                               style: TextStyle(fontSize: 23),
                             ),
                           ],
@@ -72,7 +79,7 @@ class _DetailFoodState extends State<DetailFood> {
                     children: [
                       Icon(Icons.person),
                       Text(
-                        "${myUserSee['username']}",
+                        username,
                       ),
                     ],
                   ),

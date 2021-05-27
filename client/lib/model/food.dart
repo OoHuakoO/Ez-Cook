@@ -7,6 +7,9 @@ class Food {
   final List howCook;
   final String imageFood;
   final int like;
+  final String username;
+  final String imageProfile;
+
   Food.fromJson(Map json)
       : nameFood = json["nameFood"],
         timeCook = json["timeCook"],
@@ -15,5 +18,7 @@ class Food {
         linkYoutube = json["linkYoutube"],
         howCook = json["howCook"],
         imageFood = json["imageFood"],
-        like = json['like'];
+        like = json['like'],
+        username = json['username'],
+        imageProfile = json['imageProfile'];
 }

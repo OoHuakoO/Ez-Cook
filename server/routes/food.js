@@ -215,39 +215,99 @@ router.post("/deleteFood/:foodId", async (req, res) => {
     });
 });
 
-router.get("/allFood", async (req, res) => {
-  const food = [];
-  const user = [];
-  await firestore
-    .collection("Food")
-    .orderBy("date", "desc")
-    .get()
-    .then(async (querySnapshotFirst) => {
-      await querySnapshotFirst.forEach(async (element) => {
-        food.push(element.data());
-        await firestore
-          .collection("User")
-          .where("uid", "==", element.get("userId"))
-          .get()
-          .then(async (querySnapshot) => {
-            await querySnapshot.forEach(async (element) => {
-              user.push({
-                username: element.get("username"),
-                imageProfile: element.get("imageProfile"),
-              });
-              if (user.length == querySnapshotFirst.size) {
-                res.json({ food, user });
+router.get("/", async (req, res) => {
+
+  const category = req.query.category;
+  let food = [];
+  let count = 0;
+  
+  //filter by category เช่น ต้ม ผัด ...
+  if (category !== "all") {
+
+    const FoodDB = await firestore
+      .collection("Food")
+      .where("categoryFood", "==", category)
+      .orderBy("date", "desc")
+      .get()
+
+
+    await FoodDB.forEach(async (element) => {
+
+      await firestore
+        .collection("User")
+        .where("uid", "==", element.get("userId"))
+        .get()
+        .then(async (querySnapshot) => {
+          await querySnapshot.forEach(async (user) => {
+
+            await food.push(
+              {
+                howCook: element.get("howCook"),
+                ingredient: element.get("ingredient"),
+                like: element.get("like"),
+                timeCook: element.get("timeCook"),
+                nameFood: element.get("nameFood"),
+                linkYoutube: element.get("linkYoutube"),
+                date: element.get("date"),
+                userId: element.get("userId"),
+                imageFood: element.get("imageFood"),
+                categoryFood: element.get("categoryFood"),
+                username: user.get("username"),
+                imageProfile: user.get("imageProfile"),
               }
-            });
-          })
-          .catch((err) => {
-            console.log(err);
+            );
+
+            count++;
+
+            if (count == FoodDB.size) {
+              await res.status(200).send(food);
+            }
           });
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+        })
+
     });
+  }
+  //get all category 
+  else {
+
+    const FoodDB = await firestore
+      .collection("Food")
+      .orderBy("date", "desc")
+      .get()
+
+
+    await FoodDB.forEach(async (element) => {
+
+      await firestore
+        .collection("User")
+        .where("uid", "==", element.get("userId"))
+        .get()
+        .then(async (querySnapshot) => {
+          await querySnapshot.forEach(async (user) => {
+            // const data = ;
+            await food.push({
+              howCook: element.get("howCook"),
+              ingredient: element.get("ingredient"),
+              like: element.get("like"),
+              timeCook: element.get("timeCook"),
+              nameFood: element.get("nameFood"),
+              linkYoutube: element.get("linkYoutube"),
+              date: element.get("date"),
+              userId: element.get("userId"),
+              imageFood: element.get("imageFood"),
+              categoryFood: element.get("categoryFood"),
+              username: user.get("username"),
+              imageProfile: user.get("imageProfile"),
+            });
+            count++;
+            if (count == FoodDB.size) {
+              await res.status(200).send(food);
+            }
+          });
+        })
+
+    });
+  }
 });
 
 router.post("/otherFoodInDetailFood/:userId", async (req, res) => {

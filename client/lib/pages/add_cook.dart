@@ -537,8 +537,7 @@ class _AddCookState extends State<AddCook> {
             TextButton(
                 onPressed: () => _addHowToCook(),
                 child: Text("เพิ่มวิธีการทำ")),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            Expanded(
               child: _linkYoutube(),
             ),
             Padding(
@@ -557,6 +556,9 @@ class _AddCookState extends State<AddCook> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 100,
+            )
           ],
         ),
       ),
