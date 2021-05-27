@@ -14,7 +14,7 @@ class _ProfileState extends State<Profile> {
 
 
   final profileList = FirebaseFirestore.instance.collection("User").where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid);
-  final getFood = FirebaseFirestore.instance.collection("Food").where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid);
+  final getFood = FirebaseFirestore.instance.collection("Food").where('userId', isEqualTo: FirebaseAuth.instance.currentUser.uid);
 
 
 
@@ -26,8 +26,10 @@ class _ProfileState extends State<Profile> {
           stream: profileList.snapshots(),
           builder: (context,snapshot){
             if(!snapshot.hasData){
+              print("ssss");
               return Center(child: CircularProgressIndicator(),);
             }
+            print(snapshot.data);
             return Column(children: [
       Center(
         child: Padding(
@@ -44,6 +46,7 @@ class _ProfileState extends State<Profile> {
       Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
         child: Text(
+          // "",
           "${snapshot.data.docs[0]["username"]}",
           style: TextStyle(fontSize: 20),
         ),
