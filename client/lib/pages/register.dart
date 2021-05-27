@@ -106,6 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 15,
                         ),
                         TextFormField(
+                          
                           onSaved: (value) {
                             password = value;
                           },
@@ -163,10 +164,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             msg: "สร้างบัญชีสำเร็จ",
                                             gravity: ToastGravity.TOP);
                                         formKey.currentState.reset();
-                                        Navigator.push(context,
+                                        Navigator.pushReplacement(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
-                                          return Homepage();
+                                          return Home();
                                         }));
                                       });
                                     } on FirebaseAuthException catch (e) {
