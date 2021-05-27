@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:path_provider/path_provider.dart';
-// import 'package:image/image.dart' as Img;
 import 'package:firebase_storage/firebase_storage.dart';
 import '../firebase/firebase_api.dart';
 import 'package:path/path.dart';
@@ -346,10 +344,7 @@ class _AddCookState extends State<AddCook> {
           ),
         ),
         IconButton(
-          icon: Icon(
-            Icons.delete,
-            color: Colors.grey,
-          ),
+          icon: Icon(Icons.delete),
           onPressed: () {
             _onDeleteIngredient(index);
           },
@@ -404,10 +399,7 @@ class _AddCookState extends State<AddCook> {
           ),
         ),
         IconButton(
-          icon: Icon(
-            Icons.delete,
-            color: Colors.grey,
-          ),
+          icon: Icon(Icons.delete),
           onPressed: () {
             _onDeletehowtoCook(index);
           },
@@ -538,20 +530,19 @@ class _AddCookState extends State<AddCook> {
               padding: const EdgeInsets.all(8.0),
               child: _linkYoutube(),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: TextButton(
-                  style:
-                      TextButton.styleFrom(backgroundColor: Color(0xFFF04D56)),
-                  child: Text(
-                    "สร้างเมนูอาหาร",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  onPressed: () => submitCook(),
+            SizedBox(
+              height: 30,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: TextButton(
+                style: TextButton.styleFrom(backgroundColor: Color(0xFFF04D56)),
+                child: Text(
+                  "สร้างเมนูอาหาร",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
+                onPressed: () => submitCook(),
               ),
             ),
           ],

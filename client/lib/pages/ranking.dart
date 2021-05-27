@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -40,7 +41,7 @@ class _RankState extends State<Rank> {
             "linkYoutube": listFood.linkYoutube,
             "howCook": listFood.howCook,
             "imageFood": listFood.imageFood,
-            "like" : listFood.like.toString()
+            "like": listFood.like.toString()
           });
         }
         // print(food);
@@ -66,12 +67,12 @@ class _RankState extends State<Rank> {
     super.initState();
   }
 
-  getPostsData(index,element) {
+  getPostsData(index, element) {
     // List<Map<String, dynamic>> responseList = food;
     // print(responseList);
     // List<Widget> listItems = [];
     print(element['like']);
-   return Padding(
+    return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Container(
           height: 80,
@@ -95,7 +96,7 @@ class _RankState extends State<Rank> {
                     padding: const EdgeInsets.only(
                         left: 5, right: 5, top: 30, bottom: 5),
                     child: Text(
-                      '${index+1}',
+                      '${index + 1}',
                       style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -195,7 +196,7 @@ class _RankState extends State<Rank> {
                       itemCount: food.length,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return getPostsData(index,food[index]);
+                        return getPostsData(index, food[index]);
                       })),
             ],
           ),
