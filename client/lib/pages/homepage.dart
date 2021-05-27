@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:client/model/food.dart';
 import 'package:client/model/user.dart';
 import 'package:client/pages/DetailFoodPage.dart';
@@ -46,7 +45,6 @@ class _HomepageState extends State<Homepage> {
           "like": vv.like.toString(),
         });
       }
-      print("-----------------------------");
       print(food);
 
       setState(() {});

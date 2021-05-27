@@ -8,9 +8,9 @@ import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
 
 class AddCook extends StatefulWidget {
-  AddCook({@required this.isUpdating});
+  // final Map<String, dynamic> editData;
+  // Addcook({Key key, this.editData}) : super(key: key);
 
-  final bool isUpdating;
   @override
   _AddCookState createState() => _AddCookState();
 }
@@ -56,6 +56,8 @@ class _AddCookState extends State<AddCook> {
     fontSize: 18,
     color: Colors.black87,
   );
+
+  getDataToEdit() async {}
 
   getLocalImage() async {
     final pickedFile =

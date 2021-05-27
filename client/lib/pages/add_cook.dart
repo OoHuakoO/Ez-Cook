@@ -2,17 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:path_provider/path_provider.dart';
-// import 'package:image/image.dart' as Img;
 import 'package:firebase_storage/firebase_storage.dart';
 import '../firebase/firebase_api.dart';
 import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddCook extends StatefulWidget {
-  AddCook({@required this.isUpdating});
+  // AddCook({@required this.isUpdating});
 
-  final bool isUpdating;
+  // final bool isUpdating;
   @override
   _AddCookState createState() => _AddCookState();
 }
@@ -46,6 +45,7 @@ class _AddCookState extends State<AddCook> {
     super.initState();
     ingredient = ["", "", ""];
     howtoCook = ["", "", ""];
+    linkYoutube = "";
     imageUrl =
         "http://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png";
   }
@@ -95,8 +95,10 @@ class _AddCookState extends State<AddCook> {
     }
     var urlImage = await uploadImageToFirebase();
 
-    final url_service = Uri.parse(
-        "https://ezcooks.herokuapp.com/food/createFood/40XQzyTtFAb6KVVoPO0H96n18G53");
+    var uid = FirebaseAuth.instance.currentUser.uid;
+
+    final url_service =
+        Uri.parse("https://ezcooks.herokuapp.com/food/createFood/" + uid);
 
     Map<String, String> header = {'Content-Type': 'application/json'};
 
@@ -487,6 +489,7 @@ class _AddCookState extends State<AddCook> {
       child: Form(
         key: _formKey,
         child: ListView(
+          shrinkWrap: true,
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),

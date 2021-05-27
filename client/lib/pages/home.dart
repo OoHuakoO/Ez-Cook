@@ -22,18 +22,19 @@ class _HomeState extends State<Home> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: getAppBar(),
-      body: getBody(),
+      body: pages[pageIndex],
       bottomNavigationBar: getFooter(),
     );
   }
 
+  List<Widget> pages = [
+    Homepage(),
+    AddCook(),
+    Rank(),
+    Profile(),
+  ];
+
   Widget getBody() {
-    List<Widget> pages = [
-      Homepage(),
-      AddCook(isUpdating: null),
-      Rank(),
-      Profile(),
-    ];
     return IndexedStack(
       index: pageIndex,
       children: pages,
@@ -146,31 +147,48 @@ class _HomeState extends State<Home> {
       pageIndex == 2 ? "assets/ranking+.png" : "assets/ranking.png",
       pageIndex == 3 ? "assets/user+.png" : "assets/user.png",
     ];
-    return Container(
-      width: double.infinity,
-      height: 80,
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
-      child: Padding(
-        padding:
-            const EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 15),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(bottomItems.length, (index) {
-              return InkWell(
-                onTap: () {
-                  selectedTab(index);
-                },
-                child: Image.asset(
-                  bottomItems[index],
-                  height: 40,
-                  width: 40,
-                ),
-              );
-            })),
-      ),
-    );
+    // return Container(
+    //   width: double.infinity,
+    //   height: 80,
+    //   decoration: BoxDecoration(
+    //     color: Colors.white,
+    //   ),
+    //   child: Padding(
+    //     padding:
+    //         const EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 15),
+    //     child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: List.generate(bottomItems.length, (index) {
+    //           return InkWell(
+    //             onTap: () {
+    //               selectedTab(index);
+    //             },
+    //             child: Image.asset(
+    //               bottomItems[index],
+    //               height: 40,
+    //               width: 40,
+    //             ),
+    //           );
+    //         })),
+    //   ),
+    // );
+    return BottomNavigationBar(
+        currentIndex: pageIndex,
+        onTap: (value) {
+          setState(() {
+            pageIndex = value;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+              icon: Image.asset("assets/house+.png"), label: "home"),
+          BottomNavigationBarItem(
+              icon: Image.asset("assets/add+.png"), label: "add"),
+          BottomNavigationBarItem(
+              icon: Image.asset("assets/ranking+.png"), label: "rank"),
+          BottomNavigationBarItem(
+              icon: Image.asset("assets/user+.png"), label: "profile"),
+        ]);
   }
 
   selectedTab(index) {
