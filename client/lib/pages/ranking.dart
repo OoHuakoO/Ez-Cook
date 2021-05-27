@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 
+import 'package:client/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'constants.dart';
@@ -16,23 +17,16 @@ class _RankState extends State<Rank> {
   bool closeTopContainer = false;
   double topContainer = 0;
 
-  List<Widget> itemsData = [];
-  var foodData;
   List<Map<String, dynamic>> food = [];
-  getRanking() async {
+  List<Map<String, dynamic>> users = [];
+  getFood() async {
     print("KK");
     try {
       var res = await http
           .get(Uri.parse("https://ezcooks.herokuapp.com/food/rankFood"));
       if (res.statusCode == 200) {
-        var jsonData = jsonDecode(res.body)['data'];
-        // print(jsonData);
-        // foodData = jsonData.map((e) => new Food.fromJson(e));
-        foodData = jsonData.map((e) => new Food.fromJson(e));
-        // foodData.fromIterable(food, name: (e) => e.nameFood, timeCook: (e) => e.timeCook);
-        // print(food);
-        // typeOf(foodData);
-        for (final listFood in foodData) {
+        var list = (jsonDecode(res.body)['food']).map((e) => Food.fromJson(e));
+        for (final listFood in list) {
           food.add({
             "nameFood": listFood.nameFood,
             "timeCook": listFood.timeCook,
@@ -44,9 +38,6 @@ class _RankState extends State<Rank> {
             "like": listFood.like.toString()
           });
         }
-        // print(food);
-        // }
-        // print(foodData);
         setState(() {});
       }
     } catch (e) {
@@ -54,9 +45,27 @@ class _RankState extends State<Rank> {
     }
   }
 
+  getUsers() async {
+    var res = await http
+        .get(Uri.parse("https://ezcooks.herokuapp.com/food/rankFood"));
+    if (res.statusCode == 200) {
+      var list = (jsonDecode(res.body)['user']).map((e) => User.fromJson(e));
+
+      for (final vv in list) {
+        users.add({
+          "imageProfile": vv.imageProfile,
+          "username": vv.username,
+        });
+      }
+
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
-    getRanking();
+    getFood();
+    getUsers();
     controller.addListener(() {
       double value = controller.offset / 119;
       setState(() {
@@ -67,11 +76,8 @@ class _RankState extends State<Rank> {
     super.initState();
   }
 
-  getPostsData(index, element) {
-    // List<Map<String, dynamic>> responseList = food;
-    // print(responseList);
-    // List<Widget> listItems = [];
-    print(element['like']);
+  getPostsData(index, food, user) {
+    print(food['like']);
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Container(
@@ -107,7 +113,7 @@ class _RankState extends State<Rank> {
                   ),
                 ),
               ),
-              Container(width: 80, child: Image.network(element['imageFood'])),
+              Container(width: 80, child: Image.network(food['imageFood'])),
               Container(
                 width: 170,
                 child: Column(
@@ -117,9 +123,13 @@ class _RankState extends State<Rank> {
                       child: Flexible(
                         child: Row(
                           children: [
-                            Icon(Icons.person),
+                            Image.network(
+                              user['imageProfile'],
+                              height: 22,
+                              width: 22,
+                            ),
                             Text(
-                              "Sompong",
+                              user['username'],
                             ),
                           ],
                         ),
@@ -130,7 +140,7 @@ class _RankState extends State<Rank> {
                       child: Flexible(
                         child: Row(
                           children: [
-                            Text(element['nameFood']),
+                            Text(food['nameFood']),
                           ],
                         ),
                       ),
@@ -140,7 +150,7 @@ class _RankState extends State<Rank> {
                       child: Flexible(
                         child: Row(
                           children: [
-                            Text(element['like']),
+                            Text(food['like']),
                           ],
                         ),
                       ),
@@ -171,7 +181,7 @@ class _RankState extends State<Rank> {
                               padding: const EdgeInsets.only(left: 0, top: 8),
                               child: Flexible(
                                 child: Text(
-                                  "อาหารประเภท ${element['categoryFood']}",
+                                  "อาหารประเภท ${food['categoryFood']}",
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                       fontSize: 9,
@@ -223,7 +233,7 @@ class _RankState extends State<Rank> {
                       itemCount: food.length,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return getPostsData(index, food[index]);
+                        return getPostsData(index, food[index], users[index]);
                       })),
             ],
           ),
