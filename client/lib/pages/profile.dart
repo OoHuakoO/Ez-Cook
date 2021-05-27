@@ -21,7 +21,6 @@ class _ProfileState extends State<Profile> {
       .collection("Food")
       .where('userId', isEqualTo: FirebaseAuth.instance.currentUser.uid);
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
