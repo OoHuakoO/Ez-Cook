@@ -123,13 +123,19 @@ class _RankState extends State<Rank> {
                       child: Flexible(
                         child: Row(
                           children: [
-                            Image.network(
-                              user['imageProfile'],
-                              height: 22,
-                              width: 22,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(500),
+                              child: Image.network(
+                                user['imageProfile'],
+                                height: 22,
+                                width: 22,
+                              ),
                             ),
-                            Text(
-                              user['username'],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: Text(
+                                user['username'],
+                              ),
                             ),
                           ],
                         ),
@@ -146,11 +152,14 @@ class _RankState extends State<Rank> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 2),
+                      padding: const EdgeInsets.only(left: 7, top: 2),
                       child: Flexible(
                         child: Row(
                           children: [
-                            Text(food['like']),
+                            Text(
+                              "ยอดกดถูกใจทั้งหมด ${food['like']} ครั้ง",
+                              style: TextStyle(fontSize: 13),
+                            ),
                           ],
                         ),
                       ),

@@ -156,8 +156,10 @@ class _HomepageState extends State<Homepage> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            "${myFoodAll['username']}",
+                          child: Flexible(
+                            child: Text(
+                              "${myFoodAll['username']}",
+                            ),
                           ),
                         ),
                       ],
@@ -186,8 +188,8 @@ class _HomepageState extends State<Homepage> {
                                           username: food[index]['username'],
                                           imageProfile: food[index]
                                               ['imageProfile'],
-                                          ingredient: food[index]
-                                              ['ingredient']),
+                                          ingredient: food[index]['ingredient'],
+                                          howcook: food[index]['howCook']),
                                     ),
                                   );
                                 },
@@ -205,16 +207,18 @@ class _HomepageState extends State<Homepage> {
                               Padding(
                                 padding: const EdgeInsets.only(
                                     right: 30, top: 10, bottom: 20),
-                                child: Container(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          myFoodAll["nameFood"],
-                                          style: TextStyle(fontSize: 12),
-                                        ),
-                                      ],
+                                child: Flexible(
+                                  child: Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            myFoodAll["nameFood"],
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
