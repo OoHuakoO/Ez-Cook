@@ -423,7 +423,6 @@ router.get("/rankFood", async (req, res) => {
           .get()
           .then(async (querySnapshot) => {
             await querySnapshot.forEach(async (element) => {
-              console.log(food);
               user.push({
                 username: element.get("username"),
                 imageProfile: element.get("imageProfile"),
