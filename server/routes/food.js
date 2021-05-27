@@ -50,6 +50,7 @@ const uploadFile = (req, res, next) => {
 
 router.post("/createFood/:userId", async (req, res) => {
   const userId = req.params.userId;
+  const data = [];
   const uid = uuidv4();
   var {
     nameFood,
@@ -88,8 +89,20 @@ router.post("/createFood/:userId", async (req, res) => {
       userId,
       like: 0,
     })
-    .then(async () => {
-      res.json({ success: true });
+    .then(() => {
+      await firestore
+        .collection("Food")
+        .where("uid", "==", uid)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((element) => {
+            data.push(element.data());
+          });
+          res.json({ data });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       console.log(err);

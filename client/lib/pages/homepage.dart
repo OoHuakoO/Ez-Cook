@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:client/model/food.dart';
 import 'package:client/pages/DetailFoodPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 import 'constants.dart';
 
@@ -20,12 +24,45 @@ class _HomepageState extends State<Homepage> {
     "assets/ascasc.png",
     "assets/ascasc.png",
   ];
+  var listFood;
+  List<Map<String, dynamic>> food = [];
+
+  getFood() async {
+    final res =
+        await get(Uri.parse("https://ezcooks.herokuapp.com/food/allFood"));
+    if (res.statusCode == 200) {
+      var list = (jsonDecode(res.body)['data']).map((e) => Food.fromJson(e));
+
+      for (final vv in list) {
+        food.add({
+          "nameFood": vv.nameFood,
+          "timeCook": vv.timeCook,
+          "categoryFood": vv.categoryFood,
+          "ingredient": vv.ingredient,
+          "linkYoutube": vv.linkYoutube,
+          "howCook": vv.howCook,
+          "imageFood": vv.imageFood,
+          "like" : vv.like.toString(),
+        });
+      }
+      print("-----------------------------");
+      print(food);
+
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    getFood();
+    super.initState();
+    print("object");
+  }
 
   int selectedIndex = 0;
   Widget getBody() {
     // var size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: Column(
+    return Column(
       children: [
         SizedBox(
           height: 10,
@@ -83,9 +120,9 @@ class _HomepageState extends State<Homepage> {
               crossAxisSpacing: 1,
             ),
             // number of items in your list
-            itemCount: FOOD_DATA.length,
+            itemCount: food.length,
             itemBuilder: (BuildContext context, int index) {
-              var myFoodAll = FOOD_DATA[index];
+              var myFoodAll = food[index];
               // var showData = item[index];
               return Column(
                 children: [
@@ -118,8 +155,8 @@ class _HomepageState extends State<Homepage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => DetailFood(
-                                          myFoodSee: FOOD_DATA[index]),
+                                      builder: (context) =>
+                                          DetailFood(myFoodSee: food[index]),
                                     ),
                                   );
                                 },
@@ -127,8 +164,10 @@ class _HomepageState extends State<Homepage> {
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(25),
                                       topRight: Radius.circular(25)),
-                                  child: Image.asset(
-                                    "assets/${myFoodAll["image"]}",
+                                  child: Image.network(
+                                    myFoodAll["imageFood"],
+                                    height: 110,
+                                    width: 150,
                                   ),
                                 ),
                               ),
@@ -136,7 +175,7 @@ class _HomepageState extends State<Homepage> {
                                 padding: const EdgeInsets.only(
                                     right: 30, top: 10, bottom: 20),
                                 child: Text(
-                                  myFoodAll["name"],
+                                  myFoodAll["nameFood"],
                                   style: TextStyle(fontSize: 12),
                                 ),
                               ),
@@ -164,7 +203,7 @@ class _HomepageState extends State<Homepage> {
                                         padding:
                                             const EdgeInsets.only(left: 10),
                                         child: Text(
-                                          "5",
+                                          myFoodAll['like'],
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: Colors.white),
@@ -186,7 +225,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ],
-    ));
+    );
   }
 
   @override
