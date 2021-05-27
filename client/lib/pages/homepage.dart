@@ -17,6 +17,24 @@ class _HomepageState extends State<Homepage> {
   var listFood;
   List<Map<String, dynamic>> food = [];
   List<Map<String, dynamic>> users = [];
+  List<Map<String, dynamic>> howCookk = [];
+  getFoodEx() async {
+    final res =
+        await get(Uri.parse("https://ezcooks.herokuapp.com/food/allFood"));
+    if (res.statusCode == 200) {
+      var list = (jsonDecode(res.body)['food']['howCook'])
+          .map((e) => Food.fromJson(e));
+
+      for (final vv in list) {
+        howCookk.add({
+          "howCook": vv.howCook,
+        });
+      }
+      print("-------------******----------${howCookk}");
+      setState(() {});
+    }
+  }
+
   getFood() async {
     final res =
         await get(Uri.parse("https://ezcooks.herokuapp.com/food/allFood"));
@@ -59,6 +77,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
+    getFoodEx();
     getFood();
     getUsers();
     super.initState();
@@ -144,10 +163,12 @@ class _HomepageState extends State<Homepage> {
                             width: 22,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text(
-                            "${myUser['username']}",
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
+                              "${myUser['username']}",
+                            ),
                           ),
                         ),
                       ],
@@ -191,9 +212,18 @@ class _HomepageState extends State<Homepage> {
                               Padding(
                                 padding: const EdgeInsets.only(
                                     right: 30, top: 10, bottom: 20),
-                                child: Text(
-                                  myFoodAll["nameFood"],
-                                  style: TextStyle(fontSize: 12),
+                                child: Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          myFoodAll["nameFood"],
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                               Padding(
