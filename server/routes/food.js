@@ -89,7 +89,7 @@ router.post("/createFood/:userId", async (req, res) => {
       userId,
       like: 0,
     })
-    .then(() => {
+    .then(async() => {
       await firestore
         .collection("Food")
         .where("uid", "==", uid)
