@@ -86,15 +86,6 @@ class _HomeState extends State<Home> {
               top: 5,
               bottom: 10,
             ),
-            child: IconButton(
-                iconSize: 30,
-                icon: Icon(Icons.notifications),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Noti()),
-                  );
-                }),
           )
         ],
         title: cusSearchBar,
