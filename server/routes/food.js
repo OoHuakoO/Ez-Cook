@@ -47,7 +47,88 @@ const uploadFile = (req, res, next) => {
     next();
   });
 };
+router.get("/", async (req, res) => {
+  const category = req.query.category;
+  let food = [];
+  let count = 0;
 
+  //filter by category เช่น ต้ม ผัด ...
+  if (category !== "all") {
+    const FoodDB = await firestore
+      .collection("Food")
+      .where("categoryFood", "==", category)
+      .orderBy("date", "desc")
+      .get();
+
+    await FoodDB.forEach(async (element) => {
+      await firestore
+        .collection("User")
+        .where("uid", "==", element.get("userId"))
+        .get()
+        .then(async (querySnapshot) => {
+          await querySnapshot.forEach(async (user) => {
+            await food.push({
+              howCook: element.get("howCook"),
+              ingredient: element.get("ingredient"),
+              like: element.get("like"),
+              timeCook: element.get("timeCook"),
+              nameFood: element.get("nameFood"),
+              linkYoutube: element.get("linkYoutube"),
+              date: element.get("date"),
+              userId: element.get("userId"),
+              imageFood: element.get("imageFood"),
+              categoryFood: element.get("categoryFood"),
+              username: user.get("username"),
+              imageProfile: user.get("imageProfile"),
+            });
+
+            count++;
+
+            if (count == FoodDB.size) {
+              await res.status(200).send(food);
+            }
+          });
+        });
+    });
+  }
+  //get all category
+  else {
+    const FoodDB = await firestore
+      .collection("Food")
+      .orderBy("date", "desc")
+      .get();
+
+    await FoodDB.forEach(async (element) => {
+      await firestore
+        .collection("User")
+        .where("uid", "==", element.get("userId"))
+        .get()
+        .then(async (querySnapshot) => {
+          await querySnapshot.forEach(async (user) => {
+            // const data = ;
+            await food.push({
+              howCook: element.get("howCook"),
+              ingredient: element.get("ingredient"),
+              like: element.get("like"),
+              timeCook: element.get("timeCook"),
+              nameFood: element.get("nameFood"),
+              linkYoutube: element.get("linkYoutube"),
+              date: element.get("date"),
+              userId: element.get("userId"),
+              imageFood: element.get("imageFood"),
+              categoryFood: element.get("categoryFood"),
+              username: user.get("username"),
+              imageProfile: user.get("imageProfile"),
+            });
+            count++;
+            if (count == FoodDB.size) {
+              await res.status(200).send(food);
+            }
+          });
+        });
+    });
+  }
+});
 router.post("/createFood/:userId", async (req, res) => {
   const userId = req.params.userId;
   const foodId = [];
