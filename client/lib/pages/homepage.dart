@@ -41,7 +41,8 @@ class _HomepageState extends State<Homepage> {
           "ingredient": vv.ingredient,
           "linkYoutube": vv.linkYoutube,
           "howCook": vv.howCook,
-          "imageFood": vv.imageFood
+          "imageFood": vv.imageFood,
+          "like" : vv.like.toString(),
         });
       }
       print("-----------------------------");
@@ -202,7 +203,7 @@ class _HomepageState extends State<Homepage> {
                                         padding:
                                             const EdgeInsets.only(left: 10),
                                         child: Text(
-                                          "${index}",
+                                          myFoodAll['like'],
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: Colors.white),

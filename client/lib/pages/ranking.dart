@@ -39,7 +39,8 @@ class _RankState extends State<Rank> {
             "ingredient": listFood.ingredient,
             "linkYoutube": listFood.linkYoutube,
             "howCook": listFood.howCook,
-            "imageFood": listFood.imageFood
+            "imageFood": listFood.imageFood,
+            "like" : listFood.like.toString()
           });
         }
         // print(food);
@@ -146,7 +147,7 @@ class _RankState extends State<Rank> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 5, top: 5),
                           child: Text(
-                            "อาหารประเภท $element['categoryFood']",
+                            "อาหารประเภท ${element['categoryFood']}",
                             style: const TextStyle(
                                 fontSize: 9,
                                 fontWeight: FontWeight.bold,
