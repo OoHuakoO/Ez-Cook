@@ -295,6 +295,7 @@ router.get("/rankFood", async (req, res) => {
   await firestore
     .collection("Food")
     .orderBy("like", "desc")
+    .limit(10)
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((element) => {
