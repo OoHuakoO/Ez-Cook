@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,21 +17,24 @@ class _RankState extends State<Rank> {
   double topContainer = 0;
 
   List<Widget> itemsData = [];
-  var foodData;
-  List food;
+
+  List<Map<String, dynamic>> foodData = [];
+
+  var food;
   getRanking() async {
     print("KK");
     try {
       var res = await http
           .get(Uri.parse("https://ezcooks.herokuapp.com/food/rankFood"));
       if (res.statusCode == 200) {
-        var jsonData = jsonDecode(res.body)['data'];
-        // print(jsonData);
-        // foodData = jsonData.map((e) => new Food.fromJson(e));
-        foodData = jsonData.map((e) => new Food.fromJson(e));
-        // for (final listFood in foodData) {
-        //   food.add(listFood.nameFood);
-        // }
+        print("success");
+        var jsonFood = jsonDecode(res.body)['data'];
+
+        food = jsonFood.map((item) => new Food.fromJson(item));
+
+        for (final listFood in food) {
+          foodData.add({"nameFood": listFood.nameFood});
+        }
 
         setState(() {});
       }
@@ -185,10 +189,10 @@ class _RankState extends State<Rank> {
               Expanded(
                   child: ListView.builder(
                       controller: controller,
-                      itemCount: itemsData.length,
+                      itemCount: foodData.length,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return itemsData[index];
+                        return Text(foodData[index]['nameFood']);
                       })),
             ],
           ),
