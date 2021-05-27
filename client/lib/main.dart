@@ -1,5 +1,5 @@
 
-import 'package:client/pages/homepage.dart';
+import 'package:client/pages/home.dart';
 import 'package:client/pages/setting.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,6 @@ void main() async {
   await Firebase.initializeApp();
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: FirebaseAuth.instance.currentUser == null ? Login() : Homepage() 
+    home: FirebaseAuth.instance.currentUser == null ? Login() : Home() 
   ));
 }
