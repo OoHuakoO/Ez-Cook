@@ -91,7 +91,7 @@ class _EditprofileState extends State<Editprofile> {
                                     ""
                                 ? NetworkImage(
                                     "${snapshot.data.docs[0]["imageProfile"]}")
-                                : AssetImage("assets/profile.jpg"),
+                                : null,
                           ),
                         ),
                       ),
@@ -251,7 +251,8 @@ class _EditprofileState extends State<Editprofile> {
                           child: CircleAvatar(
                             child: Image.file(
                               imageFile,
-                              height: 260,
+                              height: 150,
+                              width: 150,
                               fit: BoxFit.cover,
                             ),
                           ),

@@ -43,9 +43,7 @@ class _ProfileState extends State<Profile> {
                       child: CircleAvatar(
                         backgroundImage: snapshot.data.docs[0]["imageProfile"] != "" ? NetworkImage(
                             "${snapshot.data.docs[0]["imageProfile"]}"
-                            ) : AssetImage(
-                            "assets/profile.jpg"
-                            ),
+                            ) : null
                       ),
                     ),
                   ),

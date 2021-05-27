@@ -172,13 +172,29 @@ class _HomeState extends State<Home> {
         },
         items: [
           BottomNavigationBarItem(
-              icon: Image.asset("assets/house+.png"), label: "home"),
+              icon: Image.asset(
+                "assets/house+.png",
+                scale: 13,
+              ),
+              label: "home"),
           BottomNavigationBarItem(
-              icon: Image.asset("assets/add+.png"), label: "add"),
+              icon: Image.asset(
+                "assets/add+.png",
+                scale: 13,
+              ),
+              label: "add"),
           BottomNavigationBarItem(
-              icon: Image.asset("assets/ranking+.png"), label: "rank"),
+              icon: Image.asset(
+                "assets/ranking+.png",
+                scale: 13,
+              ),
+              label: "rank"),
           BottomNavigationBarItem(
-              icon: Image.asset("assets/user+.png"), label: "profile"),
+              icon: Image.asset(
+                "assets/user+.png",
+                scale: 13,
+              ),
+              label: "profile"),
         ]);
   }
 
