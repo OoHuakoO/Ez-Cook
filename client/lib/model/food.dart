@@ -16,5 +16,4 @@ class Food {
         howCook = json["howCook"],
         imageFood = json["imageFood"],
         like = json['like'];
-
 }
