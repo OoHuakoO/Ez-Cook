@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -8,36 +9,41 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  List item = [
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-  ];
+  // List item = [
+  //   "assets/ascasc.png",
+  //   "assets/ascasc.png",
+  //   "assets/ascasc.png",
+  //   "assets/ascasc.png",
+  //   "assets/ascasc.png",
+  //   "assets/ascasc.png",
+  //   "assets/ascasc.png",
+  //   "assets/ascasc.png",
+  // ];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getUserData();
   }
-  final CollectionReference profileList = FirebaseFirestore.instance.collection("User");
+  final profileList = FirebaseFirestore.instance.collection("User").where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid);
+
+   List items = [];
   Future getUserData () async {
-    List item = [];
     try{
       await profileList.get().then((snapshot) {
         snapshot.docs.forEach((res) {
-          item.add(res.data());
+          items.add(res.data());
          });
-         return item;
+         print(items);
+         print(FirebaseAuth.instance.currentUser.uid);
+         return items;
       });
     }catch(err){
-          print(err)
+          print(err);
     }
   }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +55,7 @@ class _ProfileState extends State<Profile> {
             height: 150,
             width: 150,
             child: CircleAvatar(
-              backgroundImage: AssetImage("assets/profilenadate.jpeg"),
+              backgroundImage: AssetImage("${items[0]["imageProfile"]}"),
             ),
           ),
         ),
@@ -57,7 +63,7 @@ class _ProfileState extends State<Profile> {
       Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
         child: Text(
-          "Sompong",
+          "${items[0]["username"]}",
           style: TextStyle(fontSize: 20),
         ),
       ),
@@ -86,7 +92,8 @@ class _ProfileState extends State<Profile> {
             crossAxisSpacing: 1,
           ),
           // number of items in your list
-          itemCount: item.length,
+          itemCount: items.length,
+          // itemCount: items[0].food.length,
           itemBuilder: (BuildContext context, int index) {
             // var showData = item[index];
             return Column(
@@ -109,6 +116,7 @@ class _ProfileState extends State<Profile> {
                                     topLeft: Radius.circular(25),
                                     topRight: Radius.circular(25)),
                                 child: Image.asset(
+                                  // "${items[0]["food"][index]}"
                                   "assets/ascasc.png",
                                 ),
                               ),
@@ -117,6 +125,7 @@ class _ProfileState extends State<Profile> {
                               padding: const EdgeInsets.only(
                                   right: 30, top: 10, bottom: 20),
                               child: Text(
+                                // "${items[0]["food"][index]["nameFood"]}"
                                 "ไข่ยัดไส้ + ไส้หมูสับผัด",
                                 style: TextStyle(fontSize: 12),
                               ),
@@ -142,6 +151,7 @@ class _ProfileState extends State<Profile> {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 10),
                                       child: Text(
+                                        //  "${items[0]["food"][index]["like"]}"
                                         "5",
                                         style: TextStyle(
                                             fontSize: 18, color: Colors.white),

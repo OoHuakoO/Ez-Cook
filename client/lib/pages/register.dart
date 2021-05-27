@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:client/pages/login.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:uuid/uuid.dart';
+
 // ignore: unused_import
 
 class RegisterScreen extends StatefulWidget {
@@ -18,7 +20,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
-  String username, email, password, imageProfile = "";
+  String username, email, password, imageProfile = "" ;
+  var uuid = Uuid();
 
   @override
   Widget build(BuildContext context) {
@@ -141,17 +144,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   if (formKey.currentState.validate()) {
                                     formKey.currentState.save();
                                     try {
+                                      var uid = uuid.v4();
                                       await FirebaseAuth.instance
                                           .createUserWithEmailAndPassword(
                                               email: email, password: password)
                                           .then((value) async {
                                         await FirebaseFirestore.instance
                                             .collection("User")
-                                            .add({
+                                            .doc(FirebaseAuth.instance.currentUser.uid)
+                                            .set({
                                           "username": username,
                                           "email": email,
                                           "password": password,
-                                          "imageProfile": imageProfile
+                                          "imageProfile": imageProfile,
+                                          "uid": FirebaseAuth.instance.currentUser.uid
                                         });
                                         Fluttertoast.showToast(
                                             msg: "สร้างบัญชีสำเร็จ",
