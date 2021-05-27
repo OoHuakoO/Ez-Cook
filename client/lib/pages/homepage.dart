@@ -15,16 +15,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  List item = [
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-    "assets/ascasc.png",
-  ];
   var listFood;
   List<Map<String, dynamic>> food = [];
   List<Map<String, dynamic>> users = [];
@@ -46,8 +36,6 @@ class _HomepageState extends State<Homepage> {
           "like": vv.like.toString(),
         });
       }
-      print("-----------------------------");
-      print(food);
 
       setState(() {});
     }
@@ -65,8 +53,6 @@ class _HomepageState extends State<Homepage> {
           "username": vv.username,
         });
       }
-      print("-----------------------------");
-      print(users);
 
       setState(() {});
     }
@@ -77,7 +63,6 @@ class _HomepageState extends State<Homepage> {
     getFood();
     getUsers();
     super.initState();
-    print("object");
   }
 
   int selectedIndex = 0;
