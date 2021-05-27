@@ -166,7 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         Navigator.push(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
-                                          return Homepage();
+                                          return Home();
                                         }));
                                       });
                                     } on FirebaseAuthException catch (e) {
