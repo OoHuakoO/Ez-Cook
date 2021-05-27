@@ -3,22 +3,55 @@ import 'package:flutter/material.dart';
 
 class DetailFood extends StatefulWidget {
   final Map<String, dynamic> myFoodSee;
+  final List<dynamic> ingredient;
   final String username;
   final String imageProfile;
 
-  DetailFood({Key key, this.myFoodSee, this.username, this.imageProfile})
+  DetailFood(
+      {Key key,
+      this.myFoodSee,
+      this.username,
+      this.imageProfile,
+      this.ingredient})
       : super(key: key);
   @override
   _DetailFoodState createState() =>
-      _DetailFoodState(myFoodSee, username, imageProfile);
+      _DetailFoodState(myFoodSee, username, imageProfile, ingredient);
 }
 
 class _DetailFoodState extends State<DetailFood> {
-  _DetailFoodState(this.myFoodSee, this.username, this.imageProfile);
+  _DetailFoodState(
+      this.myFoodSee, this.username, this.imageProfile, this.ingredient);
 
   Map<String, dynamic> myFoodSee;
+  List<dynamic> ingredient;
+  List<String> howtoCook;
   String username;
   String imageProfile;
+
+  setData() {
+    // print(myFoodSee['ingredient']);
+
+    // for (var i = 0; i < 2; i++) {
+    //   print(['ingredient'][i]);
+    // }
+    // ingredient.addAll(myFoodSee['ingredient']);
+    print(ingredient);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    setData();
+    super.initState();
+  }
+
+  ingreadientWidget() {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: ingredient.length,
+        itemBuilder: (context, index) => Text(ingredient[index]));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,16 +144,7 @@ class _DetailFoodState extends State<DetailFood> {
                           ],
                         ),
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10, top: 10, bottom: 10),
-                            child: Container(
-                                child: Text("${myFoodSee['howCook']}")),
-                          )
-                        ],
-                      ),
+                      ingreadientWidget(),
                     ],
                   ),
                 ),

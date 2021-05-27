@@ -21,6 +21,7 @@ class _HomepageState extends State<Homepage> {
   List<Map<String, dynamic>> food = [];
   List<Map<String, dynamic>> users = [];
   List<Map<String, dynamic>> howCookk = [];
+
   getFoodEx() async {
     final res =
         await get(Uri.parse("https://ezcooks.herokuapp.com/food/allFood"));
@@ -39,8 +40,6 @@ class _HomepageState extends State<Homepage> {
   }
 
   getFood() async {
-    print(currentCategory);
-
     final res = await get(Uri.parse(
         "https://ezcooks.herokuapp.com/food?category=" + currentCategory));
     if (res.statusCode == 200) {
@@ -76,7 +75,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
-    getFoodEx();
+    // getFoodEx();
     getFood();
     super.initState();
   }
@@ -184,9 +183,11 @@ class _HomepageState extends State<Homepage> {
                                     MaterialPageRoute(
                                       builder: (context) => DetailFood(
                                           myFoodSee: food[index],
-                                          username: myFoodAll['username'],
-                                          imageProfile:
-                                              myFoodAll['imageProfile']),
+                                          username: food[index]['username'],
+                                          imageProfile: food[index]
+                                              ['imageProfile'],
+                                          ingredient: food[index]
+                                              ['ingredient']),
                                     ),
                                   );
                                 },
