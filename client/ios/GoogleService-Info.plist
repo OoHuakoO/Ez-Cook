@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>949651405885-ap186md18hjdht3ipdjml5ofgq9n0hh4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.949651405885-ap186md18hjdht3ipdjml5ofgq9n0hh4</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>949651405885-hsfcbn5rq5os026vm8lsrm267jps9cb4.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD3SEQPA-4WDxrzj7Mr7EhA3GZdeEfzQbs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>949651405885</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.client</string>
+	<key>PROJECT_ID</key>
+	<string>ezcook-11658</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ezcook-11658.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:949651405885:ios:ae8bf46d2a0d640d3e3e54</string>
+</dict>
+</plist>
