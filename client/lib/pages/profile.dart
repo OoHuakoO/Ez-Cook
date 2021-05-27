@@ -41,10 +41,12 @@ class _ProfileState extends State<Profile> {
                       height: 150,
                       width: 150,
                       child: CircleAvatar(
-                        backgroundImage: snapshot.data.docs[0]["imageProfile"] != "" ? NetworkImage(
-                            "${snapshot.data.docs[0]["imageProfile"]}"
-                            ) : null
-                      ),
+                          backgroundImage: snapshot.data.docs[0]
+                                      ["imageProfile"] !=
+                                  ""
+                              ? NetworkImage(
+                                  "${snapshot.data.docs[0]["imageProfile"]}")
+                              : null),
                     ),
                   ),
                 ),
@@ -115,17 +117,31 @@ class _ProfileState extends State<Profile> {
                                                         Radius.circular(25)),
                                                 child: Image.network(
                                                   '${snapshot.data.docs[index].data()["imageFood"]}',
+                                                  height: 110,
+                                                  width: 150,
                                                 ),
                                               ),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  right: 30,
-                                                  top: 10,
-                                                  bottom: 20),
-                                              child: Text(
-                                                "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                style: TextStyle(fontSize: 12),
+                                                  left: 7),
+                                              child: Container(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 30,
+                                                          top: 10,
+                                                          bottom: 20),
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                        "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                        style: TextStyle(
+                                                            fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             Padding(

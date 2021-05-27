@@ -127,7 +127,7 @@ class _LoginState extends State<Login> {
                 ),
                 TextButton(
                   child: Text("ลืมรหัสผ่าน ?",
-                      style: TextStyle(fontSize: 18, color: Color(0xFF9D9D9D))),
+                      style: TextStyle(fontSize: 16, color: Color(0xFF9D9D9D))),
                   onPressed: () {},
                 ),
                 Container(
@@ -137,11 +137,11 @@ class _LoginState extends State<Login> {
                     children: [
                       Text('หากคุณยังไม่มีบัญชีผู้ใช้งาน',
                           style: TextStyle(
-                              fontSize: 18, color: Color(0xFF9D9D9D))),
+                              fontSize: 16, color: Color(0xFF9D9D9D))),
                       TextButton(
                         child: Text("สมัครสมาชิก",
                             style: TextStyle(
-                                fontSize: 20, color: Color(0xFFF04D56))),
+                                fontSize: 18, color: Color(0xFFF04D56))),
                         onPressed: () {
                           Navigator.push(
                             context,
