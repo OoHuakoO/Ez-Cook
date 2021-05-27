@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:client/model/food.dart';
+import 'package:client/model/user.dart';
 import 'package:client/pages/DetailFoodPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +27,12 @@ class _HomepageState extends State<Homepage> {
   ];
   var listFood;
   List<Map<String, dynamic>> food = [];
-
+  List<Map<String, dynamic>> users = [];
   getFood() async {
     final res =
         await get(Uri.parse("https://ezcooks.herokuapp.com/food/allFood"));
     if (res.statusCode == 200) {
-      var list = (jsonDecode(res.body)['data']).map((e) => Food.fromJson(e));
+      var list = (jsonDecode(res.body)['food']).map((e) => Food.fromJson(e));
 
       for (final vv in list) {
         food.add({
@@ -42,7 +43,7 @@ class _HomepageState extends State<Homepage> {
           "linkYoutube": vv.linkYoutube,
           "howCook": vv.howCook,
           "imageFood": vv.imageFood,
-          "like" : vv.like.toString(),
+          "like": vv.like.toString(),
         });
       }
       print("-----------------------------");
@@ -52,9 +53,29 @@ class _HomepageState extends State<Homepage> {
     }
   }
 
+  getUsers() async {
+    final res =
+        await get(Uri.parse("https://ezcooks.herokuapp.com/food/allFood"));
+    if (res.statusCode == 200) {
+      var list = (jsonDecode(res.body)['user']).map((e) => User.fromJson(e));
+
+      for (final vv in list) {
+        users.add({
+          "imageProfile": vv.imageProfile,
+          "username": vv.username,
+        });
+      }
+      print("-----------------------------");
+      print(users);
+
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
     getFood();
+    getUsers();
     super.initState();
     print("object");
   }
@@ -123,6 +144,7 @@ class _HomepageState extends State<Homepage> {
             itemCount: food.length,
             itemBuilder: (BuildContext context, int index) {
               var myFoodAll = food[index];
+              var myUser = users[index];
               // var showData = item[index];
               return Column(
                 children: [
@@ -130,9 +152,19 @@ class _HomepageState extends State<Homepage> {
                     padding: const EdgeInsets.only(left: 10, bottom: 5),
                     child: Row(
                       children: [
-                        Icon(Icons.person),
-                        Text(
-                          "Sompong",
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: Image.network(
+                            myUser['imageProfile'],
+                            height: 22,
+                            width: 22,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            "${myUser['username']}",
+                          ),
                         ),
                       ],
                     ),
@@ -155,8 +187,9 @@ class _HomepageState extends State<Homepage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          DetailFood(myFoodSee: food[index]),
+                                      builder: (context) => DetailFood(
+                                          myFoodSee: food[index],
+                                          myUserSee: users[index]),
                                     ),
                                   );
                                 },
