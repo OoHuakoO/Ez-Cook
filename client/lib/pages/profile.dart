@@ -11,10 +11,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+
+
   final profileList = FirebaseFirestore.instance.collection("User").where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid);
   final getFood = FirebaseFirestore.instance.collection("Food").where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid);
 
