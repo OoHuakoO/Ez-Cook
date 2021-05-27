@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -16,6 +18,26 @@ class _ProfileState extends State<Profile> {
     "assets/ascasc.png",
     "assets/ascasc.png",
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserData();
+  }
+  final CollectionReference profileList = FirebaseFirestore.instance.collection("User");
+  Future getUserData () async {
+    List item = [];
+    try{
+      await profileList.get().then((snapshot) {
+        snapshot.docs.forEach((res) {
+          item.add(res.data());
+         });
+         return item;
+      });
+    }catch(err){
+          print(err)
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
