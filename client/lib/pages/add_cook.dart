@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:client/model/food.dart';
+import 'package:client/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -32,6 +33,7 @@ class _AddCookState extends State<AddCook> {
   List<String> howtoCook = [];
   String linkYoutube;
   List<Map<String, dynamic>> food = [];
+  List<Map<String, dynamic>> user = [];
   final List<String> _timeCookOption = ["5", "10", "20", "30", "45", "60"];
   final List<String> _categoryCookOption = [
     'ทอด',
@@ -123,27 +125,28 @@ class _AddCookState extends State<AddCook> {
         body: json,
       );
       if (res.statusCode == 200) {
-        var list = (jsonDecode(res.body))['data'].map((e) => Food.fromJson(e));
-
-        food = [];
-
-        for (final vv in list) {
-          setState(() {
-            food.add({
-              "nameFood": vv.nameFood,
-              "timeCook": vv.timeCook,
-              "categoryFood": vv.categoryFood,
-              "ingredient": vv.ingredient,
-              "linkYoutube": vv.linkYoutube,
-              "howCook": vv.howCook,
-              "imageFood": vv.imageFood,
-              "like": vv.like.toString(),
-              "imageProfile": vv.imageProfile,
-              "username": vv.username,
-            });
+        var foodApi = (jsonDecode(res.body)['data'][0]['food']);
+        var userApi = (jsonDecode(res.body)['data'][0]['user']);
+        Food foodData = Food.fromJson(foodApi);
+        Food userData = Food.fromJson(userApi);
+        setState(() {
+          food.add({
+            "nameFood": foodData.nameFood,
+            "timeCook": foodData.timeCook,
+            "categoryFood": foodData.categoryFood,
+            "ingredient": foodData.ingredient,
+            "linkYoutube": foodData.linkYoutube,
+            "howCook": foodData.howCook,
+            "imageFood": foodData.imageFood,
+            "like": foodData.like.toString(),
           });
-        }
-        print(food);
+          user.add({
+            "imageProfile": userData.imageProfile,
+            "username": userData.username,
+          });
+        });
+        print(user[0]);
+        print(food[0]);
       } else {
         print("fail");
       }
@@ -581,8 +584,8 @@ class _AddCookState extends State<AddCook> {
                       MaterialPageRoute(
                           builder: (context) => DetailFood(
                               myFoodSee: food[0],
-                              username: food[0]['username'],
-                              imageProfile: food[0]['imageProfile'],
+                              username: user[0]['username'],
+                              imageProfile: user[0]['imageProfile'],
                               ingredient: food[0]['ingredient'],
                               howcook: food[0]['howCook'],
                               imageFood: food[0]['imageFood'],
