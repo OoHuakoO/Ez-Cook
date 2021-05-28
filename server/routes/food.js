@@ -641,15 +641,13 @@ router.get("/rankFood", async (req, res) => {
           .get()
           .then(async (querySnapshot) => {
             await querySnapshot.forEach(async (element) => {
-             
               food.push(element2.data());
               user.push({
                 username: element.get("username"),
                 imageProfile: element.get("imageProfile"),
               });
-            
-              if (user.length == querySnapshotFirst.size) {
 
+              if (user.length == querySnapshotFirst.size) {
                 res.json({ food, user });
               }
             });
