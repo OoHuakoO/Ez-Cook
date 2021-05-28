@@ -91,7 +91,7 @@ class _RankState extends State<Rank> {
                     topLeft: Radius.circular(80),
                     bottomLeft: Radius.circular(80)),
                 child: Container(
-                  height: 100,
+                  height: 120,
                   decoration: BoxDecoration(
                     color: Color(0xFFF04D56),
                   ),
@@ -110,7 +110,11 @@ class _RankState extends State<Rank> {
                   ),
                 ),
               ),
-              Container(width: 80, child: Image.network(food['imageFood'])),
+              Container(
+                  width: 80,
+                  height: 100,
+                  child:
+                      Image.network(food['imageFood'], fit: BoxFit.fitHeight)),
               Container(
                 width: 170,
                 child: Column(

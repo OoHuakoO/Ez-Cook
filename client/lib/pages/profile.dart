@@ -188,6 +188,7 @@ class _ProfileState extends State<Profile> {
                                                                       foodid: snapshot.data.docs[index].id)));
                                                         },
                                                         icon: Icon(Icons.edit))
+                                                        
                                                   ]),
                                             ),
                                             Padding(

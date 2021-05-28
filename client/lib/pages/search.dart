@@ -33,7 +33,7 @@ class SearchPage extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     // foods = [];
-    print(query);
+
     // fetchFoods().then((value) => {
     //       if (query != "" || query != null)
     //         {
@@ -62,14 +62,19 @@ class SearchPage extends SearchDelegate<String> {
               // Text("${index + 1} ${snapshot.data[index].nameFood}");
               print(snapshot.data[index].nameFood.startsWith(query));
 
-              if (query != "") {
+              if (query != "" && query != null) {
+                print(query);
                 if (snapshot.data[index].nameFood.startsWith(query)) {
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListTile(
-                          leading:
-                              Image.network(snapshot.data[index].imageFood),
+                          leading: Image.network(
+                            snapshot.data[index].imageFood,
+                            width: 120,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
                           title: Text("${snapshot.data[index].nameFood}"),
                           subtitle: Text(
                               "เวลาในการทำ ${snapshot.data[index].timeCook} นาที")),
@@ -81,7 +86,12 @@ class SearchPage extends SearchDelegate<String> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
-                        leading: Image.network(snapshot.data[index].imageFood),
+                        leading: Image.network(
+                          snapshot.data[index].imageFood,
+                          width: 120,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
                         title: Text("${snapshot.data[index].nameFood}"),
                         subtitle: Text(
                             "เวลาในการทำ ${snapshot.data[index].timeCook} นาที")),
