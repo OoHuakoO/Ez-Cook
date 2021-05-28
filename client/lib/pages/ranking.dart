@@ -52,7 +52,7 @@ class _RankState extends State<Rank> {
 
   @override
   void initState() {
-    getFood();
+   getFood();
     controller.addListener(() {
       double value = controller.offset / 119;
       setState(() {
