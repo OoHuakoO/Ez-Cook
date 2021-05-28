@@ -124,6 +124,7 @@ class _AddCookState extends State<AddCook> {
         headers: header,
         body: json,
       );
+      print(res.statusCode);
       if (res.statusCode == 200) {
          var foodApi = (jsonDecode(res.body)['data'][0]['food']);
         var userApi = (jsonDecode(res.body)['data'][0]['user']);
