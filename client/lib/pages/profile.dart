@@ -136,10 +136,12 @@ class _ProfileState extends State<Profile> {
                                                   child: Row(
                                                     children: [
                                                       Padding(
-                                                        padding: const EdgeInsets.only(
-                                                          left: 20,
-                                                          top: 0,
-                                                          bottom: 0),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 20,
+                                                                top: 0,
+                                                                bottom: 0),
                                                         child: Text(
                                                           "${snapshot.data.docs[index].data()["nameFood"]}",
                                                           style: TextStyle(
@@ -166,32 +168,31 @@ class _ProfileState extends State<Profile> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10 ),
+                                                              left: 10),
                                                       child: Icon(
                                                         Icons.favorite,
                                                         size: 18,
-                                                        color:  Color(0xFFF04D56),
+                                                        color:
+                                                            Color(0xFFF04D56),
                                                       ),
                                                     ),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10 ,),
+                                                        left: 10,
+                                                      ),
                                                       child: Text(
                                                         "${snapshot.data.docs[index].data()["like"]}",
                                                         // "5",
                                                         style: TextStyle(
                                                             fontSize: 18,
-                                                            color:
-                                                                 Color(0xFFF04D56)),
+                                                            color: Color(
+                                                                0xFFF04D56)),
                                                       ),
                                                     ),
                                                   ],
-                                                  
                                                 ),
-                                                
                                               ),
-
                                             ),
                                             SizedBox(height: 8)
                                           ],
