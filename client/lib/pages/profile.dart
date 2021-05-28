@@ -116,10 +116,10 @@ class _ProfileState extends State<Profile> {
                                                     topRight:
                                                         Radius.circular(25)),
                                                 child: Image.network(
-                                                  '${snapshot.data.docs[index].data()["imageFood"]}',
-                                                  height: 110,
-                                                  width: 150,
-                                                ),
+                                                    "${snapshot.data.docs[index].data()["imageFood"]}",
+                                                    height: 80,
+                                                    width: 140,
+                                                    fit: BoxFit.fitWidth),
                                               ),
                                             ),
                                             Padding(

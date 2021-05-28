@@ -577,8 +577,8 @@ class _AddCookState extends State<AddCook> {
                     "สร้างเมนูอาหาร",
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
-                  onPressed: () => {
-                    submitCook(),
+                  onPressed: () async => {
+                    await submitCook(),
                     Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -205,6 +205,7 @@ class _HomepageState extends State<Homepage> {
                                     myFoodAll["imageFood"],
                                     height: 80,
                                     width: 140,
+                                    fit: BoxFit.fitWidth
                                   ),
                                 ),
                               ),
