@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:client/pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -43,8 +44,8 @@ class _AddCookState extends State<AddCook> {
   @override
   void initState() {
     super.initState();
-    ingredient = ["", "", ""];
-    howtoCook = ["", "", ""];
+    ingredient = [""];
+    howtoCook = [""];
     linkYoutube = "";
     imageUrl =
         "http://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png";
@@ -87,7 +88,7 @@ class _AddCookState extends State<AddCook> {
     return urlDownload;
   }
 
-  submitCook() async {
+  submitCook(context) async {
     if (!_formKey.currentState.validate()) {
       return;
     } else if (imageFile == null) {
@@ -122,6 +123,8 @@ class _AddCookState extends State<AddCook> {
       );
       if (res.statusCode == 200) {
         print("success");
+        print(res.body);
+        Navigator.pop(context);
       } else {
         print("fail");
       }
@@ -142,7 +145,7 @@ class _AddCookState extends State<AddCook> {
             borderRadius: BorderRadius.circular(12.0),
             child: Image.file(
               imageFile,
-              height: 260,
+              // height: 260,
               fit: BoxFit.cover,
             ),
           ),
@@ -552,7 +555,7 @@ class _AddCookState extends State<AddCook> {
                     "สร้างเมนูอาหาร",
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
-                  onPressed: () => submitCook(),
+                  onPressed: () => submitCook(context),
                 ),
               ),
             ),

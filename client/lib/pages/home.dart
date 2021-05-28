@@ -2,9 +2,11 @@ import 'package:client/pages/homepage.dart';
 import 'package:client/pages/profile.dart';
 import 'package:client/pages/ranking.dart';
 import 'package:client/pages/notification.dart';
+import 'package:client/pages/search.dart';
 import 'package:client/pages/setting.dart';
 import 'package:flutter/material.dart';
 import './add_cook.dart';
+import './search.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,9 +23,10 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: getAppBar(),
+      appBar: getAppBar(context),
       body: pages[pageIndex],
       bottomNavigationBar: getFooter(),
+      drawer: Drawer(),
     );
   }
 
@@ -42,7 +45,7 @@ class _HomeState extends State<Home> {
   }
 
   // ignore: missing_return
-  Widget getAppBar() {
+  Widget getAppBar(context) {
     if (pageIndex == 0) {
       return AppBar(
         automaticallyImplyLeading: false,
@@ -57,27 +60,28 @@ class _HomeState extends State<Home> {
             ),
             child: IconButton(
                 iconSize: 30,
-                icon: cusIcon,
+                icon: Icon(Icons.search),
                 onPressed: () {
-                  setState(() {
-                    if (this.cusIcon.icon == Icons.search) {
-                      this.cusIcon = Icon(Icons.cancel);
-                      this.cusSearchBar = Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.white),
-                        child: TextField(
-                          style: TextStyle(color: Colors.black),
-                          cursorColor: Colors.white,
-                          cursorHeight: 15,
-                        ),
-                      );
-                    } else {
-                      this.cusIcon = Icon(Icons.search);
-                      this.cusSearchBar = Text("หน้าหลัก");
-                    }
-                  });
+                  showSearch(context: context, delegate: SearchPage());
+                  // setState(() {
+                  //   if (this.cusIcon.icon == Icons.search) {
+                  //     this.cusIcon = Icon(Icons.cancel);
+                  //     this.cusSearchBar = Container(
+                  //       height: 40,
+                  //       decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(25),
+                  //           color: Colors.white),
+                  //       child: TextField(
+                  //         style: TextStyle(color: Colors.black),
+                  //         cursorColor: Colors.white,
+                  //         cursorHeight: 15,
+                  //       ),
+                  //     );
+                  //   } else {
+                  //     this.cusIcon = Icon(Icons.search);
+                  //     this.cusSearchBar = Text("หน้าหลัก");
+                  //   }
+                  // });
                 }),
           ),
           Padding(
