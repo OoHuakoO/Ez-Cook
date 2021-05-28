@@ -7,6 +7,8 @@ class DetailFood extends StatefulWidget {
   final List<dynamic> howcook;
   final String username;
   final String imageProfile;
+  final String imageFood;
+  final String nameFood;
 
   DetailFood(
       {Key key,
@@ -14,16 +16,17 @@ class DetailFood extends StatefulWidget {
       this.username,
       this.imageProfile,
       this.ingredient,
-      this.howcook})
+      this.howcook,
+      this.imageFood,
+      this.nameFood})
       : super(key: key);
   @override
-  _DetailFoodState createState() =>
-      _DetailFoodState(myFoodSee, username, imageProfile, ingredient, howcook);
+  _DetailFoodState createState() => _DetailFoodState(myFoodSee, username, imageProfile, ingredient, howcook,imageFood, nameFood);
 }
 
 class _DetailFoodState extends State<DetailFood> {
   _DetailFoodState(this.myFoodSee, this.username, this.imageProfile,
-      this.ingredient, this.howcook);
+      this.ingredient, this.howcook,this.imageFood, this.nameFood);
 
   Map<String, dynamic> myFoodSee;
   List<dynamic> ingredient;
@@ -31,6 +34,8 @@ class _DetailFoodState extends State<DetailFood> {
   List<String> howtoCook;
   String username;
   String imageProfile;
+  String imageFood;
+  String nameFood;
 
   setData() {
     // print(myFoodSee['ingredient']);
@@ -89,7 +94,7 @@ class _DetailFoodState extends State<DetailFood> {
         body: ListView(
           children: [
             Image.network(
-              imageProfile,
+              imageFood,
               height: 200,
               width: double.infinity,
             ),
@@ -107,7 +112,7 @@ class _DetailFoodState extends State<DetailFood> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                username,
+                                nameFood,
                                 style: TextStyle(fontSize: 23),
                               ),
                             ],
@@ -126,7 +131,7 @@ class _DetailFoodState extends State<DetailFood> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              "${myFoodSee['timeCook']} ชม.",
+                              "${myFoodSee['timeCook']} นาที",
                               style: TextStyle(fontSize: 20),
                             ),
                           ],
@@ -137,13 +142,59 @@ class _DetailFoodState extends State<DetailFood> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.person),
+                        Image.network(
+                            imageProfile,
+                            height: 22,
+                            width: 22,
+                          ),
                         Text(
                           username,
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 3),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      topRight: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                      bottomRight: Radius.circular(50)),
+                                  child: Container(
+                                    width: 130,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF04D56),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 0, top: 4),
+                                      child: Flexible(
+                                        child: Text(
+                                          "อาหารประเภท${myFoodSee['categoryFood']}",
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Container(
                     decoration: BoxDecoration(

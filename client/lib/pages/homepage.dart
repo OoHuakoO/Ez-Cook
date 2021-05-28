@@ -171,7 +171,7 @@ class _HomepageState extends State<Homepage> {
                         padding: const EdgeInsets.only(top: 0),
                         child: Container(
                           width:
-                              (MediaQuery.of(context).size.width - 150) / 1.63,
+                              (MediaQuery.of(context).size.width - 190) / 1.63,
                           decoration: BoxDecoration(
                             color: Color(0xFFFFE6E1),
                             borderRadius: BorderRadius.circular(25),
@@ -189,7 +189,11 @@ class _HomepageState extends State<Homepage> {
                                           imageProfile: food[index]
                                               ['imageProfile'],
                                           ingredient: food[index]['ingredient'],
-                                          howcook: food[index]['howCook']),
+                                          howcook: food[index]['howCook'],
+                                          imageFood : food[index]['imageFood'],
+                                          nameFood : food[index]['nameFood']
+                                          )
+
                                     ),
                                   );
                                 },
@@ -199,14 +203,15 @@ class _HomepageState extends State<Homepage> {
                                       topRight: Radius.circular(25)),
                                   child: Image.network(
                                     myFoodAll["imageFood"],
-                                    height: 110,
-                                    width: 150,
+                                    height: 80,
+                                    width: 140,
+                                    fit: BoxFit.fitWidth
                                   ),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 30, top: 10, bottom: 20),
+                                    right: 30, top: 10, bottom: 25),
                                 child: Flexible(
                                   child: Container(
                                     child: Padding(
