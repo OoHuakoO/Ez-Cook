@@ -150,93 +150,98 @@ class _ProfileState extends State<Profile> {
                                             SizedBox(
                                               height: 7,
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8),
-                                                  child: Text(
-                                                    "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                    style:
-                                                        TextStyle(fontSize: 15),
+                                            Container(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 8),
+                                                    child: Text(
+                                                      "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                      style: TextStyle(
+                                                          fontSize: 15),
+                                                    ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25)),
-                                                  child: IconButton(
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                                builder: (context) => EditCook(
-                                                                    nameFood: snapshot.data.docs[index]
-                                                                            .data()[
-                                                                        "nameFood"],
-                                                                    timeCook: snapshot.data.docs[index]
-                                                                            .data()[
-                                                                        "timeCook"],
-                                                                    categoryFood:
-                                                                        snapshot.data.docs[index].data()[
-                                                                            "categoryFood"],
-                                                                    ingredient:
-                                                                        snapshot.data.docs[index].data()[
-                                                                            "ingredient"],
-                                                                    howcook: snapshot
-                                                                        .data
-                                                                        .docs[index]
-                                                                        .data()["howCook"],
-                                                                    imageFood: snapshot.data.docs[index].data()["imageFood"],
-                                                                    linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
-                                                                    foodid: snapshot.data.docs[index].id)));
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Container(
+                                                    width: 35,
+                                                    height: 35,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25)),
+                                                    child: IconButton(
+                                                        onPressed: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => EditCook(
+                                                                      nameFood: snapshot.data.docs[index].data()[
+                                                                          "nameFood"],
+                                                                      timeCook: snapshot.data.docs[index].data()[
+                                                                          "timeCook"],
+                                                                      categoryFood:
+                                                                          snapshot.data.docs[index].data()[
+                                                                              "categoryFood"],
+                                                                      ingredient:
+                                                                          snapshot.data.docs[index].data()[
+                                                                              "ingredient"],
+                                                                      howcook: snapshot.data.docs[index].data()[
+                                                                          "howCook"],
+                                                                      imageFood: snapshot
+                                                                          .data
+                                                                          .docs[index]
+                                                                          .data()["imageFood"],
+                                                                      linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
+                                                                      foodid: snapshot.data.docs[index].id)));
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.edit,
+                                                          size: 20,
+                                                          color:
+                                                              Color(0xFF4058F3),
+                                                        )),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Container(
+                                                    width: 35,
+                                                    height: 35,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25)),
+                                                    child: IconButton(
+                                                      onPressed: () async {
+                                                        await deletePost(
+                                                            snapshot
+                                                                .data
+                                                                .docs[index]
+                                                                .id);
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                "ลบสูตรอาหารสำเร็จ",
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .TOP);
                                                       },
                                                       icon: Icon(
-                                                        Icons.edit,
+                                                        Icons.delete,
                                                         size: 20,
-                                                        color:
-                                                            Color(0xFF4058F3),
-                                                      )),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Container(
-                                                  width: 35,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25)),
-                                                  child: IconButton(
-                                                    onPressed: () async {
-                                                      await deletePost(snapshot
-                                                          .data.docs[index].id);
-                                                      Fluttertoast.showToast(
-                                                          msg:
-                                                              "ลบสูตรอาหารสำเร็จ",
-                                                          gravity:
-                                                              ToastGravity.TOP);
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.delete,
-                                                      size: 20,
+                                                      ),
+                                                      color: Colors.red,
                                                     ),
-                                                    color: Colors.red,
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                             SizedBox(
                                               height: 7,
