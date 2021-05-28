@@ -2,7 +2,9 @@ import 'package:client/pages/edit_cook.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
   @override
@@ -21,6 +23,20 @@ class _ProfileState extends State<Profile> {
   final getFood = FirebaseFirestore.instance
       .collection("Food")
       .where('userId', isEqualTo: FirebaseAuth.instance.currentUser.uid);
+
+  deletePost(foodid) async {
+    try {
+      var res = await http.post(
+          Uri.parse("https://ezcooks.herokuapp.com/food/deleteFood/" + foodid));
+      if (res.statusCode == 200) {
+        setState(() {});
+      } else {
+        print("fail");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +108,7 @@ class _ProfileState extends State<Profile> {
                             // vertical spacing between the items
                             mainAxisSpacing: 3,
                             // horizontal spacing between the items
-                            crossAxisSpacing: 1,
+                            crossAxisSpacing: 0,
                           ),
 
                           // number of items in your list
@@ -108,12 +124,12 @@ class _ProfileState extends State<Profile> {
                                       child: Container(
                                         width:
                                             (MediaQuery.of(context).size.width -
-                                                    150) /
-                                                1.63,
+                                                    120) /
+                                                1.7,
                                         decoration: BoxDecoration(
                                           color: Color(0xFFFFE6E1),
                                           borderRadius:
-                                              BorderRadius.circular(25),
+                                              BorderRadius.circular(18),
                                         ),
                                         child: Column(
                                           children: [
@@ -121,9 +137,9 @@ class _ProfileState extends State<Profile> {
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.only(
                                                     topLeft:
-                                                        Radius.circular(25),
+                                                        Radius.circular(18),
                                                     topRight:
-                                                        Radius.circular(25)),
+                                                        Radius.circular(18)),
                                                 child: Image.network(
                                                     "${snapshot.data.docs[index].data()["imageFood"]}",
                                                     height: 100,
@@ -131,64 +147,103 @@ class _ProfileState extends State<Profile> {
                                                     fit: BoxFit.fitWidth),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 7),
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 30,
-                                                              top: 10,
-                                                              bottom: 20),
-                                                      child: Row(
-                                                        children: [
-                                                          Text(
-                                                            "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                            style: TextStyle(
-                                                                fontSize: 12),
-                                                          ),
-                                                        ],
-                                                      ),
+                                            SizedBox(
+                                              height: 7,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8),
+                                                  child: Text(
+                                                    "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                    style:
+                                                        TextStyle(fontSize: 15),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25)),
+                                                  child: IconButton(
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder: (context) => EditCook(
+                                                                    nameFood: snapshot.data.docs[index]
+                                                                            .data()[
+                                                                        "nameFood"],
+                                                                    timeCook: snapshot.data.docs[index]
+                                                                            .data()[
+                                                                        "timeCook"],
+                                                                    categoryFood:
+                                                                        snapshot.data.docs[index].data()[
+                                                                            "categoryFood"],
+                                                                    ingredient:
+                                                                        snapshot.data.docs[index].data()[
+                                                                            "ingredient"],
+                                                                    howcook: snapshot
+                                                                        .data
+                                                                        .docs[index]
+                                                                        .data()["howCook"],
+                                                                    imageFood: snapshot.data.docs[index].data()["imageFood"],
+                                                                    linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
+                                                                    foodid: snapshot.data.docs[index].id)));
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit,
+                                                        size: 20,
+                                                        color:
+                                                            Color(0xFF4058F3),
+                                                      )),
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25)),
+                                                  child: IconButton(
+                                                    onPressed: () async {
+                                                      await deletePost(snapshot
+                                                          .data.docs[index].id);
+                                                      Fluttertoast.showToast(
+                                                          msg:
+                                                              "ลบสูตรอาหารสำเร็จ",
+                                                          gravity:
+                                                              ToastGravity.TOP);
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.delete,
+                                                      size: 20,
                                                     ),
-                                                    IconButton(
-                                                        onPressed: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) => EditCook(
-                                                                      nameFood: snapshot.data.docs[index].data()[
-                                                                          "nameFood"],
-                                                                      timeCook: snapshot.data.docs[index].data()[
-                                                                          "timeCook"],
-                                                                      categoryFood:
-                                                                          snapshot.data.docs[index].data()[
-                                                                              "categoryFood"],
-                                                                      ingredient:
-                                                                          snapshot.data.docs[index].data()[
-                                                                              "ingredient"],
-                                                                      howcook: snapshot.data.docs[index].data()[
-                                                                          "howCook"],
-                                                                      imageFood: snapshot
-                                                                          .data
-                                                                          .docs[index]
-                                                                          .data()["imageFood"],
-                                                                      linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
-                                                                      foodid: snapshot.data.docs[index].id)));
-                                                        },
-                                                        icon: Icon(Icons.edit))
-                                                        
-                                                  ]),
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 7,
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  right: 70, top: 0),
+                                                  right: 80, top: 0),
                                               child: Container(
                                                 width: 70,
                                                 height: 20,
@@ -201,7 +256,7 @@ class _ProfileState extends State<Profile> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10),
+                                                              left: 0),
                                                       child: Icon(
                                                         Icons.favorite,
                                                         size: 18,

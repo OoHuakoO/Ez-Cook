@@ -53,7 +53,7 @@ router.get("/", async (req, res) => {
   let count = 0;
 
   //filter by category เช่น ต้ม ผัด ...
-  if (category !== "all") {
+  if (category !== "ทั้งหมด") {
     const FoodDB = await firestore
       .collection("Food")
       .where("categoryFood", "==", category)
