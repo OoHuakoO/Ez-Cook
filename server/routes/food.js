@@ -132,7 +132,9 @@ router.get("/", async (req, res) => {
 router.post("/createFood/:userId", async (req, res) => {
   const userId = req.params.userId;
   const foodId = [];
-  const data = [];
+  let food = undefined;
+  let user = undefined;
+  let data = [];
   const uid = uuidv4();
   var {
     nameFood,
@@ -180,7 +182,6 @@ router.post("/createFood/:userId", async (req, res) => {
           querySnapshot.forEach((element) => {
             foodId.push(element.get("uid"));
           });
-          console.log(foodId);
         })
         .then(async () => {
           if (foodId == undefined) {
@@ -195,9 +196,32 @@ router.post("/createFood/:userId", async (req, res) => {
                   .get()
                   .then((querySnapshot) => {
                     querySnapshot.forEach((element) => {
-                      data.push(element.data());
+                      food = element.data();
                     });
-                    res.json({ data });
+                  })
+                  .then(async () => {
+                    await firestore
+                      .collection("User")
+                      .where("uid", "==", userId)
+                      .get()
+                      .then(async (querySnapshot) => {
+                        await querySnapshot.forEach((element) => {
+                          user = {
+                            username: element.get("username"),
+                            imageProfile: element.get("imageProfile"),
+                          };
+                          console.log("gu user1", user);
+                        });
+                        console.log("gu user2", user);
+                        data.push({ food, user });
+                        res.json({ data });
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  })
+                  .catch((err) => {
+                    console.log(err);
                   })
                   .catch((err) => {
                     console.log(err);
@@ -216,11 +240,34 @@ router.post("/createFood/:userId", async (req, res) => {
                   .collection("Food")
                   .where("uid", "==", uid)
                   .get()
-                  .then((querySnapshot) => {
-                    querySnapshot.forEach((element) => {
-                      data.push(element.data());
+                  .then(async (querySnapshot) => {
+                    await querySnapshot.forEach((element) => {
+                      food = element.data();
                     });
-                    res.json({ data });
+                  })
+                  .then(async () => {
+                    await firestore
+                      .collection("User")
+                      .where("uid", "==", userId)
+                      .get()
+                      .then(async (querySnapshot) => {
+                        await querySnapshot.forEach((element) => {
+                          user = {
+                            username: element.get("username"),
+                            imageProfile: element.get("imageProfile"),
+                          };
+                          console.log("gu user1", user);
+                        });
+                        console.log("gu user2", user);
+                        data.push({ food, user });
+                        res.json({ data });
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  })
+                  .catch((err) => {
+                    console.log(err);
                   })
                   .catch((err) => {
                     console.log(err);
@@ -297,46 +344,39 @@ router.post("/deleteFood/:foodId", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-
   const category = req.query.category;
   let food = [];
   let count = 0;
-  
+
   //filter by category เช่น ต้ม ผัด ...
   if (category !== "all") {
-
     const FoodDB = await firestore
       .collection("Food")
       .where("categoryFood", "==", category)
       .orderBy("date", "desc")
-      .get()
-
+      .get();
 
     await FoodDB.forEach(async (element) => {
-
       await firestore
         .collection("User")
         .where("uid", "==", element.get("userId"))
         .get()
         .then(async (querySnapshot) => {
           await querySnapshot.forEach(async (user) => {
-
-            await food.push(
-              {
-                howCook: element.get("howCook"),
-                ingredient: element.get("ingredient"),
-                like: element.get("like"),
-                timeCook: element.get("timeCook"),
-                nameFood: element.get("nameFood"),
-                linkYoutube: element.get("linkYoutube"),
-                date: element.get("date"),
-                userId: element.get("userId"),
-                imageFood: element.get("imageFood"),
-                categoryFood: element.get("categoryFood"),
-                username: user.get("username"),
-                imageProfile: user.get("imageProfile"),
-              }
-            );
+            await food.push({
+              howCook: element.get("howCook"),
+              ingredient: element.get("ingredient"),
+              like: element.get("like"),
+              timeCook: element.get("timeCook"),
+              nameFood: element.get("nameFood"),
+              linkYoutube: element.get("linkYoutube"),
+              date: element.get("date"),
+              userId: element.get("userId"),
+              imageFood: element.get("imageFood"),
+              categoryFood: element.get("categoryFood"),
+              username: user.get("username"),
+              imageProfile: user.get("imageProfile"),
+            });
 
             count++;
 
@@ -344,21 +384,17 @@ router.get("/", async (req, res) => {
               await res.status(200).send(food);
             }
           });
-        })
-
+        });
     });
   }
-  //get all category 
+  //get all category
   else {
-
     const FoodDB = await firestore
       .collection("Food")
       .orderBy("date", "desc")
-      .get()
-
+      .get();
 
     await FoodDB.forEach(async (element) => {
-
       await firestore
         .collection("User")
         .where("uid", "==", element.get("userId"))
@@ -385,8 +421,7 @@ router.get("/", async (req, res) => {
               await res.status(200).send(food);
             }
           });
-        })
-
+        });
     });
   }
 });
