@@ -165,10 +165,13 @@ class _AddCookState extends State<AddCook> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
-            child: Image.file(
-              imageFile,
-              // height: 260,
-              fit: BoxFit.cover,
+            child: Container(
+              child: Image.file(
+                imageFile,
+                height: 260,
+                width: 350,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           TextButton(
