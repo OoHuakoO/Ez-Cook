@@ -227,7 +227,7 @@ class _EditCookState extends State<EditCook> {
           TextButton(
               onPressed: () => getLocalImage(),
               child: Text(
-                "เลือกรูปภาพ",
+                "เปลี่ยนรูปภาพ",
                 style: TextStyle(
                     color: Colors.black87,
                     backgroundColor: Colors.white,
