@@ -165,7 +165,6 @@ class _ProfileState extends State<Profile> {
                                                               bottom: 20),
                                                       child: Row(
                                                         children: [
-<<<<<<< HEAD
                                                           Padding(
                                                             padding:
                                                                 const EdgeInsets
@@ -177,12 +176,6 @@ class _ProfileState extends State<Profile> {
                                                               style: TextStyle(
                                                                   fontSize: 16),
                                                             ),
-=======
-                                                          Text(
-                                                            "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                            style: TextStyle(
-                                                                fontSize: 16),
->>>>>>> 59663443c838d2180c1039d86261695cebfb8d28
                                                           ),
                                                         ],
                                                       ),
@@ -212,7 +205,6 @@ class _ProfileState extends State<Profile> {
                                                                       linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
                                                                       foodid: snapshot.data.docs[index].id)));
                                                         },
-<<<<<<< HEAD
                                                         icon: Icon(Icons.edit)),
                                                     IconButton(
                                                         onPressed: () async {
@@ -230,9 +222,6 @@ class _ProfileState extends State<Profile> {
                                                         },
                                                         icon:
                                                             Icon(Icons.delete))
-=======
-                                                        icon: Icon(Icons.edit))
->>>>>>> 59663443c838d2180c1039d86261695cebfb8d28
                                                   ]),
                                             ),
                                             Padding(
