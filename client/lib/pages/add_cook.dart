@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:client/model/food.dart';
-import 'package:client/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'DetailFoodPage.dart';
+import 'detailFoodAfterCreateFood.dart';
 
 class AddCook extends StatefulWidget {
   // AddCook({@required this.isUpdating});
@@ -582,7 +582,7 @@ class _AddCookState extends State<AddCook> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DetailFood(
+                          builder: (context) => DetailFoodAfterCreateFood(
                               myFoodSee: food[0],
                               username: user[0]['username'],
                               imageProfile: user[0]['imageProfile'],

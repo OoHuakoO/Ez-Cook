@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:client/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'constants.dart';
 import 'package:client/model/food.dart';
 
 class Rank extends StatefulWidget {
