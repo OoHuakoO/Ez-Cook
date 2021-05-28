@@ -578,7 +578,7 @@ class _AddCookState extends State<AddCook> {
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   onPressed: () async => {
-                    await submitCook(),
+                    await submitCook(context),
                     Navigator.push(
                       context,
                       MaterialPageRoute(
