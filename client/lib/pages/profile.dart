@@ -92,7 +92,7 @@ class _ProfileState extends State<Profile> {
                             // vertical spacing between the items
                             mainAxisSpacing: 3,
                             // horizontal spacing between the items
-                            crossAxisSpacing: 1,
+                            crossAxisSpacing: 0,
                           ),
 
                           // number of items in your list
@@ -108,12 +108,12 @@ class _ProfileState extends State<Profile> {
                                       child: Container(
                                         width:
                                             (MediaQuery.of(context).size.width -
-                                                    150) /
-                                                1.63,
+                                                    120) /
+                                                1.7,
                                         decoration: BoxDecoration(
                                           color: Color(0xFFFFE6E1),
                                           borderRadius:
-                                              BorderRadius.circular(25),
+                                              BorderRadius.circular(18),
                                         ),
                                         child: Column(
                                           children: [
@@ -121,9 +121,9 @@ class _ProfileState extends State<Profile> {
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.only(
                                                     topLeft:
-                                                        Radius.circular(25),
+                                                        Radius.circular(18),
                                                     topRight:
-                                                        Radius.circular(25)),
+                                                        Radius.circular(18)),
                                                 child: Image.network(
                                                     "${snapshot.data.docs[index].data()["imageFood"]}",
                                                     height: 100,
@@ -141,49 +141,58 @@ class _ProfileState extends State<Profile> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              right: 30,
-                                                              top: 10,
-                                                              bottom: 20),
-                                                      child: Row(
-                                                        children: [
-                                                          Text(
-                                                            "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                            style: TextStyle(
-                                                                fontSize: 12),
+                                                    Row(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 10,
+                                                                  bottom: 20),
+                                                          child: Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            9),
+                                                                child: Text(
+                                                                  "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          15),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    IconButton(
-                                                        onPressed: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) => EditCook(
-                                                                      nameFood: snapshot.data.docs[index].data()[
-                                                                          "nameFood"],
-                                                                      timeCook: snapshot.data.docs[index].data()[
-                                                                          "timeCook"],
-                                                                      categoryFood:
-                                                                          snapshot.data.docs[index].data()[
-                                                                              "categoryFood"],
-                                                                      ingredient:
-                                                                          snapshot.data.docs[index].data()[
-                                                                              "ingredient"],
-                                                                      howcook: snapshot.data.docs[index].data()[
-                                                                          "howCook"],
-                                                                      imageFood: snapshot
-                                                                          .data
-                                                                          .docs[index]
-                                                                          .data()["imageFood"],
-                                                                      linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
-                                                                      foodid: snapshot.data.docs[index].id)));
-                                                        },
-                                                        icon: Icon(Icons.edit))
-                                                        
+                                                        ),
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            IconButton(
+                                                                onPressed: () {
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) => EditCook(
+                                                                              nameFood: snapshot.data.docs[index].data()["nameFood"],
+                                                                              timeCook: snapshot.data.docs[index].data()["timeCook"],
+                                                                              categoryFood: snapshot.data.docs[index].data()["categoryFood"],
+                                                                              ingredient: snapshot.data.docs[index].data()["ingredient"],
+                                                                              howcook: snapshot.data.docs[index].data()["howCook"],
+                                                                              imageFood: snapshot.data.docs[index].data()["imageFood"],
+                                                                              linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
+                                                                              foodid: snapshot.data.docs[index].id)));
+                                                                },
+                                                                icon: Icon(Icons
+                                                                    .edit)),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    )
                                                   ]),
                                             ),
                                             Padding(
@@ -201,7 +210,7 @@ class _ProfileState extends State<Profile> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10),
+                                                              left: 0),
                                                       child: Icon(
                                                         Icons.favorite,
                                                         size: 18,
