@@ -13,7 +13,7 @@ List FOOD_DATA = [
 
 // ignore: non_constant_identifier_names
 List FoodK = [
-  "all",
+  "ทั้งหมด",
   "ทอด",
   "ต้ม",
   "นึ่ง",
