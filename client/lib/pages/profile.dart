@@ -165,10 +165,15 @@ class _ProfileState extends State<Profile> {
                                                               bottom: 20),
                                                       child: Row(
                                                         children: [
-                                                          Text(
-                                                            "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                            style: TextStyle(
-                                                                fontSize: 12),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(
+                                                              left: 10,
+                                                              ),
+                                                            child: Text(
+                                                              "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                              style: TextStyle(
+                                                                  fontSize: 16),
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
