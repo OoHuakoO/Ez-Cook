@@ -157,7 +157,7 @@ class _RankState extends State<Rank> {
                         child: Row(
                           children: [
                             Text(
-                              "ยอดกดถูกใจทั้งหมด ${food['like']} ครั้ง",
+                              "ยอดกดหัวใจทั้งหมด ${food['like']} ครั้ง",
                               style: TextStyle(fontSize: 13),
                             ),
                           ],

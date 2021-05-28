@@ -131,7 +131,7 @@ class _HomepageState extends State<Homepage> {
               // number of items per row
               crossAxisCount: 2,
               // vertical spacing between the items
-              mainAxisSpacing: 30,
+              mainAxisSpacing: 3,
               // horizontal spacing between the items
               crossAxisSpacing: 1,
             ),
@@ -243,7 +243,7 @@ class _HomepageState extends State<Homepage> {
                                         padding:
                                             const EdgeInsets.only(left: 10),
                                         child: Icon(
-                                          Icons.hearing,
+                                          Icons.favorite,
                                           size: 18,
                                           color: Colors.white,
                                         ),

@@ -82,7 +82,7 @@ class _ProfileState extends State<Profile> {
                             // number of items per row
                             crossAxisCount: 2,
                             // vertical spacing between the items
-                            mainAxisSpacing: 30,
+                            mainAxisSpacing: 3,
                             // horizontal spacing between the items
                             crossAxisSpacing: 1,
                           ),
@@ -151,7 +151,6 @@ class _ProfileState extends State<Profile> {
                                                 width: 70,
                                                 height: 20,
                                                 decoration: BoxDecoration(
-                                                    color: Color(0xFFF04D56),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             25)),
@@ -162,9 +161,9 @@ class _ProfileState extends State<Profile> {
                                                           const EdgeInsets.only(
                                                               left: 10),
                                                       child: Icon(
-                                                        Icons.hearing,
+                                                        Icons.favorite,
                                                         size: 18,
-                                                        color: Colors.white,
+                                                        color:  Color(0xFFF04D56),
                                                       ),
                                                     ),
                                                     Padding(
@@ -177,7 +176,7 @@ class _ProfileState extends State<Profile> {
                                                         style: TextStyle(
                                                             fontSize: 18,
                                                             color:
-                                                                Colors.white),
+                                                                 Color(0xFFF04D56)),
                                                       ),
                                                     ),
                                                   ],
