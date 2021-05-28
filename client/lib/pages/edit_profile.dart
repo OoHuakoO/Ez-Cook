@@ -148,9 +148,8 @@ class _EditprofileState extends State<Editprofile> {
                                 onSaved: (value) {
                                   username = value;
                                 },
-                                validator:
-                                  RequiredValidator(errorText: "กรุณาใส่ username")
-                                ,
+                                validator: RequiredValidator(
+                                    errorText: "กรุณาใส่ username"),
                                 decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Color(0xFFFAFAFA),
@@ -192,7 +191,7 @@ class _EditprofileState extends State<Editprofile> {
                               //           borderRadius:
                               //               BorderRadius.circular(10))),
                               // ),
-                              
+
                               Padding(
                                 padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                                 child: SizedBox(
@@ -210,14 +209,12 @@ class _EditprofileState extends State<Editprofile> {
                                         if (formKey.currentState.validate()) {
                                           formKey.currentState.save();
                                           try {
-                                            
                                             await FirebaseFirestore.instance
                                                 .collection("User")
                                                 .doc(FirebaseAuth
                                                     .instance.currentUser.uid)
                                                 .update({
                                               "username": username,
-                                              
                                             });
                                             Fluttertoast.showToast(
                                                 msg: "แก้ไขโปรไฟล์สำเร็จ",

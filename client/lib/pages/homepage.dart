@@ -48,7 +48,7 @@ class _HomepageState extends State<Homepage> {
       food = [];
 
       for (final vv in list) {
-        await setState(() {
+        setState(() {
           food.add({
             "nameFood": vv.nameFood,
             "timeCook": vv.timeCook,
@@ -133,7 +133,7 @@ class _HomepageState extends State<Homepage> {
               // vertical spacing between the items
               mainAxisSpacing: 3,
               // horizontal spacing between the items
-              crossAxisSpacing: 1,
+              crossAxisSpacing: 0,
             ),
             // number of items in your list
             itemCount: food.length,
@@ -171,10 +171,10 @@ class _HomepageState extends State<Homepage> {
                         padding: const EdgeInsets.only(top: 0),
                         child: Container(
                           width:
-                              (MediaQuery.of(context).size.width - 190) / 1.63,
+                              (MediaQuery.of(context).size.width - 120) / 1.7,
                           decoration: BoxDecoration(
                             color: Color(0xFFFFE6E1),
-                            borderRadius: BorderRadius.circular(25),
+                            borderRadius: BorderRadius.circular(18),
                           ),
                           child: Column(
                             children: [
@@ -197,8 +197,8 @@ class _HomepageState extends State<Homepage> {
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(25),
-                                      topRight: Radius.circular(25)),
+                                      topLeft: Radius.circular(18),
+                                      topRight: Radius.circular(18)),
                                   child: Image.network(myFoodAll["imageFood"],
                                       height: 100,
                                       width: 170,
@@ -207,7 +207,7 @@ class _HomepageState extends State<Homepage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 30, top: 10, bottom: 25),
+                                    right: 30, top: 10, bottom: 7),
                                 child: Flexible(
                                   child: Container(
                                     child: Padding(
@@ -216,7 +216,7 @@ class _HomepageState extends State<Homepage> {
                                         children: [
                                           Text(
                                             myFoodAll["nameFood"],
-                                            style: TextStyle(fontSize: 12),
+                                            style: TextStyle(fontSize: 15),
                                           ),
                                         ],
                                       ),
@@ -225,23 +225,17 @@ class _HomepageState extends State<Homepage> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(right: 70, top: 0),
+                                padding: const EdgeInsets.only(
+                                    left: 7, right: 70, top: 0),
                                 child: Container(
-                                  width: 70,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFF04D56),
-                                      borderRadius: BorderRadius.circular(25)),
                                   child: Row(
                                     children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 10),
+                                        padding: const EdgeInsets.only(left: 5),
                                         child: Icon(
                                           Icons.favorite,
                                           size: 18,
-                                          color: Colors.white,
+                                          color: Color(0xFFF04D56),
                                         ),
                                       ),
                                       Padding(
@@ -251,12 +245,15 @@ class _HomepageState extends State<Homepage> {
                                           myFoodAll['like'],
                                           style: TextStyle(
                                               fontSize: 18,
-                                              color: Colors.white),
+                                              color: Color(0xFFF04D56)),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                height: 10,
                               )
                             ],
                           ),
