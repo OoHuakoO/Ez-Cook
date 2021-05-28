@@ -189,7 +189,11 @@ class _HomepageState extends State<Homepage> {
                                           imageProfile: food[index]
                                               ['imageProfile'],
                                           ingredient: food[index]['ingredient'],
-                                          howcook: food[index]['howCook']),
+                                          howcook: food[index]['howCook'],
+                                          imageFood : food[index]['imageFood'],
+                                          nameFood : food[index]['nameFood']
+                                          )
+
                                     ),
                                   );
                                 },
