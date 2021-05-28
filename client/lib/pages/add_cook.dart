@@ -147,6 +147,18 @@ class _AddCookState extends State<AddCook> {
         });
         print(user[0]);
         print(food[0]);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailFoodAfterCreateFood(
+                  myFoodSee: food[0],
+                  username: user[0]['username'],
+                  imageProfile: user[0]['imageProfile'],
+                  ingredient: food[0]['ingredient'],
+                  howcook: food[0]['howCook'],
+                  imageFood: food[0]['imageFood'],
+                  nameFood: food[0]['nameFood'])),
+        );
       } else {
         print("fail");
       }
@@ -165,10 +177,13 @@ class _AddCookState extends State<AddCook> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
-            child: Image.file(
-              imageFile,
-              // height: 260,
-              fit: BoxFit.cover,
+            child: Container(
+              child: Image.file(
+                imageFile,
+                height: 260,
+                width: 370,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           TextButton(
@@ -562,8 +577,14 @@ class _AddCookState extends State<AddCook> {
             TextButton(
                 onPressed: () => _addHowToCook(),
                 child: Text("เพิ่มวิธีการทำ")),
-            Expanded(
-              child: _linkYoutube(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Expanded(
+                child: _linkYoutube(),
+              ),
+            ),
+            SizedBox(
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -579,24 +600,12 @@ class _AddCookState extends State<AddCook> {
                   ),
                   onPressed: () async => {
                     await submitCook(context),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailFoodAfterCreateFood(
-                              myFoodSee: food[0],
-                              username: user[0]['username'],
-                              imageProfile: user[0]['imageProfile'],
-                              ingredient: food[0]['ingredient'],
-                              howcook: food[0]['howCook'],
-                              imageFood: food[0]['imageFood'],
-                              nameFood: food[0]['nameFood'])),
-                    )
                   },
                 ),
               ),
             ),
             SizedBox(
-              height: 100,
+              height: 180,
             )
           ],
         ),

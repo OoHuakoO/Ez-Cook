@@ -12,7 +12,6 @@ class Setting extends StatefulWidget {
 class _SettingState extends State<Setting> {
   @override
   Widget build(BuildContext context) {
-    var manage_accounts_rounded;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFF04D56),
@@ -21,11 +20,12 @@ class _SettingState extends State<Setting> {
       body: Column(
         children: [
           ListTile(
-            // leading: Icon(
-            //   Icons.manage_accounts_outlined,
-            // ),
+            leading: Icon(
+              Icons.manage_accounts_outlined,
+              color: Color(0xFFF04D56),
+            ),
             title: Text("แก้ไขโปรไฟล์",
-                style: TextStyle(fontSize: 20, color: Color(0xFF4A4848))),
+                style: TextStyle(fontSize: 20, color: Color(0xFFF04D56))),
             onTap: () {
               Navigator.push(
                 context,
@@ -36,10 +36,10 @@ class _SettingState extends State<Setting> {
           ListTile(
             leading: Icon(
               Icons.logout,
-              color: Color(0xFFF04D56),
+              color: Color(0xFF4A4848),
             ),
             title: Text("ออกจากระบบ",
-                style: TextStyle(fontSize: 20, color: Color(0xFFF04D56))),
+                style: TextStyle(fontSize: 20, color: Color(0xFF4A4848))),
             onTap: () {
               FirebaseAuth.instance.signOut();
               Navigator.pushReplacement(

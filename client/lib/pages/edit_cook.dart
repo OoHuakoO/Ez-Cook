@@ -177,6 +177,18 @@ class _EditCookState extends State<EditCook> {
         });
         print(user[0]);
         print(food[0]);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailFoodAfterCreateFood(
+                  myFoodSee: food[0],
+                  username: user[0]['username'],
+                  imageProfile: user[0]['imageProfile'],
+                  ingredient: food[0]['ingredient'],
+                  howcook: food[0]['howCook'],
+                  imageFood: food[0]['imageFood'],
+                  nameFood: food[0]['nameFood'])),
+        );
       } else {
         print("fail");
       }
@@ -618,21 +630,12 @@ class _EditCookState extends State<EditCook> {
                   ),
                   onPressed: () async => {
                     await submitCook(context),
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailFoodAfterCreateFood(
-                              myFoodSee: food[0],
-                              username: user[0]['username'],
-                              imageProfile: user[0]['imageProfile'],
-                              ingredient: food[0]['ingredient'],
-                              howcook: food[0]['howCook'],
-                              imageFood: food[0]['imageFood'],
-                              nameFood: food[0]['nameFood'])),
-                    )
                   },
                 ),
               ),
+              SizedBox(
+                height: 180,
+              )
             ],
           ),
         ),
