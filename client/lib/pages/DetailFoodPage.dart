@@ -21,12 +21,13 @@ class DetailFood extends StatefulWidget {
       this.nameFood})
       : super(key: key);
   @override
-  _DetailFoodState createState() => _DetailFoodState(myFoodSee, username, imageProfile, ingredient, howcook,imageFood, nameFood);
+  _DetailFoodState createState() => _DetailFoodState(myFoodSee, username,
+      imageProfile, ingredient, howcook, imageFood, nameFood);
 }
 
 class _DetailFoodState extends State<DetailFood> {
   _DetailFoodState(this.myFoodSee, this.username, this.imageProfile,
-      this.ingredient, this.howcook,this.imageFood, this.nameFood);
+      this.ingredient, this.howcook, this.imageFood, this.nameFood);
 
   Map<String, dynamic> myFoodSee;
   List<dynamic> ingredient;
@@ -93,10 +94,9 @@ class _DetailFoodState extends State<DetailFood> {
         ),
         body: ListView(
           children: [
-            Image.network(
-              imageFood,
-              height: 200,
-              width: double.infinity,
+            Container(
+              height: 250,
+              child: Image.network(imageFood, fit: BoxFit.fitWidth),
             ),
             Container(
               child: Column(
@@ -144,13 +144,17 @@ class _DetailFoodState extends State<DetailFood> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.network(
-                            imageProfile,
-                            height: 22,
-                            width: 22,
-                          ),
-                        Text(
-                          username,
+                        Row(
+                          children: [
+                            Image.network(
+                              imageProfile,
+                              height: 22,
+                              width: 22,
+                            ),
+                            Text(
+                              username,
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 10),
@@ -265,6 +269,9 @@ class _DetailFoodState extends State<DetailFood> {
                         howcookWidget()
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
