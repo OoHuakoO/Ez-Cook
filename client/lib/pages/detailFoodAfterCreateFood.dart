@@ -21,13 +21,20 @@ class DetailFoodAfterCreateFood extends StatefulWidget {
       this.nameFood})
       : super(key: key);
   @override
-  _DetailFoodAfterCreateFoodState createState() => _DetailFoodAfterCreateFoodState(myFoodSee, username,
-      imageProfile, ingredient, howcook, imageFood, nameFood);
+  _DetailFoodAfterCreateFoodState createState() =>
+      _DetailFoodAfterCreateFoodState(myFoodSee, username, imageProfile,
+          ingredient, howcook, imageFood, nameFood);
 }
 
 class _DetailFoodAfterCreateFoodState extends State<DetailFoodAfterCreateFood> {
-  _DetailFoodAfterCreateFoodState(this.myFoodSee, this.username, this.imageProfile,
-      this.ingredient, this.howcook, this.imageFood, this.nameFood);
+  _DetailFoodAfterCreateFoodState(
+      this.myFoodSee,
+      this.username,
+      this.imageProfile,
+      this.ingredient,
+      this.howcook,
+      this.imageFood,
+      this.nameFood);
 
   Map<String, dynamic> myFoodSee;
   List<dynamic> ingredient;
@@ -152,13 +159,17 @@ class _DetailFoodAfterCreateFoodState extends State<DetailFoodAfterCreateFood> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.network(
-                          imageProfile,
-                          height: 22,
-                          width: 22,
-                        ),
-                        Text(
-                          username,
+                        Row(
+                          children: [
+                            Image.network(
+                              imageProfile,
+                              height: 40,
+                              width: 40,
+                            ),
+                            Text(
+                              username,
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 10),

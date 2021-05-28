@@ -148,8 +148,8 @@ class _DetailFoodState extends State<DetailFood> {
                           children: [
                             Image.network(
                               imageProfile,
-                              height: 22,
-                              width: 22,
+                              height: 40,
+                              width: 40,
                             ),
                             Text(
                               username,
@@ -200,75 +200,83 @@ class _DetailFoodState extends State<DetailFood> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xFFFFE6E1),
-                        borderRadius: BorderRadius.circular(25)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 10),
-                          child: Row(
-                            children: [
-                              Container(
-                                  width: 90,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      color: Color(0xFFF04D56),
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 3),
-                                    child: Text(
-                                      "ส่วนผสม",
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          TextStyle(color: Color(0xFFFFE6E1)),
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ),
-                        ingreadientWidget(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xFFF1AC9E),
-                        borderRadius: BorderRadius.circular(25)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, top: 10),
-                          child: Row(
-                            children: [
-                              Flexible(
-                                child: Container(
-                                    width: 90,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFFFFE6E1),
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 3),
-                                      child: Text(
-                                        "ขั้นตอน",
-                                        textAlign: TextAlign.center,
-                                        style:
-                                            TextStyle(color: Color(0xFFF04D56)),
-                                      ),
-                                    )),
+                  Column(
+                    children: [
+                      Container(
+                        width: 380,
+                        decoration: BoxDecoration(
+                            color: Color(0xFFFFE6E1),
+                            borderRadius: BorderRadius.circular(25)),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              child: Row(
+                                children: [
+                                  Container(
+                                      width: 90,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFFF04D56),
+                                          borderRadius:
+                                              BorderRadius.circular(25)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 3),
+                                        child: Text(
+                                          "ส่วนผสม",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xFFFFE6E1)),
+                                        ),
+                                      )),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            ingreadientWidget(),
+                          ],
                         ),
-                        howcookWidget()
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        width: 380,
+                        decoration: BoxDecoration(
+                            color: Color(0xFFF1AC9E),
+                            borderRadius: BorderRadius.circular(25)),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              child: Row(
+                                children: [
+                                  Flexible(
+                                    child: Container(
+                                        width: 90,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xFFFFE6E1),
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 3),
+                                          child: Text(
+                                            "ขั้นตอน",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Color(0xFFF04D56)),
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            howcookWidget()
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 20,
