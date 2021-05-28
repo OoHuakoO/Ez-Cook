@@ -149,15 +149,10 @@ class _ProfileState extends State<Profile> {
                                                               bottom: 20),
                                                       child: Row(
                                                         children: [
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(
-                                                              left: 10,
-                                                              ),
-                                                            child: Text(
-                                                              "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                              style: TextStyle(
-                                                                  fontSize: 16),
-                                                            ),
+                                                          Text(
+                                                            "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                            style: TextStyle(
+                                                                fontSize: 16),
                                                           ),
                                                         ],
                                                       ),
@@ -188,7 +183,6 @@ class _ProfileState extends State<Profile> {
                                                                       foodid: snapshot.data.docs[index].id)));
                                                         },
                                                         icon: Icon(Icons.edit))
-                                                        
                                                   ]),
                                             ),
                                             Padding(
