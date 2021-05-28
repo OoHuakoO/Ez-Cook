@@ -17,13 +17,15 @@ class _RankState extends State<Rank> {
   List<Map<String, dynamic>> food = [];
   List<Map<String, dynamic>> users = [];
   getFood() async {
-    print("KK");
     try {
       var res = await http
           .get(Uri.parse("https://ezcooks.herokuapp.com/food/rankFood"));
       if (res.statusCode == 200) {
-        var list = (jsonDecode(res.body)['food']).map((e) => Food.fromJson(e));
-        for (final listFood in list) {
+        var listFood =
+            (jsonDecode(res.body)['food']).map((e) => Food.fromJson(e));
+        var listUser =
+            (jsonDecode(res.body)['user']).map((e) => User.fromJson(e));
+        for (final listFood in listFood) {
           food.add({
             "nameFood": listFood.nameFood,
             "timeCook": listFood.timeCook,
@@ -35,34 +37,22 @@ class _RankState extends State<Rank> {
             "like": listFood.like.toString()
           });
         }
-        setState(() {});
+        for (final vv in listUser) {
+          users.add({
+            "imageProfile": vv.imageProfile,
+            "username": vv.username,
+          });
+        }
       }
+      setState(() {});
     } catch (e) {
       print(e);
-    }
-  }
-
-  getUsers() async {
-    var res = await http
-        .get(Uri.parse("https://ezcooks.herokuapp.com/food/rankFood"));
-    if (res.statusCode == 200) {
-      var list = (jsonDecode(res.body)['user']).map((e) => User.fromJson(e));
-
-      for (final vv in list) {
-        users.add({
-          "imageProfile": vv.imageProfile,
-          "username": vv.username,
-        });
-      }
-
-      setState(() {});
     }
   }
 
   @override
   void initState() {
     getFood();
-    getUsers();
     controller.addListener(() {
       double value = controller.offset / 119;
       setState(() {
@@ -70,11 +60,11 @@ class _RankState extends State<Rank> {
         closeTopContainer = controller.offset > 50;
       });
     });
+
     super.initState();
   }
 
   getPostsData(index, food, user) {
-    print(food['like']);
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: Container(
@@ -215,38 +205,36 @@ class _RankState extends State<Rank> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Container(
-          height: size.height,
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "เมนูยอดนิยม",
-                      style: TextStyle(fontSize: 18, color: Color(0xFFF04D56)),
-                    ),
-                  ],
-                ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        height: size.height,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "เมนูยอดนิยม",
+                    style: TextStyle(fontSize: 18, color: Color(0xFFF04D56)),
+                  ),
+                ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                  child: ListView.builder(
-                      controller: controller,
-                      itemCount: food.length,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return getPostsData(index, food[index], users[index]);
-                      })),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+                child: ListView.builder(
+                    controller: controller,
+                    itemCount: food.length,
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return getPostsData(index, food[index], users[index]);
+                    })),
+          ],
         ),
       ),
     );
