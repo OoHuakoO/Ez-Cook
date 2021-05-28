@@ -48,7 +48,7 @@ class _HomepageState extends State<Homepage> {
       food = [];
 
       for (final vv in list) {
-        setState(() {
+        await setState(() {
           food.add({
             "nameFood": vv.nameFood,
             "timeCook": vv.timeCook,
@@ -183,30 +183,26 @@ class _HomepageState extends State<Homepage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => DetailFood(
-                                          myFoodSee: food[index],
-                                          username: food[index]['username'],
-                                          imageProfile: food[index]
-                                              ['imageProfile'],
-                                          ingredient: food[index]['ingredient'],
-                                          howcook: food[index]['howCook'],
-                                          imageFood : food[index]['imageFood'],
-                                          nameFood : food[index]['nameFood']
-                                          )
-
-                                    ),
+                                        builder: (context) => DetailFood(
+                                            myFoodSee: food[index],
+                                            username: food[index]['username'],
+                                            imageProfile: food[index]
+                                                ['imageProfile'],
+                                            ingredient: food[index]
+                                                ['ingredient'],
+                                            howcook: food[index]['howCook'],
+                                            imageFood: food[index]['imageFood'],
+                                            nameFood: food[index]['nameFood'])),
                                   );
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(25),
                                       topRight: Radius.circular(25)),
-                                  child: Image.network(
-                                    myFoodAll["imageFood"],
-                                    height: 100,
-                                    width: 170,
-                                    fit: BoxFit.fitWidth
-                                  ),
+                                  child: Image.network(myFoodAll["imageFood"],
+                                      height: 100,
+                                      width: 170,
+                                      fit: BoxFit.fitWidth),
                                 ),
                               ),
                               Padding(
