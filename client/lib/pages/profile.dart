@@ -2,7 +2,9 @@ import 'package:client/pages/edit_cook.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
   @override
@@ -21,6 +23,20 @@ class _ProfileState extends State<Profile> {
   final getFood = FirebaseFirestore.instance
       .collection("Food")
       .where('userId', isEqualTo: FirebaseAuth.instance.currentUser.uid);
+
+  deletePost(foodid) async {
+    try {
+      var res = await http.post(
+          Uri.parse("https://ezcooks.herokuapp.com/food/deleteFood/" + foodid));
+      if (res.statusCode == 200) {
+        setState(() {});
+      } else {
+        print("fail");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,6 +157,7 @@ class _ProfileState extends State<Profile> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
+<<<<<<< HEAD
                                                     Row(
                                                       children: [
                                                         Padding(
@@ -193,6 +210,73 @@ class _ProfileState extends State<Profile> {
                                                         ),
                                                       ],
                                                     )
+=======
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 30,
+                                                              top: 10,
+                                                              bottom: 20),
+                                                      child: Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                              left: 10,
+                                                            ),
+                                                            child: Text(
+                                                              "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                              style: TextStyle(
+                                                                  fontSize: 16),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => EditCook(
+                                                                      nameFood: snapshot.data.docs[index].data()[
+                                                                          "nameFood"],
+                                                                      timeCook: snapshot.data.docs[index].data()[
+                                                                          "timeCook"],
+                                                                      categoryFood:
+                                                                          snapshot.data.docs[index].data()[
+                                                                              "categoryFood"],
+                                                                      ingredient:
+                                                                          snapshot.data.docs[index].data()[
+                                                                              "ingredient"],
+                                                                      howcook: snapshot.data.docs[index].data()[
+                                                                          "howCook"],
+                                                                      imageFood: snapshot
+                                                                          .data
+                                                                          .docs[index]
+                                                                          .data()["imageFood"],
+                                                                      linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
+                                                                      foodid: snapshot.data.docs[index].id)));
+                                                        },
+                                                        icon: Icon(Icons.edit)),
+                                                    IconButton(
+                                                        onPressed: () async {
+                                                          await deletePost(
+                                                              snapshot
+                                                                  .data
+                                                                  .docs[index]
+                                                                  .id);
+                                                          Fluttertoast.showToast(
+                                                              msg:
+                                                                  "ลบสูตรอาหารสำเร็จ",
+                                                              gravity:
+                                                                  ToastGravity
+                                                                      .TOP);
+                                                        },
+                                                        icon:
+                                                            Icon(Icons.delete))
+>>>>>>> 747df1b26be85770425eb1a66052d71de8cfd69f
                                                   ]),
                                             ),
                                             Padding(
