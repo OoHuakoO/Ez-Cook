@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:client/model/food.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import '../firebase/firebase_api.dart';
 import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
+
+import 'detailFoodAfterCreateFood.dart';
 
 class AddCook extends StatefulWidget {
   // final Map<String, dynamic> editData;
@@ -27,7 +31,8 @@ class _AddCookState extends State<AddCook> {
   List<String> ingredient = [];
   List<String> howtoCook = [];
   String linkYoutube;
-
+  List<Map<String, dynamic>> food = [];
+  List<Map<String, dynamic>> user = [];
   final List<String> _timeCookOption = ["5", "10", "20", "30", "45", "60"];
   final List<String> _categoryCookOption = [
     'ทอด',
@@ -94,9 +99,10 @@ class _AddCookState extends State<AddCook> {
       return;
     }
     var urlImage = await uploadImageToFirebase();
+  var uid = FirebaseAuth.instance.currentUser.uid;
+     final url_service =
+        Uri.parse("https://ezcooks.herokuapp.com/food/editFood/" + uid);
 
-    final url_service = Uri.parse(
-        "https://ezcooks.herokuapp.com/food/createFood/40XQzyTtFAb6KVVoPO0H96n18G53");
 
     Map<String, String> header = {'Content-Type': 'application/json'};
 
@@ -119,7 +125,28 @@ class _AddCookState extends State<AddCook> {
         body: json,
       );
       if (res.statusCode == 200) {
-        print("success");
+         var foodApi = (jsonDecode(res.body)['data'][0]['food']);
+        var userApi = (jsonDecode(res.body)['data'][0]['user']);
+        Food foodData = Food.fromJson(foodApi);
+        Food userData = Food.fromJson(userApi);
+        setState(() {
+          food.add({
+            "nameFood": foodData.nameFood,
+            "timeCook": foodData.timeCook,
+            "categoryFood": foodData.categoryFood,
+            "ingredient": foodData.ingredient,
+            "linkYoutube": foodData.linkYoutube,
+            "howCook": foodData.howCook,
+            "imageFood": foodData.imageFood,
+            "like": foodData.like.toString(),
+          });
+          user.add({
+            "imageProfile": userData.imageProfile,
+            "username": userData.username,
+          });
+        });
+        print(user[0]);
+        print(food[0]);
       } else {
         print("fail");
       }
@@ -544,7 +571,21 @@ class _AddCookState extends State<AddCook> {
                   "สร้างเมนูอาหาร",
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
-                onPressed: () => submitCook(),
+                onPressed: () async => {
+                    await submitCook(),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailFoodAfterCreateFood(
+                              myFoodSee: food[0],
+                              username: user[0]['username'],
+                              imageProfile: user[0]['imageProfile'],
+                              ingredient: food[0]['ingredient'],
+                              howcook: food[0]['howCook'],
+                              imageFood: food[0]['imageFood'],
+                              nameFood: food[0]['nameFood'])),
+                    )
+                  },
               ),
             ),
           ],
