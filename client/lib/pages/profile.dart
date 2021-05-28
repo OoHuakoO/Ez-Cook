@@ -2,7 +2,9 @@ import 'package:client/pages/edit_cook.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
   @override
@@ -21,6 +23,20 @@ class _ProfileState extends State<Profile> {
   final getFood = FirebaseFirestore.instance
       .collection("Food")
       .where('userId', isEqualTo: FirebaseAuth.instance.currentUser.uid);
+
+  deletePost(foodid) async {
+    try {
+      var res = await http.post(
+          Uri.parse("https://ezcooks.herokuapp.com/food/deleteFood/" + foodid));
+      if (res.statusCode == 200) {
+        setState(() {});
+      } else {
+        print("fail");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,8 +198,23 @@ class _ProfileState extends State<Profile> {
                                                                       linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
                                                                       foodid: snapshot.data.docs[index].id)));
                                                         },
-                                                        icon: Icon(Icons.edit))
-                                                        
+                                                        icon: Icon(Icons.edit)),
+                                                    IconButton(
+                                                        onPressed: () async {
+                                                          await deletePost(
+                                                              snapshot
+                                                                  .data
+                                                                  .docs[index]
+                                                                  .id);
+                                                          Fluttertoast.showToast(
+                                                              msg:
+                                                                  "ลบสูตรอาหารสำเร็จ",
+                                                              gravity:
+                                                                  ToastGravity
+                                                                      .TOP);
+                                                        },
+                                                        icon:
+                                                            Icon(Icons.delete))
                                                   ]),
                                             ),
                                             Padding(
