@@ -210,9 +210,8 @@ router.post("/createFood/:userId", async (req, res) => {
                             username: element.get("username"),
                             imageProfile: element.get("imageProfile"),
                           };
-                          console.log("gu user1", user);
                         });
-                        console.log("gu user2", user);
+
                         data.push({ food, user });
                         res.json({ data });
                       })
@@ -256,9 +255,7 @@ router.post("/createFood/:userId", async (req, res) => {
                             username: element.get("username"),
                             imageProfile: element.get("imageProfile"),
                           };
-                          console.log("gu user1", user);
                         });
-                        console.log("gu user2", user);
                         data.push({ food, user });
                         res.json({ data });
                       })
