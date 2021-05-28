@@ -20,7 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
-  String username, email, password, imageProfile = "https://firebasestorage.googleapis.com/v0/b/ezcook-11658.appspot.com/o/images%2Fimage_picker3626958552953093174.jpg?alt=media&token=b9064a33-a163-4fb1-9f7b-97e7e9d2d853" ;
+  String username, email, password, imageProfile = "https://firebasestorage.googleapis.com/v0/b/ezcook-11658.appspot.com/o/images%2F79-791921_male-profile-round-circle-users-profile-round-icon.png?alt=media&token=8e4367ef-b21a-45f7-b347-55fabce2134e" ;
   var uuid = Uuid();
 
   @override

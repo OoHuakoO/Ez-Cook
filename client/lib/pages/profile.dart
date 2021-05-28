@@ -30,6 +30,7 @@ class _ProfileState extends State<Profile> {
             stream: profileList.snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
+                print("okdude");
                 return Center(
                   child: CircularProgressIndicator(),
                 );
@@ -76,6 +77,12 @@ class _ProfileState extends State<Profile> {
                 StreamBuilder(
                     stream: getFood.snapshots(),
                     builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        print("okdude");
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
                       return Expanded(
                         child: GridView.builder(
                           gridDelegate:
@@ -204,7 +211,8 @@ class _ProfileState extends State<Profile> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10),
+                                                        left: 10,
+                                                      ),
                                                       child: Text(
                                                         "${snapshot.data.docs[index].data()["like"]}",
                                                         // "5",
@@ -217,7 +225,8 @@ class _ProfileState extends State<Profile> {
                                                   ],
                                                 ),
                                               ),
-                                            )
+                                            ),
+                                            SizedBox(height: 8)
                                           ],
                                         ),
                                       ),
