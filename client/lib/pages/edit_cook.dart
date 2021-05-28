@@ -8,28 +8,57 @@ import 'package:firebase_storage/firebase_storage.dart';
 import '../firebase/firebase_api.dart';
 import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:client/pages/home.dart';
 import 'detailFoodAfterCreateFood.dart';
 
-class AddCook extends StatefulWidget {
-  // final Map<String, dynamic> editData;
-  // Addcook({Key key, this.editData}) : super(key: key);
+class EditCook extends StatefulWidget {
+  final String nameFood;
+  final String timeCook;
+  final String categoryFood;
+  final List<dynamic> ingredient;
+  final List<dynamic> howcook;
+  final String imageFood;
+  final String linkYoutube;
+  final String foodid;
+
+  EditCook(
+      {Key key,
+      this.nameFood,
+      this.timeCook,
+      this.categoryFood,
+      this.ingredient,
+      this.howcook,
+      this.imageFood,
+      this.linkYoutube,
+      this.foodid})
+      : super(key: key);
 
   @override
-  _AddCookState createState() => _AddCookState();
+  _EditCookState createState() => _EditCookState(nameFood, timeCook,
+      categoryFood, ingredient, howcook, imageFood, linkYoutube, foodid);
 }
 
-class _AddCookState extends State<AddCook> {
+class _EditCookState extends State<EditCook> {
+  _EditCookState(
+      this.nameFood,
+      this.timeCook,
+      this.categoryCook,
+      this.ingredient,
+      this.howtoCook,
+      this.imageUrl,
+      this.linkYoutube,
+      this.foodid);
   final _formKey = GlobalKey<FormState>();
 
   UploadTask task;
-  String nameCook;
+  String foodid;
+  String nameFood;
   String imageUrl;
   File imageFile;
   String timeCook;
   String categoryCook;
-  List<String> ingredient = [];
-  List<String> howtoCook = [];
+  List<dynamic> ingredient = [];
+  List<dynamic> howtoCook = [];
   String linkYoutube;
   List<Map<String, dynamic>> food = [];
   List<Map<String, dynamic>> user = [];
@@ -47,10 +76,6 @@ class _AddCookState extends State<AddCook> {
   @override
   void initState() {
     super.initState();
-    ingredient = ["", "", ""];
-    howtoCook = ["", "", ""];
-    imageUrl =
-        "http://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png";
   }
 
   final TextStyle inputStyle = TextStyle(
@@ -92,22 +117,24 @@ class _AddCookState extends State<AddCook> {
     return urlDownload;
   }
 
-  submitCook() async {
+  submitCook(context) async {
     if (!_formKey.currentState.validate()) {
       return;
-    } else if (imageFile == null) {
-      return;
     }
-    var urlImage = await uploadImageToFirebase();
-  var uid = FirebaseAuth.instance.currentUser.uid;
-     final url_service =
-        Uri.parse("https://ezcooks.herokuapp.com/food/editFood/" + uid);
-
+    var urlImage;
+    if (imageFile != null) {
+      urlImage = await uploadImageToFirebase();
+    } else {
+      urlImage = imageUrl;
+    }
+    print(foodid);
+    final url_service =
+        Uri.parse("https://ezcooks.herokuapp.com/food/editFood/" + foodid);
 
     Map<String, String> header = {'Content-Type': 'application/json'};
 
     Map<String, dynamic> data = {
-      "nameFood": nameCook,
+      "nameFood": nameFood,
       "timeCook": timeCook,
       "categoryFood": categoryCook,
       "ingredient": ingredient,
@@ -118,6 +145,8 @@ class _AddCookState extends State<AddCook> {
 
     var json = JsonEncoder().convert(data);
 
+    print(json);
+
     try {
       var res = await http.post(
         url_service,
@@ -125,7 +154,7 @@ class _AddCookState extends State<AddCook> {
         body: json,
       );
       if (res.statusCode == 200) {
-         var foodApi = (jsonDecode(res.body)['data'][0]['food']);
+        var foodApi = (jsonDecode(res.body)['data'][0]['food']);
         var userApi = (jsonDecode(res.body)['data'][0]['user']);
         Food foodData = Food.fromJson(foodApi);
         Food userData = Food.fromJson(userApi);
@@ -186,14 +215,22 @@ class _AddCookState extends State<AddCook> {
       return Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
-          Center(
-            child: Image.network(imageUrl, height: 260, fit: BoxFit.cover),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Image.network(
+              imageUrl,
+              height: 260,
+              fit: BoxFit.cover,
+            ),
           ),
           TextButton(
               onPressed: () => getLocalImage(),
               child: Text(
                 "เลือกรูปภาพ",
-                style: lableStyle,
+                style: TextStyle(
+                    color: Colors.black87,
+                    backgroundColor: Colors.white,
+                    fontSize: 16),
               )),
         ],
       );
@@ -233,9 +270,10 @@ class _AddCookState extends State<AddCook> {
               }
               return null;
             },
+            initialValue: nameFood,
             onChanged: (String value) {
               // setState(() {
-              nameCook = value;
+              nameFood = value;
               // });
             },
           ),
@@ -269,13 +307,7 @@ class _AddCookState extends State<AddCook> {
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
             ),
-            // hint: Text(
-            //   "ใช้เวลากี่นาที?",
-            //   style: TextStyle(
-            //       color: Colors.black38,
-            //       fontSize: 14,
-            //       fontWeight: FontWeight.w500),
-            // ),
+            value: timeCook,
             items: _timeCookOption.map((String value) {
               return DropdownMenuItem<String>(
                   value: value,
@@ -325,6 +357,7 @@ class _AddCookState extends State<AddCook> {
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
             ),
+            value: categoryCook,
             items: _categoryCookOption.map((String value) {
               return DropdownMenuItem<String>(
                   value: value,
@@ -503,76 +536,87 @@ class _AddCookState extends State<AddCook> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15.0),
-      child: Form(
-        key: _formKey,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _showImage(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _nameCook(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _timeCook(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _categoryCook(),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "ส่วนผสม",
-                style: lableStyle,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+        backgroundColor: Color(0xFFF04D56),
+        title: Text("แก้ไขเมนูอาหาร"),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(15.0),
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _showImage(),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _dynamicIngredient(),
-            ),
-            TextButton(
-                onPressed: () => _addIngredient(), child: Text("เพิ่มส่วนผสม")),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "วิธีการทำ",
-                style: lableStyle,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _nameCook(),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _dynamicHowtoCook(),
-            ),
-            TextButton(
-                onPressed: () => _addHowToCook(),
-                child: Text("เพิ่มวิธีการทำ")),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _linkYoutube(),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: TextButton(
-                style: TextButton.styleFrom(backgroundColor: Color(0xFFF04D56)),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _timeCook(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _categoryCook(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "สร้างเมนูอาหาร",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  "ส่วนผสม",
+                  style: lableStyle,
                 ),
-                onPressed: () async => {
-                    await submitCook(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _dynamicIngredient(),
+              ),
+              TextButton(
+                  onPressed: () => _addIngredient(),
+                  child: Text("เพิ่มส่วนผสม")),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "วิธีการทำ",
+                  style: lableStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _dynamicHowtoCook(),
+              ),
+              TextButton(
+                  onPressed: () => _addHowToCook(),
+                  child: Text("เพิ่มวิธีการทำ")),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _linkYoutube(),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: TextButton(
+                  style:
+                      TextButton.styleFrom(backgroundColor: Color(0xFFF04D56)),
+                  child: Text(
+                    "บันทึก",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  onPressed: () async => {
+                    await submitCook(context),
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -586,9 +630,10 @@ class _AddCookState extends State<AddCook> {
                               nameFood: food[0]['nameFood'])),
                     )
                   },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

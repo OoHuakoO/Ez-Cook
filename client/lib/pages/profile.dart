@@ -1,3 +1,4 @@
+import 'package:client/pages/edit_cook.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -76,12 +77,12 @@ class _ProfileState extends State<Profile> {
                 StreamBuilder(
                     stream: getFood.snapshots(),
                     builder: (context, snapshot) {
-                         if (!snapshot.hasData) {
-                     print("okdude2");
-                    return Center(
-                     child: CircularProgressIndicator(),
-                   );
-                     }
+                      if (!snapshot.hasData) {
+                        print("okdude");
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
                       return Expanded(
                         child: GridView.builder(
                           gridDelegate:
@@ -133,32 +134,56 @@ class _ProfileState extends State<Profile> {
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 7),
-                                              child: Container(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 30,
-                                                          top: 10,
-                                                          bottom: 10),
-                                                  child: Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 20,
-                                                                top: 0,
-                                                                bottom: 0),
-                                                        child: Text(
-                                                          "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                          style: TextStyle(
-                                                              fontSize: 14),
-                                                        ),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 30,
+                                                              top: 10,
+                                                              bottom: 20),
+                                                      child: Row(
+                                                        children: [
+                                                          Text(
+                                                            "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                            style: TextStyle(
+                                                                fontSize: 12),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
+                                                    ),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) => EditCook(
+                                                                      nameFood: snapshot.data.docs[index].data()[
+                                                                          "nameFood"],
+                                                                      timeCook: snapshot.data.docs[index].data()[
+                                                                          "timeCook"],
+                                                                      categoryFood:
+                                                                          snapshot.data.docs[index].data()[
+                                                                              "categoryFood"],
+                                                                      ingredient:
+                                                                          snapshot.data.docs[index].data()[
+                                                                              "ingredient"],
+                                                                      howcook: snapshot.data.docs[index].data()[
+                                                                          "howCook"],
+                                                                      imageFood: snapshot
+                                                                          .data
+                                                                          .docs[index]
+                                                                          .data()["imageFood"],
+                                                                      linkYoutube: snapshot.data.docs[index].data()["linkYoutube"],
+                                                                      foodid: snapshot.data.docs[index].id)));
+                                                        },
+                                                        icon: Icon(Icons.edit))
+                                                  ]),
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.only(
