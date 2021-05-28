@@ -62,7 +62,7 @@ class _ProfileState extends State<Profile> {
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 30, right: 0, top: 20, bottom: 30),
+                            left: 30, right: 0, top: 20, bottom: 25),
                         child: Text(
                           "สูตรอาหารของฉัน",
                           style:
@@ -82,10 +82,11 @@ class _ProfileState extends State<Profile> {
                             // number of items per row
                             crossAxisCount: 2,
                             // vertical spacing between the items
-                            mainAxisSpacing: 30,
+                            mainAxisSpacing: 0,
                             // horizontal spacing between the items
                             crossAxisSpacing: 1,
                           ),
+
                           // number of items in your list
                           itemCount: snapshot.data.docs.length,
                           itemBuilder: (BuildContext context, int index) {
@@ -117,8 +118,8 @@ class _ProfileState extends State<Profile> {
                                                         Radius.circular(25)),
                                                 child: Image.network(
                                                     "${snapshot.data.docs[index].data()["imageFood"]}",
-                                                    height: 80,
-                                                    width: 140,
+                                                    height: 100,
+                                                    width: 170,
                                                     fit: BoxFit.fitWidth),
                                               ),
                                             ),
