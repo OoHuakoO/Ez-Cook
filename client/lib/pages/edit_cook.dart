@@ -432,7 +432,7 @@ class _EditCookState extends State<EditCook> {
   }
 
   _onDeleteIngredient(index) {
-    if (ingredient.length <= 3) {
+    if (ingredient.length <= 1) {
       return;
     }
     setState(() {
@@ -491,7 +491,7 @@ class _EditCookState extends State<EditCook> {
   }
 
   _onDeletehowtoCook(index) {
-    if (howtoCook.length <= 3) {
+    if (howtoCook.length <= 1) {
       return;
     }
     setState(() {

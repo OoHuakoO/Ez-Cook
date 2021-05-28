@@ -46,7 +46,6 @@ class _ProfileState extends State<Profile> {
             stream: profileList.snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                print("okdude1");
                 return Center(
                   child: CircularProgressIndicator(),
                 );
