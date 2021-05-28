@@ -48,8 +48,8 @@ class _AddCookState extends State<AddCook> {
   @override
   void initState() {
     super.initState();
-    ingredient = ["", "", ""];
-    howtoCook = ["", "", ""];
+    ingredient = [""];
+    howtoCook = [""];
     linkYoutube = "";
     imageUrl =
         "http://flxtable.com/wp-content/plugins/pl-platform/engine/ui/images/image-preview.png";
@@ -92,7 +92,7 @@ class _AddCookState extends State<AddCook> {
     return urlDownload;
   }
 
-  submitCook() async {
+  submitCook(context) async {
     if (!_formKey.currentState.validate()) {
       return;
     } else if (imageFile == null) {
@@ -167,7 +167,7 @@ class _AddCookState extends State<AddCook> {
             borderRadius: BorderRadius.circular(12.0),
             child: Image.file(
               imageFile,
-              height: 260,
+              // height: 260,
               fit: BoxFit.cover,
             ),
           ),
