@@ -132,13 +132,19 @@ class _ProfileState extends State<Profile> {
                                                       const EdgeInsets.only(
                                                           right: 30,
                                                           top: 10,
-                                                          bottom: 20),
+                                                          bottom: 10),
                                                   child: Row(
                                                     children: [
-                                                      Text(
-                                                        "${snapshot.data.docs[index].data()["nameFood"]}",
-                                                        style: TextStyle(
-                                                            fontSize: 12),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(
+                                                          left: 20,
+                                                          top: 0,
+                                                          bottom: 0),
+                                                        child: Text(
+                                                          "${snapshot.data.docs[index].data()["nameFood"]}",
+                                                          style: TextStyle(
+                                                              fontSize: 14),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -160,7 +166,7 @@ class _ProfileState extends State<Profile> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10),
+                                                              left: 10 ),
                                                       child: Icon(
                                                         Icons.favorite,
                                                         size: 18,
@@ -170,7 +176,7 @@ class _ProfileState extends State<Profile> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 10),
+                                                              left: 10 ,),
                                                       child: Text(
                                                         "${snapshot.data.docs[index].data()["like"]}",
                                                         // "5",
@@ -181,9 +187,13 @@ class _ProfileState extends State<Profile> {
                                                       ),
                                                     ),
                                                   ],
+                                                  
                                                 ),
+                                                
                                               ),
-                                            )
+
+                                            ),
+                                            SizedBox(height: 8)
                                           ],
                                         ),
                                       ),
