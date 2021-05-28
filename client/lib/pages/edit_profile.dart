@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:client/firebase/firebase_api.dart';
 import 'package:client/pages/home.dart';
+import 'package:client/pages/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 import '../firebase/firebase_api.dart';
 import 'package:path/path.dart';
@@ -147,6 +149,9 @@ class _EditprofileState extends State<Editprofile> {
                                 onSaved: (value) {
                                   username = value;
                                 },
+                                validator:
+                                  RequiredValidator(errorText: "กรุณาใส่ username")
+                                ,
                                 decoration: InputDecoration(
                                     filled: true,
                                     fillColor: Color(0xFFFAFAFA),
@@ -391,7 +396,7 @@ class _EditprofileState extends State<Editprofile> {
                                             Navigator.pushReplacement(context,
                                                 MaterialPageRoute(
                                                     builder: (context) {
-                                              return Home();
+                                              return Profile();
                                             }));
                                           } on FirebaseAuthException catch (e) {
                                             print(e);
