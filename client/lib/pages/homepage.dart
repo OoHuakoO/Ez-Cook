@@ -62,23 +62,31 @@ class _HomepageState extends State<Homepage> {
           "username": vv.username,
         });
       }
-
-      setState(() {
-        food = List.castFrom(foodAll);
-      });
+      food = List.castFrom(foodAll);
+      setState(() {});
     }
   }
 
   onSelectCategory(index) {
     selectedIndex = index;
     currentCategory = FoodK[index];
-    getFood();
-    // setState(() {});
+    food = [];
+
+    if (currentCategory != "ทั้งหมด") {
+      for (var i = 0; i < foodAll.length; i++) {
+        if (foodAll[i]['categoryFood'] == currentCategory) {
+          food.add(foodAll[i]);
+          setState(() {});
+        }
+      }
+    } else {
+      food = List.castFrom(foodAll);
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
-    // getFoodEx();
     getFood();
     super.initState();
   }
@@ -105,7 +113,7 @@ class _HomepageState extends State<Homepage> {
                           borderRadius: BorderRadius.circular(25),
                           color: selectedIndex == index
                               ? Color(0xFFF04D56)
-                              : Colors.transparent,
+                              : Colors.grey.shade200,
                           border: Border.all(color: Colors.white)),
                       child: Padding(
                         padding: const EdgeInsets.only(
