@@ -634,19 +634,22 @@ router.get("/rankFood", async (req, res) => {
     .limit(10)
     .get()
     .then(async (querySnapshotFirst) => {
-      await querySnapshotFirst.forEach(async (element) => {
-        food.push(element.data());
+      await querySnapshotFirst.forEach(async (element2) => {
         await firestore
           .collection("User")
-          .where("uid", "==", element.get("userId"))
+          .where("uid", "==", element2.get("userId"))
           .get()
           .then(async (querySnapshot) => {
             await querySnapshot.forEach(async (element) => {
+             
+              food.push(element2.data());
               user.push({
                 username: element.get("username"),
                 imageProfile: element.get("imageProfile"),
               });
+            
               if (user.length == querySnapshotFirst.size) {
+
                 res.json({ food, user });
               }
             });
