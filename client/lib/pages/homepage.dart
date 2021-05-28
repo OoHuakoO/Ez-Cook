@@ -203,8 +203,8 @@ class _HomepageState extends State<Homepage> {
                                       topRight: Radius.circular(25)),
                                   child: Image.network(
                                     myFoodAll["imageFood"],
-                                    height: 80,
-                                    width: 140,
+                                    height: 100,
+                                    width: 170,
                                     fit: BoxFit.fitWidth
                                   ),
                                 ),
