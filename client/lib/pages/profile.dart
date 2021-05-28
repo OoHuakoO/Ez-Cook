@@ -29,6 +29,7 @@ class _ProfileState extends State<Profile> {
             stream: profileList.snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
+                print("okdude");
                 return Center(
                   child: CircularProgressIndicator(),
                 );
@@ -75,6 +76,12 @@ class _ProfileState extends State<Profile> {
                 StreamBuilder(
                     stream: getFood.snapshots(),
                     builder: (context, snapshot) {
+                         if (!snapshot.hasData) {
+                     print("okdude");
+                    return Center(
+                     child: CircularProgressIndicator(),
+                   );
+                     }
                       return Expanded(
                         child: GridView.builder(
                           gridDelegate:
