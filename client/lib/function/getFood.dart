@@ -11,7 +11,7 @@ List<Foods> parseFood(String responseBody) {
 
 Future<List<Foods>> fetchFoods() async {
   final response = await http
-      .get(Uri.parse("https://ezcooks.herokuapp.com/food?category=all"));
+      .get(Uri.parse("https://ezcooks.herokuapp.com/food?category=ทั้งหมด"));
   if (response.statusCode == 200) {
     return compute(parseFood, response.body);
   } else {

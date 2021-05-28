@@ -2,7 +2,7 @@ import 'package:client/pages/home.dart';
 import 'package:flutter/material.dart';
 
 class DetailFood extends StatefulWidget {
-  final Map<String, dynamic> myFoodSee;
+  final Map<dynamic, dynamic> myFoodSee;
   final List<dynamic> ingredient;
   final List<dynamic> howcook;
   final String username;
