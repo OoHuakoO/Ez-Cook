@@ -96,105 +96,114 @@ class _DetailFoodState extends State<DetailFood> {
           children: [
             Container(
               height: 250,
-              child: Image.network(imageFood, fit: BoxFit.fitWidth),
+              child: Image.network(
+                imageFood,
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
               child: Column(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, bottom: 10, left: 5),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 300,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                  Container(
+                    width: 380,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 270,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  nameFood,
+                                  style: TextStyle(fontSize: 23),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
-                                nameFood,
-                                style: TextStyle(fontSize: 23),
+                              Icon(
+                                Icons.timer,
+                                size: 30,
                               ),
                             ],
                           ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Icon(
-                              Icons.timer,
-                              size: 30,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "${myFoodSee['timeCook']} นาที",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
-                        )
-                      ],
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "${myFoodSee['timeCook']} นาที",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Image.network(
-                              imageProfile,
-                              height: 40,
-                              width: 40,
-                            ),
-                            Text(
-                              username,
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Column(
+                  Container(
+                    width: 480,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 3),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50),
-                                      bottomLeft: Radius.circular(50),
-                                      bottomRight: Radius.circular(50)),
-                                  child: Container(
-                                    width: 130,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFF04D56),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 0, top: 4),
-                                      child: Flexible(
-                                        child: Text(
-                                          "อาหารประเภท${myFoodSee['categoryFood']}",
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
+                              Image.network(
+                                imageProfile,
+                                height: 40,
+                                width: 40,
+                              ),
+                              Text(
+                                username,
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 17),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 3),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(50),
+                                        topRight: Radius.circular(50),
+                                        bottomLeft: Radius.circular(50),
+                                        bottomRight: Radius.circular(50)),
+                                    child: Container(
+                                      width: 130,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF04D56),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 0, top: 4),
+                                        child: Flexible(
+                                          child: Text(
+                                            "อาหารประเภท${myFoodSee['categoryFood']}",
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
