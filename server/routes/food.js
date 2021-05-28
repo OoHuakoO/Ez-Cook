@@ -499,9 +499,12 @@ router.post("/unlikeFood/:foodId", async (req, res) => {
     });
 });
 
-router.post("/editFood/:foodId", uploadFile, async (req, res) => {
+router.post("/editFood/:foodId", async (req, res) => {
   const foodId = req.params.foodId;
-  const data = [];
+  const userId = [];
+  let food = undefined;
+  let user = undefined;
+  let data = [];
   var {
     nameFood,
     timeCook,
@@ -532,9 +535,30 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((element) => {
-              data.push(element.data());
+              food = element.data();
+              userId.push(element.get("userId"));
             });
-            res.json({ data });
+          })
+          .then(() => {
+            userId.forEach(async (userid) => {
+              await firestore
+                .collection("User")
+                .where("uid", "==", userid)
+                .get()
+                .then((querySnapshot) => {
+                  querySnapshot.forEach((element) => {
+                    user = {
+                      username: element.get("username"),
+                      imageProfile: element.get("imageProfile"),
+                    };
+                  });
+                  data.push({ food, user });
+                  res.json({ data });
+                });
+            });
+          })
+          .catch((err) => {
+            console.log(err);
           })
           .catch((err) => {
             console.log(err);
@@ -544,6 +568,7 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
         console.log(err);
       });
   } else if (imageFood != undefined) {
+    console.log("OK");
     // const imageFoodConvertToPath = `assets/pictureUploads/${imageFood[0].filename}`;
     await firestore
       .collection("Food")
@@ -565,9 +590,30 @@ router.post("/editFood/:foodId", uploadFile, async (req, res) => {
           .get()
           .then((querySnapshot) => {
             querySnapshot.forEach((element) => {
-              data.push(element.data());
+              food = element.data();
+              userId.push(element.get("userId"));
             });
-            res.json({ data });
+          })
+          .then(() => {
+            userId.forEach(async (userid) => {
+              await firestore
+                .collection("User")
+                .where("uid", "==", userid)
+                .get()
+                .then((querySnapshot) => {
+                  querySnapshot.forEach((element) => {
+                    user = {
+                      username: element.get("username"),
+                      imageProfile: element.get("imageProfile"),
+                    };
+                  });
+                  data.push({ food, user });
+                  res.json({ data });
+                });
+            });
+          })
+          .catch((err) => {
+            console.log(err);
           })
           .catch((err) => {
             console.log(err);
