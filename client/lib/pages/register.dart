@@ -20,7 +20,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
-  String username, email, password, imageProfile = "https://firebasestorage.googleapis.com/v0/b/ezcook-11658.appspot.com/o/images%2F79-791921_male-profile-round-circle-users-profile-round-icon.png?alt=media&token=8e4367ef-b21a-45f7-b347-55fabce2134e" ;
+  String username,
+      email,
+      password,
+      imageProfile =
+          "https://firebasestorage.googleapis.com/v0/b/ezcook-11658.appspot.com/o/images%2F79-791921_male-profile-round-circle-users-profile-round-icon.png?alt=media&token=8e4367ef-b21a-45f7-b347-55fabce2134e";
   var uuid = Uuid();
 
   @override
@@ -106,7 +110,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 15,
                         ),
                         TextFormField(
-                          
                           onSaved: (value) {
                             password = value;
                           },
@@ -129,70 +132,76 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(
                           height: 15,
                         ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                          child: SizedBox(
-                            height: 45,
-                            width: 300,
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Color(0xFFF04D56)),
-                                ),
-                                child: Text("สร้างผู้ใช้งาน",
-                                    style: TextStyle(fontSize: 20)),
-                                onPressed: () async {
-                                  if (formKey.currentState.validate()) {
-                                    formKey.currentState.save();
-                                    try {
-                                      var uid = uuid.v4();
-                                      await FirebaseAuth.instance
-                                          .createUserWithEmailAndPassword(
-                                              email: email, password: password)
-                                          .then((value) async {
-                                        await FirebaseFirestore.instance
-                                            .collection("User")
-                                            .doc(FirebaseAuth.instance.currentUser.uid)
-                                            .set({
-                                          "username": username,
-                                          "email": email,
-                                          "password": password,
-                                          "imageProfile": imageProfile,
-                                          "uid": FirebaseAuth.instance.currentUser.uid
+                        Container(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                            child: SizedBox(
+                              height: 45,
+                              width: 300,
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Color(0xFFF04D56)),
+                                  ),
+                                  child: Text("สร้างผู้ใช้งาน",
+                                      style: TextStyle(fontSize: 20)),
+                                  onPressed: () async {
+                                    if (formKey.currentState.validate()) {
+                                      formKey.currentState.save();
+                                      try {
+                                        var uid = uuid.v4();
+                                        await FirebaseAuth.instance
+                                            .createUserWithEmailAndPassword(
+                                                email: email,
+                                                password: password)
+                                            .then((value) async {
+                                          await FirebaseFirestore.instance
+                                              .collection("User")
+                                              .doc(FirebaseAuth
+                                                  .instance.currentUser.uid)
+                                              .set({
+                                            "username": username,
+                                            "email": email,
+                                            "password": password,
+                                            "imageProfile": imageProfile,
+                                            "uid": FirebaseAuth
+                                                .instance.currentUser.uid
+                                          });
+                                          Fluttertoast.showToast(
+                                              msg: "สร้างบัญชีสำเร็จ",
+                                              gravity: ToastGravity.TOP);
+                                          formKey.currentState.reset();
+                                          Navigator.pushReplacement(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return Home();
+                                          }));
                                         });
+                                      } on FirebaseAuthException catch (e) {
+                                        print(e.code);
+                                        String message;
+                                        if (e.code == "email-already-in-use") {
+                                          message = "อีเมลล์นี้ถูกใช้ไปแล้ว";
+                                        } else if (e.code == "weak-password") {
+                                          message =
+                                              "รหัสผ่านต้องมีความยาวตั้งแต่ 6 ตัวเป็นต้นไป";
+                                        } else {
+                                          message = e.message;
+                                        }
                                         Fluttertoast.showToast(
-                                            msg: "สร้างบัญชีสำเร็จ",
+                                            msg: message,
                                             gravity: ToastGravity.TOP);
-                                        formKey.currentState.reset();
-                                        Navigator.pushReplacement(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return Home();
-                                        }));
-                                      });
-                                    } on FirebaseAuthException catch (e) {
-                                      print(e.code);
-                                      String message;
-                                      if (e.code == "email-already-in-use") {
-                                        message = "อีเมลล์นี้ถูกใช้ไปแล้ว";
-                                      } else if (e.code == "weak-password") {
-                                        message =
-                                            "รหัสผ่านต้องมีความยาวตั้งแต่ 6 ตัวเป็นต้นไป";
-                                      } else {
-                                        message = e.message;
                                       }
-                                      Fluttertoast.showToast(
-                                          msg: message,
-                                          gravity: ToastGravity.TOP);
                                     }
-                                  }
-                                }),
+                                  }),
+                            ),
                           ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('หากคุณมีบัญชีผู้ใช้งานอยู่แล้ว',
+                            Text('มีบัญชีผู้ใช้งานอยู่แล้ว',
                                 style: TextStyle(
                                     fontSize: 18, color: Color(0xFF9D9D9D))),
                             TextButton(
