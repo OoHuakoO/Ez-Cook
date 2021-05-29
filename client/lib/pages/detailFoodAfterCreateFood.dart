@@ -97,8 +97,8 @@ class _DetailFoodAfterCreateFoodState extends State<DetailFoodAfterCreateFood> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
+          leading: new IconButton(
+              icon: new Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () => {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) {
