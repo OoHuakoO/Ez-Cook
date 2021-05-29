@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:client/model/food.dart';
+import 'package:client/pages/add_cook.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -177,6 +178,7 @@ class _EditCookState extends State<EditCook> {
         });
         print(user[0]);
         print(food[0]);
+        // Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -526,6 +528,7 @@ class _EditCookState extends State<EditCook> {
         TextFormField(
           keyboardType: TextInputType.text,
           style: inputStyle,
+          initialValue: linkYoutube,
           decoration: InputDecoration(
             filled: true,
             fillColor: Color(0xFFFAFAFA),
@@ -616,21 +619,24 @@ class _EditCookState extends State<EditCook> {
                 child: _linkYoutube(),
               ),
               SizedBox(
-                height: 30,
+                height: 5,
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: TextButton(
-                  style:
-                      TextButton.styleFrom(backgroundColor: Color(0xFFF04D56)),
-                  child: Text(
-                    "บันทึก",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: Color(0xFFF04D56)),
+                    child: Text(
+                      "บันทึก",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    onPressed: () async => {
+                      await submitCook(context),
+                    },
                   ),
-                  onPressed: () async => {
-                    await submitCook(context),
-                  },
                 ),
               ),
               SizedBox(
