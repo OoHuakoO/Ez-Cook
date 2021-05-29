@@ -1,3 +1,4 @@
+import 'package:client/pages/add_cook.dart';
 import 'package:client/pages/home.dart';
 import 'package:flutter/material.dart';
 
@@ -96,8 +97,16 @@ class _DetailFoodAfterCreateFoodState extends State<DetailFoodAfterCreateFood> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Home();
+                    })),
+                  }),
           backgroundColor: Color(0xFFF04D56),
-          title: Text("Detail"),
+          title: Text("รายละเอียด"),
         ),
         body: ListView(
           children: [
@@ -115,7 +124,7 @@ class _DetailFoodAfterCreateFoodState extends State<DetailFoodAfterCreateFood> {
                     width: 380,
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(top: 10, bottom: 10, left: 5),
+                          const EdgeInsets.only(top: 10, bottom: 10, left: 0),
                       child: Row(
                         children: [
                           Container(
@@ -155,19 +164,17 @@ class _DetailFoodAfterCreateFoodState extends State<DetailFoodAfterCreateFood> {
                   Container(
                     width: 480,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 14),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
-                              Image.network(
-                                imageProfile,
-                                height: 40,
-                                width: 40,
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(imageProfile),
                               ),
                               Text(
-                                username,
+                                "  $username",
                               ),
                             ],
                           ),

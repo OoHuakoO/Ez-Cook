@@ -52,7 +52,7 @@ class _RankState extends State<Rank> {
 
   @override
   void initState() {
-   getFood();
+    getFood();
     controller.addListener(() {
       double value = controller.offset / 119;
       setState(() {
@@ -71,23 +71,23 @@ class _RankState extends State<Rank> {
           height: 80,
           width: 30,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(70),
+            borderRadius: BorderRadius.circular(20),
             color: Color(0xFFFFE6E1),
           ),
           child: Row(
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(80),
-                    bottomLeft: Radius.circular(80)),
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20)),
                 child: Container(
+                  width: 28,
                   height: 120,
                   decoration: BoxDecoration(
                     color: Color(0xFFF04D56),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 30, bottom: 5),
+                    padding: const EdgeInsets.only(left: 5, top: 30, bottom: 5),
                     child: Flexible(
                       child: Text(
                         '${index + 1}',

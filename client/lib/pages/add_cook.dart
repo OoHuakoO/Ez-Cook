@@ -501,6 +501,7 @@ class _AddCookState extends State<AddCook> {
         TextFormField(
           keyboardType: TextInputType.text,
           style: inputStyle,
+          initialValue: linkYoutube,
           decoration: InputDecoration(
             filled: true,
             fillColor: Color(0xFFFAFAFA),
