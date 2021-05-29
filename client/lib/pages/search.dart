@@ -41,7 +41,7 @@ class SearchPage extends SearchDelegate<String> {
   }
 
   @override
-  String get searchFieldLabel => 'ค้นหาเมนู...';
+  String get searchFieldLabel => 'ค้นหาเมนูอาหาร...';
 
   @override
   TextStyle get searchFieldStyle => TextStyle(
@@ -111,42 +111,51 @@ class SearchPage extends SearchDelegate<String> {
       future: getdata(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return ListView.builder(
-            itemCount: datas.length,
-            // ignore: missing_return
-            itemBuilder: (context, index) {
-              return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListTile(
-                      leading: Image.network(
-                        datas[index]['imageFood'],
-                        width: 120,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DetailFood(
-                                      myFoodSee: datas[index],
-                                      username: datas[index]['username'],
-                                      imageProfile: datas[index]
-                                          ['imageProfile'],
-                                      ingredient: datas[index]['ingredient'],
-                                      howcook: datas[index]['howCook'],
-                                      imageFood: datas[index]['imageFood'],
-                                      nameFood: datas[index]['nameFood'],
-                                    )));
-                      },
-                      title: Text("${datas[index]['nameFood']}"),
-                      subtitle:
-                          Text("เวลาในการทำ ${datas[index]['timeCook']} นาที")),
-                ),
-              );
-            },
-          );
+          if (datas.length > 0) {
+            return ListView.builder(
+              itemCount: datas.length,
+              // ignore: missing_return
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                        leading: Image.network(
+                          datas[index]['imageFood'],
+                          width: 120,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailFood(
+                                        myFoodSee: datas[index],
+                                        username: datas[index]['username'],
+                                        imageProfile: datas[index]
+                                            ['imageProfile'],
+                                        ingredient: datas[index]['ingredient'],
+                                        howcook: datas[index]['howCook'],
+                                        imageFood: datas[index]['imageFood'],
+                                        nameFood: datas[index]['nameFood'],
+                                      )));
+                        },
+                        title: Text("${datas[index]['nameFood']}"),
+                        subtitle: Text(
+                            "เวลาในการทำ ${datas[index]['timeCook']} นาที")),
+                  ),
+                );
+              },
+            );
+          } else {
+            return Center(
+              child: Text(
+                "ไม่พบผลลัพธ์ที่ค้นหา",
+                style: TextStyle(fontSize: 16),
+              ),
+            );
+          }
         }
         return Center(
           child: CircularProgressIndicator(),

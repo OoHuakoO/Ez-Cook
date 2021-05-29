@@ -125,11 +125,11 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                TextButton(
-                  child: Text("ลืมรหัสผ่าน ?",
-                      style: TextStyle(fontSize: 16, color: Color(0xFF9D9D9D))),
-                  onPressed: () {},
-                ),
+                // TextButton(
+                //   child: Text("ลืมรหัสผ่าน ?",
+                //       style: TextStyle(fontSize: 16, color: Color(0xFF9D9D9D))),
+                //   onPressed: () {},
+                // ),
                 Container(
                   width: double.maxFinite,
                   child: Row(
