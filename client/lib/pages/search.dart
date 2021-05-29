@@ -10,6 +10,25 @@ import '../model/food.dart';
 class SearchPage extends SearchDelegate<String> {
   List<Map<String, dynamic>> datas = [];
 
+  ThemeData appBarTheme(BuildContext context) {
+    return ThemeData(
+      primaryColor: Color(0xFFF04D56),
+      primaryIconTheme: IconThemeData(
+        color: Colors.white,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle:
+            Theme.of(context).textTheme.title.copyWith(color: Colors.white),
+      ),
+      textTheme: TextTheme(
+        title: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -20,6 +39,15 @@ class SearchPage extends SearchDelegate<String> {
           icon: Icon(Icons.clear))
     ];
   }
+
+  @override
+  String get searchFieldLabel => 'ค้นหาเมนู...';
+
+  @override
+  TextStyle get searchFieldStyle => TextStyle(
+        color: Colors.grey,
+        fontSize: 16.0,
+      );
 
   @override
   Widget buildLeading(BuildContext context) {
@@ -35,25 +63,6 @@ class SearchPage extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // foods = [];
-
-    // fetchFoods().then((value) => {
-    //       if (query != "" || query != null)
-    //         {
-    //           value.forEach((element) {
-    //             if (element.nameFood.startsWith(query)) {
-    //               foods.add(element);
-    //             }
-    //           })
-    //         }
-    //       else
-    //         {
-    //           value.forEach((element) {
-    //             foods.add(element);
-    //           })
-    //         }
-    //     });
-
     getdata() async {
       final res = await http.get(
           Uri.parse("https://ezcooks.herokuapp.com/food?category=ทั้งหมด"));
@@ -94,22 +103,8 @@ class SearchPage extends SearchDelegate<String> {
               });
             }
           }
-          // datas = value
-          //     .where((element) => element.nameFood.startsWith(query))
-          //     .toList()
         }
       }
-
-      // await fetchFoods().then((value) => {
-      //       if (query.isEmpty || query == "" || query == null)
-      //         {value.map((e) => datas.add(e)).toList()}
-      //       else
-      //         {
-      //           datas = value
-      //               .where((element) => element.nameFood.startsWith(query))
-      //               .toList()
-      //         }
-      //     });
     }
 
     return FutureBuilder(
@@ -158,23 +153,5 @@ class SearchPage extends SearchDelegate<String> {
         );
       },
     );
-    // if (datas.length > 0) {
-    //   return ListView.builder(
-    //     itemCount: datas.length,
-    //     itemBuilder: (context, index) {
-    //       return Card(
-    //         child: Padding(
-    //           padding: const EdgeInsets.all(8.0),
-    //           child: ListTile(
-    //               leading: Image.network(datas[index].imageFood),
-    //               title: Text("${datas[index].nameFood}"),
-    //               subtitle: Text("เวลาในการทำ ${datas[index].timeCook} นาที")),
-    //         ),
-    //       );
-    //     },
-    //   );
-    // } else {
-    //   return CircularProgressIndicator();
-    // }
   }
 }
