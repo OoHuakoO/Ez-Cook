@@ -68,6 +68,7 @@ router.get("/", async (req, res) => {
         .then(async (querySnapshot) => {
           await querySnapshot.forEach(async (user) => {
             await food.push({
+              id: element.id,
               howCook: element.get("howCook"),
               ingredient: element.get("ingredient"),
               like: element.get("like"),
@@ -106,7 +107,9 @@ router.get("/", async (req, res) => {
         .then(async (querySnapshot) => {
           await querySnapshot.forEach(async (user) => {
             // const data = ;
+        
             await food.push({
+              id: element.id,
               howCook: element.get("howCook"),
               ingredient: element.get("ingredient"),
               like: element.get("like"),
@@ -340,87 +343,41 @@ router.post("/deleteFood/:foodId", async (req, res) => {
     });
 });
 
-router.get("/", async (req, res) => {
-  const category = req.query.category;
-  let food = [];
-  let count = 0;
+router.get("/detail/:id", async (req, res) => {
+  const foodid = req.params.id;
+  let result = [];
 
-  //filter by category เช่น ต้ม ผัด ...
-  if (category !== "all") {
-    const FoodDB = await firestore
-      .collection("Food")
-      .where("categoryFood", "==", category)
-      .orderBy("date", "desc")
-      .get();
+  await firestore
+    .collection("Food")
+    .doc(foodid)
+    .get()
+    .then(async (doc) => {
+      console.log(doc.data());
 
-    await FoodDB.forEach(async (element) => {
       await firestore
         .collection("User")
-        .where("uid", "==", element.get("userId"))
+        .doc(doc.get("userId"))
         .get()
-        .then(async (querySnapshot) => {
-          await querySnapshot.forEach(async (user) => {
-            await food.push({
-              howCook: element.get("howCook"),
-              ingredient: element.get("ingredient"),
-              like: element.get("like"),
-              timeCook: element.get("timeCook"),
-              nameFood: element.get("nameFood"),
-              linkYoutube: element.get("linkYoutube"),
-              date: element.get("date"),
-              userId: element.get("userId"),
-              imageFood: element.get("imageFood"),
-              categoryFood: element.get("categoryFood"),
-              username: user.get("username"),
-              imageProfile: user.get("imageProfile"),
-            });
-
-            count++;
-
-            if (count == FoodDB.size) {
-              await res.status(200).send(food);
-            }
-          });
+        .then((user) => {
+          result = {
+            id: doc.id,
+            howCook: doc.get("howCook"),
+            ingredient: doc.get("ingredient"),
+            like: doc.get("like"),
+            timeCook: doc.get("timeCook"),
+            nameFood: doc.get("nameFood"),
+            linkYoutube: doc.get("linkYoutube"),
+            date: doc.get("date"),
+            userId: doc.get("userId"),
+            imageFood: doc.get("imageFood"),
+            categoryFood: doc.get("categoryFood"),
+            username: user.get("username"),
+            imageProfile: user.get("imageProfile"),
+          };
         });
     });
-  }
-  //get all category
-  else {
-    const FoodDB = await firestore
-      .collection("Food")
-      .orderBy("date", "desc")
-      .get();
 
-    await FoodDB.forEach(async (element) => {
-      await firestore
-        .collection("User")
-        .where("uid", "==", element.get("userId"))
-        .get()
-        .then(async (querySnapshot) => {
-          await querySnapshot.forEach(async (user) => {
-            // const data = ;
-            await food.push({
-              howCook: element.get("howCook"),
-              ingredient: element.get("ingredient"),
-              like: element.get("like"),
-              timeCook: element.get("timeCook"),
-              nameFood: element.get("nameFood"),
-              linkYoutube: element.get("linkYoutube"),
-              date: element.get("date"),
-              userId: element.get("userId"),
-              imageFood: element.get("imageFood"),
-              categoryFood: element.get("categoryFood"),
-              username: user.get("username"),
-              imageProfile: user.get("imageProfile"),
-            });
-            count++;
-            if (count == FoodDB.size) {
-              await res.status(200).send(food);
-            }
-          });
-        });
-    });
-  }
+  res.status(200).send(result);
 });
 
 router.post("/otherFoodInDetailFood/:userId", async (req, res) => {
